@@ -1,0 +1,55 @@
+# Explicitly ignored
+*.ignore
+*.ignore.*
+,*
+,/
+
+# Platform-specific
+._*
+.DS_Store
+Thumbs.db
+
+# Object file
+*.[ao]
+*.py[cdo]
+*.so
+*.dll
+*.exe
+*.obj
+
+# Backup
+*~
+*.bak
+*.sw[nop]
+
+# VCS-related
+CVS/
+RCS/
+.bzr*
+.hg*
+.svn/
+
+# Ctags tags
+/tags
+
+# Vim (vim-bookmarks plugin)
+.vim_bookmarks
+
+# Vim helptags
+doc/tags
+doc/tags-??
+
+# GNU GLOBAL tags
+GTAGS
+GRTAGS
+GSYMS
+GPATH
+
+# Xcode
+*.xcuserdatad
+
+# Bundler
+/vendor/bundle
+
+# VisualStudio Code
+.vscode

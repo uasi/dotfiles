@@ -1,0 +1,128 @@
+[core]
+	quotePath = false
+[user]
+	name  = Tomoki Aonuma
+	email = uasi@uasi.jp
+[alias]
+
+	amend          = commit --amend
+	b              = branch
+	blf            = branch -l -f
+	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
+	backup-index   = !"cp \"`git rev-parse --git-dir`/index\" \"`git rev-parse --git-dir`/index.bak\""
+	realclean      = clean -x -d
+	c              = commit
+	ci             = commit -m
+	cia            = commit -a -m
+	recommit       = commit -c ORIG_HEAD
+	co             = checkout
+	dh             = diff HEAD
+	dh1            = diff HEAD^
+	dh2            = diff HEAD^^
+	dh3            = diff HEAD^^^
+	dhc            = diff --color-words HEAD
+	dh1c           = diff --color-words HEAD^
+	dh2c           = diff --color-words HEAD^^
+	dh3c           = diff --color-words HEAD^^^
+	di             = diff
+	dic            = diff --color-words
+	dis            = diff --staged
+	disc           = diff --staged --color-words
+	dm             = diff master
+	fix            = fixup
+	fp             = format-patch --stdout
+	genesis        = hash-object -t tree /dev/null
+	leaderboard    = shortlog -s -n
+	gg             = grep
+	l              = log --decorate
+	ll             = log --decorate --stat
+	lg             = log --graph --decorate --oneline --color
+	ls-skipped     = !"git ls-files -v | grep '^[Sa-z]'"
+	ls-untracked   = ls-files --others --exclude-standard
+	ls-unusualbits = !"git ls-files -v | grep '^[a-zS]'"
+	ff             = merge --ff-only
+	m              = merge --no-ff
+	ms             = merge --squash
+	password       = !"security find-internet-password -a uasi -s github.com -w | tr -d '\n'"
+	pullff         = pull --ff-only
+	pullr          = pull --rebase
+	pushfl         = push --force-with-lease
+	re             = rebase
+	rea            = rebase --abort
+	rec            = rebase --continue
+	rei            = rebase --interactive
+	reib           = !sh -c 'git rebase -i $(git merge-base ${1:-master} HEAD)' -
+	rev            = rev-parse --short HEAD
+	reseth         = !git backup-index && git reset --hard
+	reseth1        = !git backup-index && git reset --hard HEAD^
+	reseth2        = !git backup-index && git reset --hard HEAD^^
+	reseth3        = !git backup-index && git reset --hard HEAD^^^
+	resetm         = !git backup-index && git reset --hard master
+	top            = rev-parse --show-toplevel
+	uncommit       = !git backup-index && git reset HEAD^
+	unstage        = !git backup-index && git reset HEAD
+	unmerge        = reset --hard ORIG_HEAD
+	up             = !"git pull --ff-only && git submodule update && git prune-branches"
+	setup-origin   = !"sh -c 'git remote add origin $1; git config branch.master.remote origin; git config branch.master.merge refs/heads/master' -"
+	setup-pull-req = config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
+	submodule-pull = "submodule foreach 'git fetch; git checkout origin/master'"
+	st             = !"git stash list && git status --short --branch"
+	edit-unmerged  = !"$EDITOR `git ls-files --unmerged | cut -f2 | sort -u`"
+
+	# GHQ integration
+	get             = !"sh -c 'ghq get \"$@\"' -"
+	update          = !"sh -c 'ghq import -u local'"
+
+[color]
+	ui = true
+[github]
+	user = uasi
+[merge]
+	tool = vimdiff
+	conflictStyle = diff3
+[mergetool]
+	keepbackup = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[rerere]
+	enabled = 1
+[diff "json"]
+	textconv = "perl -MJSON -0e \"print JSON->new->canonical->pretty->encode(decode_json(<>))\""
+[interactive]
+	singleKey = true
+[rebase]
+	autoSquash = true
+[gc]
+	rerereResolved = 180
+	rerereUnresolved = 180
+[diff]
+	algorithm = histogram
+	indentHeuristic = true
+	colorMoved = default
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[push]
+	default = current
+	recurseSubmodules = check
+[ghq]
+	root = /Users/uasi/Dev/Git
+[ghq "import"]
+	local = "ghq list | sed 's/^/https:\\/\\//'"
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[heroku]
+	account = personal
+[grep]
+	patternType = perl
+	extendedRegexp = true
+[stash]
+	showPatch = true
+[status]
+	submodulesummary = true
