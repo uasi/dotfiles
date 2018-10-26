@@ -1,0 +1,8 @@
+# Everything but dotfiles
+*
+!.*
+
+# macOS resources
+.DS_Store
+/.CFUserTextEncoding
+/.Trash/
