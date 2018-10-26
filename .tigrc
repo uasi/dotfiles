@@ -1,0 +1,7 @@
+set line-graphics = utf-8
+color cursor default color24 normal
+
+bind diff   D @?rm %(file)
+bind log    D @?rm %(file)
+bind stage  D @?rm %(file)
+bind status D @?rm %(file)
