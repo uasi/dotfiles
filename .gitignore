@@ -1,8 +1,78 @@
 # Everything but dotfiles
 *
 !.*
+!.*/**
 
 # macOS resources
 .DS_Store
+/*.padl
 /.CFUserTextEncoding
 /.Trash/
+
+# Config files with secrets
+/.githubrc
+/.netrc
+/.serverlessrc
+/.trc
+
+# Backups, caches, dumps, histories, logs, sessions, and whatever
+/.*-history
+/.*_history
+/.*_session
+/.*_sessions
+/.VID*_PID*.xml
+/.babel.json
+/.boto
+/.ec2ssh
+/.erlang.cookie
+/.gitflow_export
+/.lesshst
+/.rnd
+/.tempPath.xml
+/.v8flags.*
+/.viminfo
+/.virtualchain-spv-headers.dat
+/.wget-hsts
+/.yarnrc
+/.zcompdump
+
+# Hodgepodge
+/.atom/
+/.aws/
+/.bundle/
+/.cache/
+/.caddy/
+/.cargo/
+/.cups/
+/.docker/
+/.dropbox/
+/.electron/
+/.gem/
+/.ghost/
+/.go/
+/.gsutil/
+/.heroku/
+/.hex/
+/.httpie/
+/.jspm/
+/.local/
+/.mix/
+/.multirust/
+/.nanobox/
+/.node-gyp/
+/.nodebrew/
+/.npm/
+/.nvm/
+/.op/
+/.rbenv/
+/.rustup/
+/.subversion/
+/.terraform.d/
+/.vimbackup/
+/.virtualenvs/
+/.vscode/
+/.yarn/
+
+# Personal stuff
+/.help/
+/.vimrc.tags
