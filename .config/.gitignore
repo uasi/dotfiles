@@ -1,0 +1,7 @@
+/configstore/
+/direnv/allow/
+/fish/fishd*
+/gcloud/
+/grv/
+/ranger/
+/yarn/
