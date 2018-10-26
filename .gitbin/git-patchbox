@@ -1,0 +1,40 @@
+#!/bin/sh
+
+#
+# git-patchbox
+#
+# Saves a series of patches from the given revision to HEAD as
+# <toplevel>/,patchbox/<name>.mbox and then reset to the revision.
+#
+
+if [ "x$1" = "x" -o "x$2" = "x" ]; then
+    echo "usage: git-patchbox <revision> <mbox name>"
+    exit 1
+fi
+
+revision=$1
+mbox_name=${2}.mbox
+
+if [ "${revision#*..}" != "$revision" ]; then
+    echo "fatal: revision must not be a range"
+    exit 1
+fi
+
+git_dir=`git rev-parse --git-dir`
+
+[ -d "$git_dir" ] || exit 1
+
+patchbox=`git rev-parse --show-toplevel`/,patchbox
+
+if [ -e "$patchbox/$mbox_name" ]; then
+    echo "fatal: mbox already exists"
+    exit 1
+fi
+
+mkdir -p "$patchbox"
+
+set -e
+set -x
+
+git format-patch --stdout "$revision" > "$patchbox/$mbox_name"
+git reset --hard "$revision"

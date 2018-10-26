@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ $# = 0 ]]; then
+    echo "usage: git batchedit <perl-expr> [<ls-files-arg>...]"
+    exit 1
+fi
+
+perl_expr=$1
+shift
+git ls-files "$@" | xargs perl -pi -E "$perl_expr"

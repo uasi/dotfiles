@@ -1,0 +1,78 @@
+#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings;
+
+use Getopt::Long;
+
+sub get_url {
+    my ($remote) = @_;
+    my $url = `git config --local remote.${remote}.url`;
+    return unless $? == 0;
+    chomp $url;
+    $url;
+}
+
+sub make_repo_url {
+    my ($url) = @_;
+    $_ = $url;
+    if (m|^https?://[^@]+?/|) {
+        $url =~ s/\.git$//;
+        return $url;
+    }
+    if (m|^(https://)(?:[^@]+?@)?([^/:]+?)(?::[^/]+?)?(.*?)(?:\.git)?$|) {
+        return "$1$2$3";
+    }
+    if (m|^git@([^/:]+)?:([^/]+?)(.*?)(?:\.git)?$|) {
+        return "https://$1/$2$3";
+    }
+    if (m|^ssh://git\@github\.com/(.*?)(?:\.git)?$|) {
+        return "https://github.com/$1";
+    }
+    undef;
+}
+
+sub get_path_info {
+    my ($url) = @_;
+    $_ = $url;
+    if (m|//[^/]*\bgithub\.com/|) {
+        return {issues => 'issues', pr => 'pulls'};
+    }
+    if (m|//[^/]*\bbitbucket\.org/|) {
+        return {issues => 'issues', pr => 'pull-requests'};
+    }
+    if (m|//[^/]*\bgitlab\.com/|) {
+        return {issues => 'issues', pr => 'merge_requests'};
+    }
+    +{};
+}
+
+sub main {
+    GetOptions(\my %opts, qw(
+        issues
+        pr
+    ));
+    my $remote = shift(@ARGV) || 'origin';
+    my $url = get_url($remote);
+    unless ($url) {
+        warn "fatal: remote.${remote}.url is not set\n";
+        exit 1;
+    }
+    my $repo_url = make_repo_url($url);
+    unless ($repo_url) {
+        warn "fatal: Unknown scheme: ${url}";
+        exit 1;
+    }
+    my $type = ($opts{pr} ? 'pr' :
+                $opts{issues} ? 'issues' :
+                '');
+    if ($type) {
+        if (my $path = get_path_info($repo_url)->{$type}) {
+            $repo_url .= '/' . $path;
+        }
+    }
+    system "open '${repo_url}'";
+}
+
+main;

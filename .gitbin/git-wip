@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#
+# Commits a fixup to the most recent commit whose message starts with "WIP".
+# If no such a commit found, create new commit with message "WIP".
+#
+
+MAX_LOG_COUNT=100
+
+find_base_commit() {
+    git log --oneline -n "$MAX_LOG_COUNT" \
+        | awk '$2 ~ /^WIP/ { print($1) }' \
+        | head -n1
+}
+
+main() {
+    local msg=$1
+    if [[ -n "$msg" ]]; then
+        git commit -F - <<< "$(printf "WIP: %s\n\n[ci skip]\n" "$msg")"
+        return
+    fi
+
+    local base
+    base=$(find_base_commit)
+    if [[ -n "$base" ]]; then
+        git commit --fixup "$base"
+    else
+        git commit -F - <<< "$(printf "WIP\n\n[ci skip]\n")"
+    fi
+}
+
+main "$@"

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#
+# git-prune-branches - prune merged branches
+#
+# Configurations:
+#   .git/protected-branches - one-line regex matching the names of the branches to be protected.
+#
+
+if [[ "$(git rev-parse --abbrev-ref HEAD)" != master ]]; then
+    echo "Error: not on master."
+    exit 1
+fi
+
+protected_branches=$(cat "$(git rev-parse --git-dir)/protected-branches" 2> /dev/null | head -n1)
+protected_branches="${protected_branches}${protected_branches:+|}^master$"
+
+echo "Deleting branches ignoring $protected_branches"
+
+git branch --format '%(refname:short)' --merged | grep -v -E "$protected_branches" | xargs git branch -d
+
+git remote prune origin
