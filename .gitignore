@@ -45,12 +45,15 @@
 /.caddy/
 /.cargo/
 /.cmake/
+/.cocoapods/
 /.cups/
 /.dat/
 /.docker/
 /.dropbox/
 /.electron/
+/.elm/
 /.flow-typed/
+/.gdrive/
 /.gem/
 /.ghost/
 /.gnupg/
@@ -60,7 +63,9 @@
 /.hex/
 /.httpie/
 /.idea/
+/.itmstransporter/
 /.jspm/
+/.kiex/
 /.kube/
 /.local/
 /.minikube/
@@ -81,10 +86,12 @@
 /.subversion/
 /.terraform.d/
 /.up/
+/.vagrant.d/
 /.vimbackup/
 /.virtualenvs/
 /.vscode/
 /.yarn/
+/.yeoman/
 
 # Personal stuff
 /.help/
