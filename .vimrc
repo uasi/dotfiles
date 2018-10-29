@@ -15,7 +15,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'rhysd/committia.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/syntastic' " |syntastic| |syntastic_autocmd|
 Plug 'sheerun/vim-polyglot'
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region'
@@ -166,12 +165,6 @@ let g:bookmark_save_per_working_dir = 1
 
 " *vim_gitgutter*
 let g:gitgutter_sign_added = '·'
-
-" Not installed:
-"let g:syntastic_scss_checkers = ['scss_lint']
-"let g:syntastic_coffee_checkers = ['coffeelint']
-let g:syntastic_typescript_checkers = []
-
 
 "-- Plugin settings }}} ------------------------------------------------------
 "-- Mappings {{{ -------------------------------------------------------------

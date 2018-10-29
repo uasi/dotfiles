@@ -51,6 +51,9 @@ autocmd BufNewFile,BufReadPost *.jade set filetype=jade
 NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes': ['slim']}}
 autocmd BufNewFile,BufReadPost *.slim set filetype=slim
 
+" Syntastic
+Plug 'scrooloose/syntastic' " |syntastic| |syntastic_autocmd|
+
 "-- Plugins and Related Settings }}} -----------------------------------------
 
 "-- Other Settings {{{ -------------------------------------------------------
