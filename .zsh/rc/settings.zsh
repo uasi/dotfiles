@@ -29,6 +29,10 @@ zstyle ':completion:*:default' menu select=1
 # Make `kill <process_name>` completion includes other users' processes
 zstyle ':completion:*:processes' command "ps -u $USER"
 
+# Use Emacs-like key binding
+# (Any other `bindkey` settings must come after this line)
+bindkey -e
+
 # Always use autoload -Uz !
 #
 # -z  unset ksh-compat flag (i.e. turn *z*sh-native mode on)
@@ -62,7 +66,5 @@ run-fg-editor() {
 }
 zle -N run-fg-editor
 bindkey '^z' run-fg-editor
-
-bindkey -e
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
