@@ -1,4 +1,4 @@
-"-- Bundles {{{ --------------------------------------------------------------
+"-- Plugs {{{ ----------------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
 
@@ -7,6 +7,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim' " |unite_vim|
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter' " |vim_gitgutter|
+Plug 'bkad/CamelCaseMotion' " |camelcasemotion|
 Plug 'easymotion/vim-easymotion' " |vim_easymotion|
 Plug 'elixir-lang/vim-elixir'
 Plug 'elzr/vim-json' " |vim_json|
@@ -43,7 +44,7 @@ call plug#end()
 
 " See $DOTVIM/etc/unused_settings.vim for unused plugins.
 
-"-- Bundles }}} --------------------------------------------------------------
+"-- Plugs }}} ----------------------------------------------------------------
 "-- Vim settings {{{ ---------------------------------------------------------
 
 " Suppress deprecation warning from Python 3.7.
@@ -211,7 +212,7 @@ inoremap <C-B> <C-X><C-O>
 " Yanked from http://labs.timedia.co.jp/2014/09/learn-about-vim-in-the-workplace.html
 vnoremap * "zy:let @/ = @z<CR>n
 
-" Camelcase-sensitive motion
+" Camelcase-sensitive motion *camelcasemotion*
 noremap <silent> <Leader>b b
 noremap <silent> <Leader>e e
 noremap <silent> <Leader>w w
