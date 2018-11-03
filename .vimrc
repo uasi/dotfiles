@@ -70,6 +70,8 @@ set foldmethod=marker
 set backspace=indent,eol,start
 set synmaxcol=256  " Limit maximum column upto witch Vim tries to parse syntax.
 
+set mouse=a
+
 set wildmode=longest,full
 set wildmenu
 
