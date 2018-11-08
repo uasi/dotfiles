@@ -5,7 +5,6 @@ git_aliases=(
     add
     amend
     b
-    blf
     c
     ci
     cia
@@ -20,7 +19,6 @@ git_aliases=(
     ff
     fix
     m
-    ms
     pull
     pullff
     pullr
