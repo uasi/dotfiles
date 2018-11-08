@@ -7,7 +7,6 @@
 
 	amend          = commit --amend
 	b              = branch
-	blf            = branch -l -f
 	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
 	backup-index   = !"cp \"`git rev-parse --git-dir`/index\" \"`git rev-parse --git-dir`/index.bak\""
 	realclean      = clean -x -d
@@ -42,7 +41,6 @@
 	ls-unusualbits = !"git ls-files -v | grep '^[a-zS]'"
 	ff             = merge --ff-only
 	m              = merge --no-ff
-	ms             = merge --squash
 	password       = !"security find-internet-password -a uasi -s github.com -w | tr -d '\n'"
 	pullff         = pull --ff-only
 	pullr          = pull --rebase
