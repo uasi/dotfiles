@@ -60,7 +60,7 @@ RPROMPT+='$([[ `jobs` =~ "suspended  tig" ]] && print "[tig]")'
 if [[ -n "$SSH_CONNECTION" ]]; then
     PROMPT="%F{166}->%f $PROMPT%f"
 else
-    PROMPT="%F{64}->%f $PROMPT%f"
+    PROMPT="%F{64}->%f %# "
 fi
 
 RPROMPT+='[`rprompt-todo``rprompt-git-current-branch`%F{red}%40<..<%f%~%<<]'
