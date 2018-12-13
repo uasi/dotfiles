@@ -47,3 +47,5 @@ git_aliases=(
 for cmd ($git_aliases) {
     alias $cmd="git $cmd"
 }
+
+alias gg='git grep'
