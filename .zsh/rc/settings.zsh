@@ -56,6 +56,25 @@ zle -N self-insert url-quote-magic
 
 autoload -Uz zargs
 
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey '^[m' copy-earlier-word
+
+# http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
+autoload -Uz narrow-to-region
+_history-incremental-preserving-pattern-search-backward() {
+  local state
+  MARK=CURSOR  # magick, else multiple ^R don't work
+  narrow-to-region -p "$LBUFFER${BUFFER:+>>}" -P "${BUFFER:+<<}$RBUFFER" -S state
+  zle end-of-history
+  zle history-incremental-pattern-search-backward
+  narrow-to-region -R state
+}
+zle -N _history-incremental-preserving-pattern-search-backward
+bindkey '^R' _history-incremental-preserving-pattern-search-backward
+bindkey -M isearch '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+
 # Toggle between zsh and vim with ^Z
 run-fg-editor() {
     zle push-input
