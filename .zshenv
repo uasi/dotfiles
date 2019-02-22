@@ -65,6 +65,8 @@ path=(
     # Local
     $HOME/bin(N-/)
     /usr/local/(s|)bin(N-/)
+    $HOME/Dropbox/Data/Executables(N-/)
+
     ${path}
 )
 
