@@ -26,6 +26,7 @@
 /.ec2ssh
 /.erlang.cookie
 /.gitflow_export
+/.journal.json
 /.lesshst
 /.rnd
 /.tempPath.xml
