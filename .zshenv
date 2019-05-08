@@ -56,6 +56,9 @@ path=(
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'(N-/)
 
+    # NotionJS
+    $HOME/.notion/bin(N-/)
+
     # nodebrew
     $HOME/.nodebrew/current/bin(N-/)
 
