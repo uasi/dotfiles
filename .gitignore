@@ -77,6 +77,7 @@
 /.nanobox/
 /.node-gyp/
 /.nodebrew/
+/.notion/
 /.npm/
 /.nvm/
 /.op/
@@ -85,6 +86,7 @@
 /.rbenv/
 /.rustup/
 /.serverless/
+/.solargraph/
 /.subversion/
 /.terraform.d/
 /.up/
