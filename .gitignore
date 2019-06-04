@@ -32,6 +32,7 @@
 /.tempPath.xml
 /.v8flags.*
 /.viminfo
+/.viminfo.tmp
 /.virtualchain-spv-headers.dat
 /.wget-hsts
 /.yarnrc
