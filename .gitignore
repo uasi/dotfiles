@@ -77,7 +77,6 @@
 /.nanobox/
 /.node-gyp/
 /.nodebrew/
-/.notion/
 /.npm/
 /.nvm/
 /.op/
@@ -93,6 +92,7 @@
 /.vagrant.d/
 /.vimbackup/
 /.virtualenvs/
+/.volta/
 /.vscode/
 /.yarn/
 /.yeoman/
