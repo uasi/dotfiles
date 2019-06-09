@@ -41,6 +41,7 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export IEX_WITH_WERL=1 # Enable autocompletion in iex shell.
 
 # fzf
+export FZF_DEFAULT_COMMAND="rg -l --hidden ''"
 export FZF_DEFAULT_OPTS="--multi --extended"
 
 #-- Application settings }}} -------------------------------------------------
