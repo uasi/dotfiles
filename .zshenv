@@ -18,7 +18,7 @@ export REALNAME="Tomoki Aonuma"
 export EMAIL="uasi@uasi.jp"
 export EDITOR=vim
 
-source ~/Dropbox/Data/Dotfiles/sh/secret_env.sh
+[[ -s ~/Dropbox/Data/Dotfiles/sh/secret_env.sh ]] && source ~/Dropbox/Data/Dotfiles/sh/secret_env.sh
 
 #-- User settings }}} --------------------------------------------------------
 #-- Zsh settings {{{ ---------------------------------------------------------
