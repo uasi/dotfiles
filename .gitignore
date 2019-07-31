@@ -2,6 +2,7 @@
 *
 !.*
 !.*/**
+/.dotfiles.git
 
 # macOS resources
 .DS_Store
