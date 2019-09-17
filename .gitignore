@@ -49,6 +49,7 @@
 /.cargo/
 /.cmake/
 /.cocoapods/
+/.cpad2/
 /.cups/
 /.dat/
 /.docker/

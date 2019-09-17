@@ -3,8 +3,9 @@
 [user]
 	name  = Tomoki Aonuma
 	email = uasi@uasi.jp
+[includeIf "gitdir:~/work/"]
+	path = ~/.gitconfig.work
 [alias]
-
 	amend          = commit --amend
 	b              = branch
 	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
