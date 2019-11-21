@@ -104,4 +104,5 @@
 
 # Personal stuff
 /.help/
+/.totp.toml
 /.vimrc.tags
