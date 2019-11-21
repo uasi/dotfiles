@@ -30,9 +30,11 @@
 /.gitflow_export
 /.journal.json
 /.lesshst
+/.my.cnf
 /.rnd
 /.tempPath.xml
 /.v8flags.*
+/.vault-token
 /.viminfo
 /.viminfo.tmp
 /.virtualchain-spv-headers.dat
@@ -43,6 +45,7 @@
 # Hodgepodge
 /.atom/
 /.aws/
+/.bdash/
 /.blockstack/
 /.bundle/
 /.cache/
@@ -55,6 +58,7 @@
 /.dat/
 /.docker/
 /.dropbox/
+/.ecr/
 /.electron/
 /.elm/
 /.flow-typed/
@@ -99,6 +103,7 @@
 /.virtualenvs/
 /.volta/
 /.vscode/
+/.wine/
 /.yarn/
 /.yeoman/
 
