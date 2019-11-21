@@ -53,3 +53,10 @@ GPATH
 
 # VisualStudio Code
 .vscode
+
+# IntelliJ
+.idea/
+
+# RubyMine (Ruby plugin)
+.generators
+.rakeTasks
