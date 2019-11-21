@@ -3,3 +3,5 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 [[ -s "$HOME/.volta/load.sh" ]] && source "$HOME/.volta/load.sh"
+
+[[ -s "$HOME/.cpad2/profile" ]] && source "$HOME/.cpad2/profile"
