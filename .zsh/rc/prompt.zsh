@@ -20,7 +20,7 @@ rprompt-git-current-branch() {
     fi
 
     if [[ -e "$gitdir/rprompt-nostatus" ]]; then
-        echo "$name$action "
+        echo "%F{247}$name$action%f "
         return
     fi
 
