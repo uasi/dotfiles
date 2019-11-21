@@ -28,6 +28,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'ujihisa/shadow.vim'
+Plug 'vim-scripts/Align'
 Plug 'vim-scripts/sudo.vim'
 
 if has('python3')
