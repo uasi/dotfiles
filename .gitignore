@@ -24,6 +24,7 @@
 /.VID*_PID*.xml
 /.babel.json
 /.boto
+/.config/karabiner/automatic_backups/
 /.ec2ssh
 /.erlang.cookie
 /.gitflow_export
