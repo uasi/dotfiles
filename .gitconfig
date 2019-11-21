@@ -61,7 +61,7 @@
 	uncommit       = !git backup-index && git reset HEAD^
 	unstage        = !git backup-index && git reset HEAD
 	unmerge        = reset --hard ORIG_HEAD
-	up             = !"git pull --ff-only && git submodule update && git prune-branches"
+	up             = !"git fetch --all && git pull --ff-only && git submodule update && git prune-branches"
 	setup-origin   = !"sh -c 'git remote add origin $1; git config branch.master.remote origin; git config branch.master.merge refs/heads/master' -"
 	setup-pull-req = config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
 	submodule-pull = "submodule foreach 'git fetch; git checkout origin/master'"
