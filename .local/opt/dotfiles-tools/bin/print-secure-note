@@ -1,0 +1,24 @@
+#!/usr/bin/ruby
+
+require 'json'
+require 'shellwords'
+
+note_title = ARGV[0] or abort 'Usage: print-secure-note <title>'
+
+note_data = `security find-generic-password -C note -w -s #{Shellwords.escape(note_title)}`
+
+exit $?.exitstatus unless $?.success?
+
+command =
+  # Print the note as a hex-encoded XML plist.
+  "echo #{Shellwords.escape(note_data)}" +
+  # Decode the hex string.
+  ' | xxd -r -p -' +
+  # Remove a data entry unrepresentable as JSON.
+  ' | plutil -remove RTFD -o - -'  +
+  # Convert XML plist to JSON. The result should be `{"NOTE":<string>}`.
+  ' | plutil -convert json -o - -'
+
+note_json = `#{command}`
+
+puts JSON.parse(note_json)['NOTE']

@@ -25,6 +25,7 @@
 /.babel.json
 /.boto
 /.ec2ssh
+/.envrc
 /.erlang.cookie
 /.gitflow_export
 /.journal.json
@@ -76,7 +77,7 @@
 /.kiex/
 /.kube/
 /.livedl/
-/.local/
+/.local/share/
 /.minikube/
 /.mitmproxy/
 /.mix/

@@ -1,0 +1,1 @@
+eval "$(~/.local/opt/dotfiles-tools/bin/print-secure-note secret-shell-env)"
