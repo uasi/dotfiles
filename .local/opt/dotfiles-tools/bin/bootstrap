@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -ex
+
+echo "Installing dotfiles..."
+
+git clone --bare https://github.com/uasi/dotfiles.git ~/.dotfiles.git
+git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME" checkout master
+
+cat <<'END'
+
+Completed.
+
+If you want to load secret env from Keychain,
+
+    1. open Keychain Access.app and create a secure note with title "secret-shell-env", and
+    2. run `~/.local/opt/dotfiles-tools/bin/print-secure-note secret-shell-env` and click "Always Allow", and
+    3. run `cp ~/.local/opt/dotfiles-tools/share/envrc.sample ~/.envrc`.
+END
