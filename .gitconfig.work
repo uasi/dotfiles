@@ -3,3 +3,5 @@
 	email = uasi@cookpad.com
 [push]
 	default = nothing
+[url "git@ghe.ckpd.co:"]
+	insteadOf = https://ghe.ckpd.co/
