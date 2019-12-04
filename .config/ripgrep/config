@@ -1,0 +1,4 @@
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+
+--type-add=erb:*.erb
+--type-add=haml:*.haml

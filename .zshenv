@@ -42,6 +42,9 @@ export IEX_WITH_WERL=1 # Enable autocompletion in iex shell.
 export FZF_DEFAULT_COMMAND="rg -l --hidden ''"
 export FZF_DEFAULT_OPTS="--multi --extended"
 
+# Ripgrep
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
+
 #-- Application settings }}} -------------------------------------------------
 #-- PATHs {{{ ----------------------------------------------------------------
 
