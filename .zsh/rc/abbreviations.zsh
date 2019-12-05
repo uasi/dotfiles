@@ -1,13 +1,7 @@
-if has rg; then
-    grepish=rg
-else
-    grepish=grep
-fi
-
 typeset -A abbreviations
 abbreviations=(
     " A"  " | atline"
-    " G"  " | $grepish"
+    " G"  " | ${${commands[rg]:t}:-grep}"
     " F"  " | fzf"
     " H"  " | head"
     " H5" " | head -n5"

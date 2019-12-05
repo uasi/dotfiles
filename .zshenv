@@ -1,13 +1,13 @@
 #-- Prelude {{{ --------------------------------------------------------------
 
-if [[ "${ZSH_PROFILE:-undef}" != undef ]]; then
-    zmodload zsh/zprof && zprof
+if [[ "${ZSH_PROFILE:+x}" = x ]]; then
+    zmodload zsh/zprof
 fi
 
 export ZSHHOME=$HOME/.zsh
 
 has() {
-    command -v "$1" > /dev/null
+    (( $+commands[$1] ))
 }
 
 #-- Prelude }}}---------------------------------------------------------------
