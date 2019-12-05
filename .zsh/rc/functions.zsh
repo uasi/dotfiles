@@ -129,3 +129,12 @@ vimf() {
     fi
     vim -O$num_windows "${(@)files}"
 }
+
+netcopy() {
+    nc termbin.com 9999
+}
+
+netpaste() {
+    (( $# )) || return 1
+    curl "https://termbin.com/$1"
+}
