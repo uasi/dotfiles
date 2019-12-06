@@ -4,7 +4,6 @@ alias is-login-sh='ps $$ | awk "NR == 2 && \$5 ~ /^-/ { print \"yes\"; }"'
 alias is-session-leader='ps $$ | awk "NR == 2 && \$3 ~ /s/ { print \"yes\" }"'
 alias @='noglob'
 alias unsymlink='sed "" -i'
-alias ssh-qiita='ssh $(grep -o "app-qiita-public-.*" "$HOME/.ssh/config_ec2" | head -n1)'
 
 # Platform-specific utilities
 case "$OSTYPE" in
@@ -27,6 +26,8 @@ alias j=jobs
 alias -g ...=../..
 alias -g ....=../../..
 alias -g .....=../../../..
+alias -g ......=../../../../..
+alias -g .......=../../../../../..
 
 # zmv
 autoload -Uz zmv
