@@ -27,6 +27,8 @@
 /.ec2ssh
 /.envrc
 /.erlang.cookie
+/.flutter
+/.flutter_settings
 /.gitflow_export
 /.journal.json
 /.lesshst
@@ -67,6 +69,7 @@
 /.ghost/
 /.gnupg/
 /.go/
+/.gradle/
 /.gsutil/
 /.heroku/
 /.hex/
