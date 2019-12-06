@@ -139,14 +139,30 @@ netcopy() {
         echo "error: ~/.ssh/netcopy_netpaste_key does not exist"
         return 1
     fi
-    openssl rsautl -encrypt -inkey ~/.ssh/netcopy_netpaste_key | base64 | nc termbin.com 9999
+
+    local pass=$(openssl rand 128 -base64)
+    local encrypted_pass=$(echo "$pass" | openssl rsautl -encrypt -inkey ~/.ssh/netcopy_netpaste_key | base64)
+
+    {
+        echo "$encrypted_pass"
+        openssl enc -e -aes256 -pass "pass:$pass" -base64
+    } | nc termbin.com 9999
 }
 
 netpaste() {
-    (( $# )) || return 1
+    if [[ $# = 0 ]]; then
+        echo "usage: netpaste <id>"
+        return 1
+    fi
+
     if [[ ! -e ~/.ssh/netcopy_netpaste_key ]]; then
         echo "error: ~/.ssh/netcopy_netpaste_key does not exist"
         return 1
     fi
-    curl -s "https://termbin.com/$1" | base64 -d | openssl rsautl -decrypt -inkey ~/.ssh/netcopy_netpaste_key
+
+    curl -s "https://termbin.com/$1" | {
+        local pass=$(read -r -e | base64 -d | openssl rsautl -decrypt -inkey ~/.ssh/netcopy_netpaste_key)
+
+        base64 -d | openssl enc -d -aes256 -pass "pass:$pass"
+    }
 }
