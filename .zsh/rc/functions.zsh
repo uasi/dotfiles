@@ -130,11 +130,23 @@ vimf() {
     vim -O$num_windows "${(@)files}"
 }
 
+# netcopy/netpaste support poor man's encryption.
+# netcopy_netpaste_key should be an RSA private key, in the old (PEM) format,
+# not protected by passphrase.
+
 netcopy() {
-    nc termbin.com 9999
+    if [[ ! -e ~/.ssh/netcopy_netpaste_key ]]; then
+        echo "error: ~/.ssh/netcopy_netpaste_key does not exist"
+        return 1
+    fi
+    openssl rsautl -encrypt -inkey ~/.ssh/netcopy_netpaste_key | base64 | nc termbin.com 9999
 }
 
 netpaste() {
     (( $# )) || return 1
-    curl "https://termbin.com/$1"
+    if [[ ! -e ~/.ssh/netcopy_netpaste_key ]]; then
+        echo "error: ~/.ssh/netcopy_netpaste_key does not exist"
+        return 1
+    fi
+    curl -s "https://termbin.com/$1" | base64 -d | openssl rsautl -decrypt -inkey ~/.ssh/netcopy_netpaste_key
 }
