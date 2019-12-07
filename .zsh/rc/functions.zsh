@@ -113,6 +113,12 @@ gitf() {
 
 alias f=gitf
 
+f:() {
+    local arg1=":$1"
+    shift
+    gitf "$arg1" "$@"
+}
+
 gitp() {
     local dir="$(ghq list -p | _fzf_trampoline "$@" -1)"
     if [[ -n "$dir" ]]; then
