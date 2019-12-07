@@ -111,7 +111,7 @@
 	default = current
 	recurseSubmodules = check
 [ghq]
-	root = /Users/uasi/Dev/Git
+	root = ~/repos
 [ghq "import"]
 	local = "ghq list | sed 's/^/https:\\/\\//'"
 [filter "lfs"]
