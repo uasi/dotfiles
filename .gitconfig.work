@@ -5,3 +5,5 @@
 	default = nothing
 [url "git@ghe.ckpd.co:"]
 	insteadOf = https://ghe.ckpd.co/
+[hub]
+	host = ghe.ckpd.co

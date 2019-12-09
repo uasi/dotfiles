@@ -10,6 +10,7 @@ git_aliases=(
     cia
     recommit
     co
+    copr
     di
     dis
     l
