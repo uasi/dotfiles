@@ -55,6 +55,12 @@ path=(
     # Rust
     $HOME/.cargo/bin(N-/)
 
+    # Sublime Merge
+    '/Applications/Sublime Merge.app/Contents/SharedSupport/bin'(N-/)
+
+    # Sublime Text
+    '/Applications/Sublime Text.app/Contents/SharedSupport/bin'(N-/)
+
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'(N-/)
 
