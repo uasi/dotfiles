@@ -1,0 +1,32 @@
+#!/bin/bash
+
+has() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+if has brew; then
+    ( set -x ; brew update && brew upgrade && brew cask upgrade )
+fi
+
+if has rustup; then
+    (
+        set -x
+        rustup self update \
+            && rustup update \
+            && rustup completions zsh cargo > ~/.zsh/functions/_cargo \
+            && rustup completions zsh rustup > ~/.zsh/functions/_rustup
+    )
+fi
+
+if has vim; then
+    ( set -x ; unset GIT_DIR GIT_WORK_TREE ; vim -c PlugUpgrade -c PlugUpdate -c qa )
+fi
+
+if [[ -x ~/.volta/volta ]]; then
+    echo "note: Volta doesn't support self update yet."
+    echo "note: If you want to update it, run"
+    echo "note:     curl https://get.volta.sh | bash"
+    echo "note: and revert changes to .zprofile."
+
+    ( set -x ; ~/.volta/volta completions zsh -f -o ~/.zsh/functions/_volta )
+fi
