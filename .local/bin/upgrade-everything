@@ -22,11 +22,19 @@ if has vim; then
     ( set -x ; unset GIT_DIR GIT_WORK_TREE ; vim -c PlugUpgrade -c PlugUpdate -c qa )
 fi
 
+volta_latest_version() {
+    curl -fs https://raw.githubusercontent.com/volta-cli/volta/master/RELEASES.md \
+        | grep '^# Version ' \
+        | sed  '1!d; s/# Version //'
+}
+
 if [[ -x ~/.volta/volta ]]; then
     echo "note: Volta doesn't support self update yet."
     echo "note: If you want to update it, run"
     echo "note:     curl https://get.volta.sh | bash"
     echo "note: and revert changes to .zprofile."
+    echo "note: Current version: $(~/.volta/volta --version)"
+    echo "note: Latest version: $(volta_latest_version)"
 
     ( set -x ; ~/.volta/volta completions zsh -f -o ~/.zsh/functions/_volta )
 fi
