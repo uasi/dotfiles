@@ -164,7 +164,7 @@ netpaste() {
     fi
 
     if [[ ! -e ~/.ssh/netcopy_netpaste_key ]]; then
-        echo "error: ~/.ssh/netcopy_netpaste_key does not exist"
+        echo "error: ~/.ssh/netcopy_netpaste_key does not exist" >&2
         return 1
     fi
 
@@ -173,4 +173,15 @@ netpaste() {
 
         base64 -d | openssl enc -d -aes256 -pass "pass:$pass"
     }
+}
+
+mygem() {
+    if [[ ! -e ~/.gem/mygemrc ]]; then
+        echo "warning: ~/.gem/mygemrc does not exist." >&2
+    fi
+    if [[ "$(stat -f "%p" ~/.gem/mygemrc)" != *600 ]]; then
+        echo "warning: File mode of ~/.gem/mygemrc is other than 600." >&2
+    fi
+
+    GEMRC=$HOME/.gem/mygemrc gem "$@"
 }
