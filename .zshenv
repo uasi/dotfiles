@@ -45,6 +45,11 @@ export FZF_DEFAULT_OPTS="--multi --extended"
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
+### My apps
+
+# photo_grabber
+export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
+
 #-- Application settings }}} -------------------------------------------------
 #-- PATHs {{{ ----------------------------------------------------------------
 
