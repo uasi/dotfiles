@@ -109,6 +109,7 @@
 /.wine/
 /.yarn/
 /.yeoman/
+/.zoekt/
 
 # Personal stuff
 /.help/
