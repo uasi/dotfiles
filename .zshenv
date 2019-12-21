@@ -42,6 +42,9 @@ export IEX_WITH_WERL=1 # Enable autocompletion in iex shell.
 export FZF_DEFAULT_COMMAND="rg -l --hidden ''"
 export FZF_DEFAULT_OPTS="--multi --extended"
 
+# Go
+export GOPATH=$HOME/.local/share/go
+
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
@@ -56,6 +59,9 @@ export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
 path=(
     # Git
     $HOME/.gitbin(N-/)
+
+    # Go
+    $HOME/.local/share/go/bin(N-/)
 
     # Rust
     $HOME/.cargo/bin(N-/)
