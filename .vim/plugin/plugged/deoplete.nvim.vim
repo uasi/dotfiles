@@ -1,3 +1,7 @@
+if !has('python3')
+  finish
+endif
+
 " Adapted from configuration examples found in
 " https://github.com/Shougo/neocomplete.vim/blob/4bf7526a1c8cca9f8614e8a09178f334eaca0481/README.md
 

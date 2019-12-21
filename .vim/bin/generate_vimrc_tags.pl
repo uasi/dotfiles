@@ -4,33 +4,14 @@ use 5.010;
 use strict;
 use warnings;
 
-my $vimrc = $ENV{HOME} . '/.vimrc';
-my $vimrctags = $ENV{HOME} . '/.vimrc.tags';
+use File::Basename;
 
-open my $vimrc_fh, '<', $vimrc;
+open my $fh, '>', $ENV{HOME} . '/.vimrc.tags';
 
-my %tag_index;
-my $n = 1;
-
-# Scan tag defs
-while (my $line = <$vimrc_fh>) {
-    if ($line =~ /\*(\w+)\*/) {
-        $tag_index{$1} = $n;
-    }
-    $n++;
+for my $path (glob('~/.vim/plugin/plugged/*.vim')) {
+    my $tag = basename $path;
+    $tag =~ s/\.vim$//;
+    $tag =~ s/[^a-zA-Z0-9_]/_/g;
+    $tag = lc $tag;
+    say $fh "${tag}\t${path}\t:1";
 }
-
-seek $vimrc_fh, 0, 0;
-$n = 1;
-
-my @tag_entries;
-
-# Scan tags
-while (my $line = <$vimrc_fh>) {
-    if ($line =~ /\|(\w+)\|/ && exists $tag_index{$1}) {
-        push @tag_entries, "$1\t$vimrc\t:$tag_index{$1}";
-    }
-}
-
-open my $vimrctags_fh, '>', $vimrctags;
-say $vimrctags_fh $_ for @tag_entries;
