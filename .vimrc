@@ -65,7 +65,6 @@ set encoding=utf-8
 set ignorecase
 set smartcase  " Case-sensitive search when query includes uppercase character.
 set laststatus=2  " Always show status-line.
-set statusline=%y%{GetStatusEx()}\ %f%m%r%=<%c:%l/%L>
 set foldmethod=marker
 set backspace=indent,eol,start
 set synmaxcol=256  " Limit maximum column upto witch Vim tries to parse syntax.
@@ -224,20 +223,3 @@ hi TabLineSel  term=bold cterm=bold ctermfg=5
 hi TabLineFill term=reverse cterm=reverse,underline ctermfg=white ctermbg=blue
 
 "-- Highlight }}}-------------------------------------------------------------
-"-- Functions {{{ ------------------------------------------------------------
-
-" Get encoding and newline type
-function! GetStatusEx()
-  let str = ''
-  let str = str . '' . &fileformat . ']'
-  if has('multi_byte') && &fileencoding != ''
-    let str = '[' . &fileencoding . ':' . str
-  elseif &fileencoding == '' && &encoding != ''
-    let str = '[' . &encoding . ':' . str
-  else
-    let str = '[' . 'enc?' . ':' . str
-  endif
-  return str
-endfunction
-
-"-- Functions }}} ------------------------------------------------------------
