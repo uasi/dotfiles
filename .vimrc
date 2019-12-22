@@ -1,5 +1,9 @@
 "-- Plugs {{{ ----------------------------------------------------------------
 
+" Unset env vars that interfere with vim-plug.
+unlet $GIT_DIR
+unlet $GIT_WORK_TREE
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
@@ -13,6 +17,7 @@ Plug 'elzr/vim-json' " |vim_json|
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'rhysd/committia.vim'
+Plug 'scrooloose/nerdcommenter' " |nerdcommenter|
 Plug 'scrooloose/nerdtree' " |nerdtree|
 Plug 'sheerun/vim-polyglot'
 Plug 'slack/vim-l9'
