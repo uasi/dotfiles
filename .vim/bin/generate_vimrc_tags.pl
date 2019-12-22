@@ -6,7 +6,7 @@ use warnings;
 
 use File::Basename;
 
-open my $fh, '>', $ENV{HOME} . '/.vimrc.tags';
+open my $fh, '>', $ENV{HOME} . '/.local/share/vim/vimrc_tags';
 
 for my $path (glob('~/.vim/plugin/plugged/*.vim')) {
     my $tag = basename $path;

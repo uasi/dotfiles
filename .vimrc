@@ -59,8 +59,6 @@ if has('python3')
   silent! python3 pass
 endif
 
-set tags+=~/.vimrc.tags " Add a tags file to jump around my vim settings.
-
 set encoding=utf-8 " Set default encoding. Otherwise it would be latin1.
 set ignorecase " Ignore case in the search pattern.
 set smartcase " Override ignorecase if the search pattern contains uppercase characters.
@@ -86,16 +84,6 @@ set wildmode=longest,full
 set list
 set listchars=tab:>-,trail:_
 
-" Enable backup.
-set backup
-set backupdir=$HOME/.vimbackup
-if !isdirectory(&backupdir)
-  call mkdir(&backupdir)
-endif
-
-" Set swapfile directory.
-let &directory = &backupdir
-
 " Set position of a new split window.
 set splitbelow
 set splitright
@@ -110,6 +98,28 @@ let maplocalleader = '_'
 
 " Extend '%' motion.
 packadd matchit
+
+" Prepare my data directory.
+let $VIM_DATA_DIR = $HOME . '/.local/share/vim'
+if !isdirectory($VIM_DATA_DIR)
+  call mkdir($VIM_DATA_DIR, 'p')
+endif
+
+" Add a tags file to jump around my vim settings.
+set tags+=$VIM_DATA_DIR/vimrc_tags
+
+" Enable backup.
+set backup
+set backupdir=$VIM_DATA_DIR/backup
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir)
+endif
+
+" Set swapfile directory.
+set directory=$VIM_DATA_DIR/swap
+if !isdirectory(&directory)
+  call mkdir(&directory)
+endif
 
 "-- Vim settings }}} ---------------------------------------------------------
 "-- Mappings {{{ -------------------------------------------------------------
