@@ -47,6 +47,13 @@ call plug#end()
 " To create/remove empty setting file for each plugin,
 " call `plug_helper#stub()` / `plug_helper#unstub()`.
 
+" Remap gf to open a plug in the browser.
+function! PlugOpen()
+  exec 'silent ! open https://github.com/' . expand('<cfile>')
+  call feedkeys("\<C-l>") " Refresh screen wiped by the command above.
+endfunction
+au BufEnter .vimrc nmap <buffer> <silent> gf :call PlugOpen()<CR>
+
 "-- Plugs }}} ----------------------------------------------------------------
 "-- Vim settings {{{ ---------------------------------------------------------
 
