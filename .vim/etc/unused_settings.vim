@@ -54,6 +54,12 @@ autocmd BufNewFile,BufReadPost *.slim set filetype=slim
 " Syntastic
 Plug 'scrooloose/syntastic' " |syntastic| |syntastic_autocmd|
 
+" Directory-local vimrc
+Plug 'thinca/vim-localrc'
+
+" Rails
+Plug 'tpope/vim-rails'
+
 "-- Plugins and Related Settings }}} -----------------------------------------
 
 "-- Other Settings {{{ -------------------------------------------------------

@@ -18,14 +18,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors' " |vim_multiple_cursors|
-Plug 'thinca/vim-localrc'
 Plug 'thinca/vim-quickrun' " |vim_quickrun|
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive' " |vim_fugitive|
-Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'ujihisa/shadow.vim'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/sudo.vim'
 
