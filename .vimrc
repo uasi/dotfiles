@@ -63,6 +63,9 @@ au BufEnter .vimrc nmap <buffer> <silent> gf :call PlugOpen()<CR>
 "-- Plugs }}} ----------------------------------------------------------------
 "-- Vim settings {{{ ---------------------------------------------------------
 
+" Always use en_US.
+language en_US
+
 " Suppress deprecation warning from Python 3.7.
 " See https://github.com/vim/vim/issues/3117#issuecomment-402622616
 if has('python3')
