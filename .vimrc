@@ -170,7 +170,7 @@ noremap Y y$
 "-- Mappings }}} -------------------------------------------------------------
 "-- Abbereviations {{{ -------------------------------------------------------
 
-" For correction
+" Correct common typos.
 iab erorr error
 iab imoprt import
 iab improt import
