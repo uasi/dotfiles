@@ -13,7 +13,7 @@ Plug 'elzr/vim-json' " |vim_json|
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'rhysd/committia.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree' " |nerdtree|
 Plug 'sheerun/vim-polyglot'
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region' " |vim_expand_region|
