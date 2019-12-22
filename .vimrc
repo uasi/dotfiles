@@ -44,8 +44,8 @@ Plug 'slim-template/vim-slim', {'for': 'slim'}
 
 call plug#end()
 
-" See $DOTVIM/plugin/pluged/*.vim for settings of plugins.
-" See $DOTVIM/etc/unused_settings.vim for unused plugins.
+" See ~/.vim/plugin/pluged/*.vim for settings of plugins.
+" See ~/.vim/etc/unused_settings.vim for unused plugins.
 
 " To create/remove empty setting file for each plugin,
 " call `plug_helper#stub()` / `plug_helper#unstub()`.
@@ -58,13 +58,6 @@ call plug#end()
 if has('python3')
   silent! python3 pass
 endif
-
-" Get the personal runtime directory.
-let g:dotvim = $HOME . '/.vim'
-if strlen(glob(g:dotvim)) == 0
-  let g:dotvim = $HOME . '/vimfiles'
-endif
-let $DOTVIM = g:dotvim
 
 set tags+=~/.vimrc.tags
 
@@ -216,7 +209,7 @@ autocmd!
 " Filetype
 au BufNewFile,BufRead {Podfile,*.podspec} set filetype=ruby
 
-au BufWritePost .vimrc :exec 'silent ! ' . g:dotvim . '/bin/generate_vimrc_tags.pl'
+au BufWritePost .vimrc :exec 'silent ! ~/.vim/bin/generate_vimrc_tags.pl'
 
 au BufReadPost * call s:DetectBufLocalQuickRunType()
 
