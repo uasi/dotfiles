@@ -74,6 +74,10 @@ set visualbell t_vb= " Silence beep sound.
 set hidden " Hide buffer when it is abonedoned.
 set scrolloff=2 " Set minimum number of lines to keep visible around the cursor.
 
+" Enable incremental search with highlight.
+set hlsearch
+set incsearch
+
 " Enhance command-line completion.
 set wildmenu
 set wildmode=longest,full
@@ -132,7 +136,6 @@ cnoremap <C-B> <Left>
 
 " Unhilight search results by double-tapping <Esc>
 " Yanked from http://d.hatena.ne.jp/viver/20070612/p1
-set hlsearch
 nnoremap <silent> <Esc><Esc> :noh<CR><Esc>
 
 " Insert current file's path and it's base directory, respectively
