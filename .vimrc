@@ -44,8 +44,9 @@ call plug#end()
 " See ~/.vim/plugin/pluged/*.vim for settings of plugins.
 " See ~/.vim/etc/unused_settings.vim for unused plugins.
 
-" To create/remove empty setting file for each plugin,
-" call `plug_helper#stub()` / `plug_helper#unstub()`.
+" Define commands to create/remove empty settings file for each plugin.
+command! PlugStub call plug_helper#stub()
+command! PlugUnstub call plug_helper#unstub()
 
 " Remap gf to open a plug in the browser.
 function! PlugOpen()
