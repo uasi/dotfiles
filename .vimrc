@@ -84,7 +84,7 @@ set visualbell t_vb=
 set backup
 set backupdir=$HOME/.vimbackup
 if !isdirectory(&backupdir)
-        call mkdir(&backupdir)
+  call mkdir(&backupdir)
 endif
 
 let &directory = &backupdir
@@ -105,19 +105,15 @@ syntax on
 filetype plugin on
 filetype indent on
 
-if v:version >= 800
-  " Make wrapped line continue visually indented
-  set breakindent
-  let &breakindentopt = 'sbr'
-  let &showbreak = '> '
-endif
-
-" MacVim specific options
-if has('gui_macvim')
-  set imdisable " Avoid icon duplication
-endif
+" Make wrapped line continue visually indented
+set breakindent
+let &breakindentopt = 'sbr'
+let &showbreak = '> '
 
 let maplocalleader = "_"
+
+" Extend '%' motion
+packadd matchit
 
 "-- Vim settings }}} ---------------------------------------------------------
 "-- Mappings {{{ -------------------------------------------------------------
@@ -202,9 +198,6 @@ augroup vimrc
 " will not be registered twice when reloading .vimrc
 autocmd!
 
-" Filetype
-au BufNewFile,BufRead {Podfile,*.podspec} set filetype=ruby
-
 au BufWritePost .vimrc :exec 'silent ! ~/.vim/bin/generate_vimrc_tags.pl'
 
 " Automatically open QuickFix window
@@ -248,14 +241,3 @@ function! GetStatusEx()
 endfunction
 
 "-- Functions }}} ------------------------------------------------------------
-"-- Miscellany {{{ -----------------------------------------------------------
-
-" Extend '%' functionality.
-" Say, we can jump between if-fi, begin-end, etc.
-" See http://nanasi.jp/articles/vim/matchit_vim.html.
-"
-" To add a pair, do :let b:match_pairs = "(:),<if>:<fi>" or the like.
-"
-source $VIMRUNTIME/macros/matchit.vim
-
-"-- Miscellany }}} -----------------------------------------------------------
