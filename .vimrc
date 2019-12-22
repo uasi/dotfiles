@@ -59,59 +59,52 @@ if has('python3')
   silent! python3 pass
 endif
 
-set tags+=~/.vimrc.tags
+set tags+=~/.vimrc.tags " Add a tags file to jump around my vim settings.
 
-set encoding=utf-8
-set ignorecase
-set smartcase  " Case-sensitive search when query includes uppercase character.
-set laststatus=2  " Always show status-line.
-set foldmethod=marker
-set backspace=indent,eol,start
-set synmaxcol=256  " Limit maximum column upto witch Vim tries to parse syntax.
-set number
+set encoding=utf-8 " Set default encoding. Otherwise it would be latin1.
+set ignorecase " Ignore case in the search pattern.
+set smartcase " Override ignorecase if the search pattern contains uppercase characters.
+set laststatus=2 " Always show status-line.
+set foldmethod=marker " Automatically fold by markers.
+set backspace=indent,eol,start " Allow backspacing over these items.
+set synmaxcol=256 " Limit maximum column upto witch Vim tries to parse syntax.
+set number " Show line number.
+set mouse=a " Enable mouse for *a*ll modes.
+set visualbell t_vb= " Silence beep sound.
+set hidden " Hide buffer when it is abonedoned.
+set scrolloff=2 " Set minimum number of lines to keep visible around the cursor.
 
-set mouse=a
-
-set wildmode=longest,full
+" Enhance command-line completion.
 set wildmenu
+set wildmode=longest,full
 
-set listchars=tab:>-,trail:_
+" Show tabs and trailing whitespaces.
 set list
+set listchars=tab:>-,trail:_
 
-set visualbell t_vb=
-
+" Enable backup.
 set backup
 set backupdir=$HOME/.vimbackup
 if !isdirectory(&backupdir)
   call mkdir(&backupdir)
 endif
 
+" Set swapfile directory.
 let &directory = &backupdir
 
-" Make splitting a window put the new window bottom below and right of the
-" current one
+" Set position of a new split window.
 set splitbelow
 set splitright
 
-" Make a buffer become hidden when it is abonedoned
-set hidden
-
-" Set minimal number of screen lines to keep above and below the cursor
-set scrolloff=2
-
-" Enable syntax and filetype plugin
-syntax on
-filetype plugin on
-filetype indent on
-
-" Make wrapped line continue visually indented
+" Make wrapped line continue visually indented.
 set breakindent
 let &breakindentopt = 'sbr'
 let &showbreak = '> '
 
-let maplocalleader = "_"
+" Set local leader character.
+let maplocalleader = '_'
 
-" Extend '%' motion
+" Extend '%' motion.
 packadd matchit
 
 "-- Vim settings }}} ---------------------------------------------------------
