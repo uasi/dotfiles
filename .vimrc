@@ -19,7 +19,7 @@ Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors' " |vim_multiple_cursors|
 Plug 'thinca/vim-localrc'
-Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-quickrun' " |vim_quickrun|
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive' " |vim_fugitive|
 Plug 'tpope/vim-rails'
@@ -211,8 +211,6 @@ au BufNewFile,BufRead {Podfile,*.podspec} set filetype=ruby
 
 au BufWritePost .vimrc :exec 'silent ! ~/.vim/bin/generate_vimrc_tags.pl'
 
-au BufReadPost * call s:DetectBufLocalQuickRunType()
-
 " Automatically open QuickFix window
 au QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
 
@@ -267,17 +265,6 @@ function! GetStatusEx()
   return str
 endfunction
 
-" Detect buffer local QuickRun type.
-" If the last line of the current file contains `quickrun_type = *`,
-" this function sets buffer local QuickRun type to the specified type.
-function! s:DetectBufLocalQuickRunType()
-  let line = getline('$')
-  let m = matchlist(line, 'quickrun_type *= *\([^ ]\+\)')
-  if len(m) > 0
-    let type = m[1]
-    let b:quickrun_config = {'type': type}
-  end
-endfunction
 
 "-- Functions }}} ------------------------------------------------------------
 "-- Miscellany {{{ -----------------------------------------------------------
