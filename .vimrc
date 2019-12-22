@@ -237,20 +237,6 @@ hi TabLineFill term=reverse cterm=reverse,underline ctermfg=white ctermbg=blue
 "-- Highlight }}}-------------------------------------------------------------
 "-- Functions {{{ ------------------------------------------------------------
 
-" Delete a character under the cursor if char == pat
-" Yanked from http://www.ac.cyberhome.ne.jp/~yakahaira/vimdoc/map.html#abbreviations
-function! Eatchar(pat)
-  let c = nr2char(getchar(0))
-  return (c =~ a:pat) ? '' : c
-endfunction
-
-" Delete a space character under the cursor
-" Usage:
-"    iab <silent> if if()<Left><C-R>=Eatspace()<CR>
-function! Eatspace()
-  return Eatchar('\s')
-endfunction
-
 " Get encoding and newline type
 function! GetStatusEx()
   let str = ''
@@ -264,7 +250,6 @@ function! GetStatusEx()
   endif
   return str
 endfunction
-
 
 "-- Functions }}} ------------------------------------------------------------
 "-- Miscellany {{{ -----------------------------------------------------------
