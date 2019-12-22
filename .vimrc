@@ -149,22 +149,6 @@ inoremap <C-B> <C-X><C-O>
 " Yanked from http://labs.timedia.co.jp/2014/09/learn-about-vim-in-the-workplace.html
 vnoremap * "zy:let @/ = @z<CR>n
 
-if !has('lua')
-  " For neocomplcache (yanked from its manual)
-  imap <C-l> <Plug>(neocomplcache_snippets_expand)
-  smap <C-l> <Plug>(neocomplcache_snippets_expand)
-  inoremap <expr><C-g> neocomplcache#undo_completion()
-  inoremap <expr><C-b> neocomplcache#complete_common_string()
-  " <CR>: close popup and save indent
-  " ... doesn't work if neocomplcache is disabled
-  " inoremap <expr><CR>  (pumvisible() ? "\<C-y>":'') . "\<C-f>\<CR>X\<BS>"
-  " <TAB>: completion
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char
-  inoremap <expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-  inoremap <expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-end
-
 " Miscellany
 cnoremap w!! w !sudo tee > /dev/null %
 inoremap <C-J> <Esc>o
