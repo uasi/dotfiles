@@ -69,6 +69,7 @@ set statusline=%y%{GetStatusEx()}\ %f%m%r%=<%c:%l/%L>
 set foldmethod=marker
 set backspace=indent,eol,start
 set synmaxcol=256  " Limit maximum column upto witch Vim tries to parse syntax.
+set number
 
 set mouse=a
 
@@ -103,11 +104,6 @@ set scrolloff=2
 syntax on
 filetype plugin on
 filetype indent on
-
-if v:version >= 703
-  " Show the line number relative to the cursor line
-  set relativenumber
-endif
 
 if v:version >= 800
   " Make wrapped line continue visually indented
