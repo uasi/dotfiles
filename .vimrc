@@ -63,8 +63,9 @@ au BufEnter .vimrc nmap <buffer> <silent> gf :call PlugOpen()<CR>
 language en_US
 
 " Suppress deprecation warning from Python 3.7.
+" Fixed in 8.1.201.
 " See https://github.com/vim/vim/issues/3117#issuecomment-402622616
-if has('python3')
+if has('python3') && !has('patch-8.1.201')
   silent! python3 pass
 endif
 
