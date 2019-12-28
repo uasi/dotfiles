@@ -47,7 +47,7 @@ alias bu='bundle update'
 
 # Alternatives
 has colordiff && alias diff=colordiff # brew install colordiff; https://www.colordiff.org
-has exa && alias ls=exa # brew install exa; https://the.exa.website
+has exa && alias ls='exa --time-style long-iso' # brew install exa; https://the.exa.website
 
 # Noglob
 alias youtube-dl='noglob \youtube-dl'
