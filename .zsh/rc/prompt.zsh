@@ -63,4 +63,4 @@ else
     PROMPT="%F{64}->%f %# "
 fi
 
-RPROMPT+='[`rprompt-todo``rprompt-git-current-branch`%F{red}%40<..<%f%~%<<]'
+RPROMPT+='[`rprompt-todo``rprompt-git-current-branch`%F{8}%40<..<%f%~%<<]'
