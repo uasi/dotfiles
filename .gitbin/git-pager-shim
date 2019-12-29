@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Use delta <https://github.com/dandavison/delta> as a pager if it exists.
+
+if hash delta 2>/dev/null; then
+    exec delta --dark "$@"
+else
+    exec less "$@"
+fi

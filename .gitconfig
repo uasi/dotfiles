@@ -1,5 +1,6 @@
 [core]
 	quotePath = false
+	pager     = git pager-shim
 [user]
 	name  = Tomoki Aonuma
 	email = uasi@uasi.jp
