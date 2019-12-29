@@ -57,8 +57,8 @@ export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
 #-- PATHs {{{ ----------------------------------------------------------------
 
 path=(
-    # Git
-    $HOME/.gitbin(N-/)
+    # Local (high priority)
+    $HOME/bin(N-/)
 
     # Go
     $HOME/.local/share/go/bin(N-/)
@@ -85,7 +85,6 @@ path=(
     $HOME/.rbenv/shims(N-/)
 
     # Local
-    $HOME/bin(N-/)
     $HOME/.local/bin(N-/)
     /usr/local/(s|)bin(N-/)
     $HOME/Dropbox/Data/Executables(N-/)
