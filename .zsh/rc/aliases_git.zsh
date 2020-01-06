@@ -1,5 +1,3 @@
-alias git='noglob git'
-
 typeset -a git_aliases
 git_aliases=(
     add
@@ -45,8 +43,8 @@ git_aliases=(
     tag
     wip
 )
-for cmd ($git_aliases) {
+for cmd in $git_aliases; do
     alias $cmd="git $cmd"
-}
+done
 
 alias gg='git grep'
