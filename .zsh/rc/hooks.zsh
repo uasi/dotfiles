@@ -5,9 +5,9 @@ _chpwd_dotfiles_git_hook() {
     if [[ "$PWD" = "$HOME" ]]; then
         alias git='noglob git --git-dir=~/.dotfiles.git --work-tree=~'
         alias tig='GIT_DIR=~/.dotfiles.git tig'
-    elif [[ "$OLDPWD" = "$HOME" ]]; then
+    else
         alias git='noglob git'
-        unalias tig
+        unalias tig 2>/dev/null
     fi
 }
 
