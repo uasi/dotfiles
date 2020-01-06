@@ -15,7 +15,7 @@ Plug 'junegunn/fzf'
 Plug 'rhysd/committia.vim'
 Plug 'scrooloose/nerdcommenter' " |nerdcommenter|
 Plug 'scrooloose/nerdtree' " |nerdtree|
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot' " |vim_polyglot|
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region' " |vim_expand_region|
 Plug 'terryma/vim-multiple-cursors' " |vim_multiple_cursors|
