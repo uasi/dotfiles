@@ -8,6 +8,7 @@ Plug 'Shougo/unite.vim' " |unite_vim|
 Plug 'Yggdroot/indentLine' " |indentline|
 Plug 'airblade/vim-gitgutter' " |vim_gitgutter|
 Plug 'bkad/CamelCaseMotion' " |camelcasemotion|
+Plug 'christoomey/vim-tmux-navigator' " |vim_tmux_navigator|
 Plug 'easymotion/vim-easymotion' " |vim_easymotion|
 Plug 'elzr/vim-json' " |vim_json|
 Plug 'itchyny/lightline.vim'
