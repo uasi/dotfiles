@@ -1,5 +1,7 @@
 "-- Plugs {{{ ----------------------------------------------------------------
 
+call plug_helper#install_plug_vim_if_needed()
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
