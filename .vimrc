@@ -131,6 +131,13 @@ if !isdirectory(&directory)
   call mkdir(&directory)
 endif
 
+" Enable undofile.
+set undofile
+set undodir=$VIM_DATA_DIR/undo
+if !isdirectory(&undodir)
+  call mkdir(&undodir)
+endif
+
 "-- Vim settings }}} ---------------------------------------------------------
 "-- Mappings {{{ -------------------------------------------------------------
 
