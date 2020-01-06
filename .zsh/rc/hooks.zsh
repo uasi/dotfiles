@@ -3,9 +3,11 @@ typeset -a precmd_functions
 
 _chpwd_dotfiles_git_hook() {
     if [[ "$PWD" = "$HOME" ]]; then
-        alias git="noglob git --git-dir=~/.dotfiles.git --work-tree=~"
+        alias git='noglob git --git-dir=~/.dotfiles.git --work-tree=~'
+        alias tig='GIT_DIR=~/.dotfiles.git tig'
     elif [[ "$OLDPWD" = "$HOME" ]]; then
-        alias git="noglob git"
+        alias git='noglob git'
+        unalias tig
     fi
 }
 
