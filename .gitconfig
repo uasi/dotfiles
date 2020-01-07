@@ -19,7 +19,7 @@
 	cia            = commit -a -m
 	recommit       = commit -c ORIG_HEAD
 	co             = checkout
-	copr           = !hub pr checkout
+	copr           = pr-checkout
 	dh             = diff HEAD
 	dh1            = diff HEAD^
 	dh2            = diff HEAD^^
