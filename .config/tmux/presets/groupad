@@ -5,4 +5,6 @@ cd ~/work/groupad
 tmux \
     new-window -n groupad \;\
     split-window -d -h -p 30 \;\
-    send-keys -t .+ "docker-compose up" Enter
+    split-window -t 1 -d -v \;\
+    send-keys -t 1 "docker-compose up" Enter \;\
+    send-keys -t 2 "sleep 5; bundle exec rails s" Enter
