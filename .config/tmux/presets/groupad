@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ~/work/groupad
+
+tmux \
+    new-window -n groupad \;\
+    split-window -d -h -p 30 \;\
+    send-keys -t .+ "docker-compose up" Enter

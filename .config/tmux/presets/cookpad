@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ~/work/cookpad_all/cookpad
+
+tmux \
+    new-window -n cookpad \;\
+    split-window -d -h -p 30 \;\
+    send-keys -t .+ "foreman start" Enter

@@ -1,0 +1,6 @@
+cd ~/work/staging-mailbox
+
+tmux \
+    new-window -n staging-mailbox \;\
+    split-window -d -h -p 30 \;\
+    send-keys -t .+ "bundle exec rails s" Enter

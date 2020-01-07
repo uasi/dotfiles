@@ -185,3 +185,40 @@ mygem() {
 
     GEMRC=$HOME/.gem/mygemrc gem "$@"
 }
+
+tm() {
+    if [[ -z "$1" ]]; then
+        echo "usage: tm <tmux-preset>" >&2
+        return 1
+    fi
+
+    local file
+    if [[ "$1" = */* ]]; then
+        file=$1
+    else
+        file=~/.config/tmux/presets/$1
+    fi
+
+    if [[ -x "$file" ]]; then
+        "$file"
+    else
+        tmux source-file "$file"
+    fi
+}
+
+_tm() {
+    # Hint: _arguments '<arg-pos-to-complete>:<desc>:<completer>'
+    _arguments '1: :_tm_presets'
+}
+
+_tm_presets() {
+    # Hint: _values <group-name> <candidate>...
+    _values \
+        preset \
+        ~/.config/tmux/presets/^README.md(.:t)
+}
+
+compdef _tm tm
+
+# Complete case-insensitively and make matching occur on both sides of the current word.
+zstyle ':completion:*:complete:tm:*' matcher '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
