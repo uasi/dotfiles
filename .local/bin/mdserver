@@ -64,7 +64,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         urlparts = urlparse(self.path)
-        if urlparts.path =='/':
+        if urlparts.path == '/':
             self.send_index()
         else:
             super().do_GET()
@@ -91,7 +91,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         star = '**/*' if self.recursive else '*'
         pattern = os.path.join(glob.escape(self.directory), star + '.md')
         paths = glob.glob(pattern)
-        relpaths = sorted(os.path.relpath(path, self.directory) for path in paths)
+        relpaths = sorted(os.path.relpath(path, self.directory)
+                          for path in paths)
         return relpaths
 
 
@@ -112,7 +113,7 @@ def main():
     with socketserver.TCPServer(('', args.port), handler_class) as httpd:
         recursively = ' recursively' if args.recursive else ''
         print('Serving Markdown files in "{}"{}.'
-            .format(args.directory, recursively))
+              .format(args.directory, recursively))
         print('Listening on http://localhost:{}'.format(args.port))
         try:
             httpd.serve_forever()
