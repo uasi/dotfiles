@@ -1,20 +1,18 @@
 git() {
     if [[ "$PWD" = "$HOME" ]]; then
-        "$commands[git]" --git-dir=~/.dotfiles.git --work-tree=~ "$@"
+        "${commands[git]}" --git-dir=~/.dotfiles.git --work-tree=~ "$@"
     else
-        "$commands[git]" "$@"
+        "${commands[git]}" "$@"
     fi
 }
-alias git='noglob git'
 
 tig() {
     if [[ "$PWD" = "$HOME" ]]; then
-        GIT_DIR=~/.dotfiles.git "$commands[tig]" "$@"
+        GIT_DIR=~/.dotfiles.git "${commands[tig]}" "$@"
     else
-        "$commands[tig]" "$@"
+        "${commands[tig]}" "$@"
     fi
 }
-alias tig='noglob tig'
 
 typeset -a git_aliases
 git_aliases=(
