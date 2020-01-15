@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "yaml"
+
+if %w[-p --pretty].include?(ARGV[0])
+  ARGV.shift
+  pretty = true
+end
+
+data = YAML.load(ARGF.read)
+if pretty
+  puts JSON.pretty_generate(data)
+else
+  puts JSON.generate(data)
+end
