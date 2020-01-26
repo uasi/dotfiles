@@ -106,40 +106,6 @@ _arguments "${_arguments_options[@]}" \
 '::tool -- The tool to lookup: `all`, `node`, `yarn`, or the name of a package or binary.:_files' \
 && ret=0
 ;;
-(current)
-_arguments "${_arguments_options[@]}" \
-'-p[Display the current project'\''s Node version]' \
-'--project[Display the current project'\''s Node version]' \
-'-d[Display the default Node version]' \
-'--default[Display the default Node version]' \
-'-h[Prints help information]' \
-'--help[Prints help information]' \
-'-V[Prints version information]' \
-'--version[Prints version information]' \
-'--verbose[Enables verbose diagnostics]' \
-'(--verbose)--quiet[Prevents unnecessary output]' \
-&& ret=0
-;;
-(deactivate)
-_arguments "${_arguments_options[@]}" \
-'-h[Prints help information]' \
-'--help[Prints help information]' \
-'-V[Prints version information]' \
-'--version[Prints version information]' \
-'--verbose[Enables verbose diagnostics]' \
-'(--verbose)--quiet[Prevents unnecessary output]' \
-&& ret=0
-;;
-(activate)
-_arguments "${_arguments_options[@]}" \
-'-h[Prints help information]' \
-'--help[Prints help information]' \
-'-V[Prints version information]' \
-'--version[Prints version information]' \
-'--verbose[Enables verbose diagnostics]' \
-'(--verbose)--quiet[Prevents unnecessary output]' \
-&& ret=0
-;;
 (completions)
 _arguments "${_arguments_options[@]}" \
 '-o+[File to write generated completions to]' \
@@ -177,6 +143,16 @@ _arguments "${_arguments_options[@]}" \
 '::anything:_files' \
 && ret=0
 ;;
+(setup)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'--verbose[Enables verbose diagnostics]' \
+'(--verbose)--quiet[Prevents unnecessary output]' \
+&& ret=0
+;;
 (help)
 _arguments "${_arguments_options[@]}" \
 '-h[Prints help information]' \
@@ -200,22 +176,13 @@ _volta_commands() {
 "uninstall:Uninstalls a tool from your toolchain" \
 "pin:Pins your project's runtime or package manager" \
 "list:Displays the current toolchain" \
-"current:\[DEPRECATED\] Displays the currently activated Node version" \
-"deactivate:\[DEPRECATED\] Disables Volta in the current shell" \
-"activate:\[DEPRECATED\] Re-enables Volta in the current shell" \
 "completions:Generates Volta completions" \
 "which:Locates the actual binary that will be called by Volta" \
 "use:" \
+"setup:Enables Volta for the current user / shell" \
 "help:Prints this message or the help of the given subcommand(s)" \
     )
     _describe -t commands 'volta commands' commands "$@"
-}
-(( $+functions[_volta__activate_commands] )) ||
-_volta__activate_commands() {
-    local commands; commands=(
-        
-    )
-    _describe -t commands 'volta activate commands' commands "$@"
 }
 (( $+functions[_volta__completions_commands] )) ||
 _volta__completions_commands() {
@@ -223,20 +190,6 @@ _volta__completions_commands() {
         
     )
     _describe -t commands 'volta completions commands' commands "$@"
-}
-(( $+functions[_volta__current_commands] )) ||
-_volta__current_commands() {
-    local commands; commands=(
-        
-    )
-    _describe -t commands 'volta current commands' commands "$@"
-}
-(( $+functions[_volta__deactivate_commands] )) ||
-_volta__deactivate_commands() {
-    local commands; commands=(
-        
-    )
-    _describe -t commands 'volta deactivate commands' commands "$@"
 }
 (( $+functions[_volta__fetch_commands] )) ||
 _volta__fetch_commands() {
@@ -286,6 +239,13 @@ _volta__pin_commands() {
         
     )
     _describe -t commands 'volta pin commands' commands "$@"
+}
+(( $+functions[_volta__setup_commands] )) ||
+_volta__setup_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'volta setup commands' commands "$@"
 }
 (( $+functions[_volta__uninstall_commands] )) ||
 _volta__uninstall_commands() {
