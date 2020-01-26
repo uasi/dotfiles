@@ -23,7 +23,7 @@ if has vim; then
 fi
 
 
-if [[ -x ~/.volta/volta ]]; then
+if [[ -x ~/.volta/bin/volta ]]; then
     (
         volta_latest_version() {
             curl -fs https://raw.githubusercontent.com/volta-cli/volta/master/RELEASES.md \
@@ -31,7 +31,7 @@ if [[ -x ~/.volta/volta ]]; then
                 | sed  '1!d; s/# Version //'
         }
 
-        current=$(~/.volta/volta --version)
+        current=$(~/.volta/bin/volta --version)
         latest=$(volta_latest_version)
 
         echo "note: Volta doesn't support self update yet."
@@ -46,5 +46,5 @@ if [[ -x ~/.volta/volta ]]; then
         fi
     )
 
-    ( set -x ; ~/.volta/volta completions zsh -f -o ~/.zsh/functions/_volta )
+    ( set -x ; ~/.volta/bin/volta completions zsh -f -o ~/.zsh/functions/_volta )
 fi
