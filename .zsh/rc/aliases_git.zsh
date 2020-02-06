@@ -1,16 +1,16 @@
 git() {
     if [[ "$PWD" = "$HOME" ]]; then
-        "${commands[git]}" --git-dir=~/.dotfiles.git --work-tree=~ "$@"
+        noglob "${commands[git]}" --git-dir=~/.dotfiles.git --work-tree=~ "$@"
     else
-        "${commands[git]}" "$@"
+        noglob "${commands[git]}" "$@"
     fi
 }
 
 tig() {
     if [[ "$PWD" = "$HOME" ]]; then
-        GIT_DIR=~/.dotfiles.git "${commands[tig]}" "$@"
+        GIT_DIR=~/.dotfiles.git noglob "${commands[tig]}" "$@"
     else
-        "${commands[tig]}" "$@"
+        noglob "${commands[tig]}" "$@"
     fi
 }
 
@@ -60,7 +60,7 @@ git_aliases=(
     wip
 )
 for cmd in $git_aliases; do
-    alias $cmd="git $cmd"
+    alias $cmd="noglob git $cmd"
 done
 
-alias gg='git grep'
+alias gg='noglob git grep'
