@@ -132,3 +132,5 @@
 	submodulesummary = true
 [pull]
 	ff = only
+[advice]
+	detachedHead = false
