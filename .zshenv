@@ -45,6 +45,18 @@ export FZF_DEFAULT_OPTS="--multi --extended"
 # Go
 export GOPATH=$HOME/.local/share/go
 
+# Python 3.8 bug?
+#
+# If LC_CTYPE is unset, it dies on startup with the message below:
+#
+# > Fatal Python error: config_get_locale_encoding: failed to get the locale encoding: nl_langinfo(CODESET) failed
+# > Python runtime state: preinitialized
+#
+# `nl_langinfo(CODESET)` seems to return LC_CTYPE: https://linuxjm.osdn.jp/html/LDP_man-pages/man3/nl_langinfo.3.html
+#
+# Related discussion: https://bugs.python.org/issue39397
+export LC_CTYPE=ja_JP.UTF-8
+
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
