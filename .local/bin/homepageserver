@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+
+import argparse
+import html
+import http.server
+import os
+import socketserver
+import subprocess
+import sys
+from functools import partial
+from http import HTTPStatus
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+
+VSCODE_BIN_PATH = \
+    '/Applications/Visual Studio Code.app/' \
+    'Contents/Resources/app/bin/code'
+LAUNCH_PLIST = '''\
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" \
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>localhost.homepageserver</string>
+    <key>ProgramArguments</key>
+    <array>
+       <string>{executable}</string>
+       <string>--port={port}</string>
+       <string>{directory}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>
+'''
+
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def do_POST(self):
+        urlparts = urlparse(self.path)
+        if urlparts.path == '/':
+            self.__edit()
+        else:
+            self.send_error(HTTPStatus.NotFound)
+
+    def __edit(self):
+        body_size = int(self.headers.get('content-length'))
+        body = self.rfile.read(body_size).decode('utf-8')
+        query = parse_qs(body)
+
+        path = None
+        if 'edit' in query:
+            path = Path(self.directory) / query['edit'][0]
+        if path is None or not path.exists():
+            self.send_error(HTTPStatus.BAD_REQUEST)
+            return
+
+        subprocess.run([VSCODE_BIN_PATH, str(path)], cwd=self.directory)
+        self.send_response(HTTPStatus.NO_CONTENT)
+        self.end_headers()
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--port', type=int, default=8902)
+    parser.add_argument(
+        '--install-launch-plist',
+        action='store_true',
+        help='install launch.plist and exit')
+    parser.add_argument('directory', type=str, nargs='?', default=os.getcwd())
+    args = parser.parse_args()
+
+    if args.install_launch_plist:
+        install_launch_plist(args)
+        return
+
+    handler_class = partial(Handler, directory=args.directory)
+
+    with socketserver.TCPServer(('', args.port), handler_class) as httpd:
+        print(f'Serving files in "{args.directory}".')
+        print(f'Listening on http://localhost:{args.port}')
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print('\nStopped.')
+
+
+def install_launch_plist(args):
+    executable = Path(__file__).resolve()
+    directory = html.escape(str(Path(args.directory).resolve()))
+    launch_plist = LAUNCH_PLIST.format(
+        executable=executable,
+        port=args.port,
+        directory=directory)
+    plist_path = 'Library/LaunchAgents/localhost.homepageserver.plist'
+    with open(Path.home() / plist_path, mode='w') as f:
+        f.write(launch_plist)
+    print(
+        'Successfully installed. '
+        f'Run `launchctl load ~/{plist_path}` to load now.')
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        if os.environ.get('TRACE', None) == '1':
+            raise
+        else:
+            print(f'error: {e}', file=sys.stderr)
+            sys.exit(1)
