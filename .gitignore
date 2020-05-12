@@ -75,7 +75,9 @@
 /.hex/
 /.httpie/
 /.idea/
+/.ipython/
 /.itmstransporter/
+/.jupyter/
 /.jspm/
 /.kiex/
 /.kube/
