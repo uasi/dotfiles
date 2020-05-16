@@ -18,6 +18,22 @@ if has rustup; then
     )
 fi
 
+if has cargo; then
+    (
+        echo "note: Updating crates.io index."
+        set -x
+
+        # Cargo doesn't have a proper subcommand to update index yet.
+        # See https://github.com/rust-lang/cargo/issues/3377
+        tempdir=$(mktemp -d "${TMPDIR:-/tmp/}cargo-update-index.XXXXXX")
+        [[ $? = 0 ]] || exit 1
+        cargo init --name x "$tempdir" \
+            && cd "$tempdir" \
+            && echo 'lazy_static = "*"' >> Cargo.toml \
+            && cargo update
+    )
+fi
+
 if has vim; then
     ( set -x ; unset GIT_DIR GIT_WORK_TREE ; vim -c PlugUpgrade -c PlugUpdate -c qa )
 fi
@@ -46,5 +62,6 @@ if [[ -x ~/.volta/bin/volta ]]; then
         fi
     )
 
-    ( set -x ; ~/.volta/bin/volta completions zsh -f -o ~/.zsh/functions/_volta )
+    # `volta completions zsh` is broken at volta v0.8.0.
+    # ( set -x ; ~/.volta/bin/volta completions zsh -f -o ~/.zsh/functions/_volta )
 fi
