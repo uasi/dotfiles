@@ -29,6 +29,10 @@ export SAVEHIST=100000
 #-- Zsh settings }}} ---------------------------------------------------------
 #-- Application settings {{{ -------------------------------------------------
 
+# Deno
+export DENO_DIR=$HOME/.local/share/deno
+export DENO_INSTALL_ROOT=$DENO_DIR
+
 # Docker
 export DOCKER_HIDE_LEGACY_COMMANDS=true # Show only new commands in docker --help.
 
@@ -71,6 +75,9 @@ export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
 path=(
     # Local (high priority)
     $HOME/bin(N-/)
+
+    # Deno
+    $DENO_INSTALL_ROOT/bin(N-/)
 
     # Go
     $HOME/.local/share/go/bin(N-/)
