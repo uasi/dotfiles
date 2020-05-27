@@ -153,6 +153,24 @@ _arguments "${_arguments_options[@]}" \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 && ret=0
 ;;
+(run)
+_arguments "${_arguments_options[@]}" \
+'--node=[Set the custom Node version]' \
+'(--bundled-npm)--npm=[Set the custom npm version]' \
+'(--no-yarn)--yarn=[Set the custom Yarn version]' \
+'*--env=[Set an environment variable (can be used multiple times)]' \
+'(--npm)--bundled-npm[Forces npm to be the version bundled with Node]' \
+'(--yarn)--no-yarn[Disables Yarn]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'--verbose[Enables verbose diagnostics]' \
+'(--verbose)--quiet[Prevents unnecessary output]' \
+':command -- The command to run:_files' \
+'::args -- Arguments to pass to the command:_files' \
+&& ret=0
+;;
 (help)
 _arguments "${_arguments_options[@]}" \
 '-h[Prints help information]' \
@@ -180,6 +198,7 @@ _volta_commands() {
 "which:Locates the actual binary that will be called by Volta" \
 "use:" \
 "setup:Enables Volta for the current user / shell" \
+"run:Run a command with custom Node, npm, and/or Yarn versions" \
 "help:Prints this message or the help of the given subcommand(s)" \
     )
     _describe -t commands 'volta commands' commands "$@"
@@ -239,6 +258,13 @@ _volta__pin_commands() {
         
     )
     _describe -t commands 'volta pin commands' commands "$@"
+}
+(( $+functions[_volta__run_commands] )) ||
+_volta__run_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'volta run commands' commands "$@"
 }
 (( $+functions[_volta__setup_commands] )) ||
 _volta__setup_commands() {
