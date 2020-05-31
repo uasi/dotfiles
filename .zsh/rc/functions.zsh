@@ -115,7 +115,7 @@ alias f=gitf
 
 f:() {
     local arg1=":$1"
-    shift
+    [[ $# > 0 ]] && shift
     gitf "$arg1" "$@"
 }
 
