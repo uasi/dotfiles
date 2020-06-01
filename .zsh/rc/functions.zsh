@@ -30,6 +30,51 @@ help() {
     $pager "$helpdir/$1.md"
 }
 
+mkbin() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: mkbin <name>" >&2
+        return 1
+    fi
+
+    local name=$1
+
+    if [[ ! -e "$name" ]]; then
+        cat > "$name" <<'EOS'
+#!/bin/bash
+
+
+EOS
+    fi
+
+    chmod +x "$name"
+    vim '+$' "$name"
+}
+
+mk,bin() {
+    if [[ -e ,bin ]]; then
+        echo "Error: ,bin already exists" >&2
+        return 1
+    fi
+
+    mkdir ,bin
+
+    if [[ -e .envrc ]]; then
+        echo "Warn: .envrc already exists" >&2
+        return 0
+    fi
+
+    cat > .envrc <<'EOS'
+export PATH=$PWD/,bin:$PATH
+EOS
+
+    if (( $+commands[direnv] )); then
+        direnv allow
+    else
+        echo "Warn: direnv not found; did not run \`direnv allow\`"
+        return 0
+    fi
+}
+
 unpath() {
     local item
     local paths
