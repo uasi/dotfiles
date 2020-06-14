@@ -74,6 +74,7 @@
 
 	# GHQ integration
 	get             = !"sh -c 'ghq get \"$@\"' -"
+	get-readonly    = !"sh -c 'GHQ_ROOT=~/repos/readonly ghq get \"$@\"' -"
 	update          = !"sh -c 'ghq import -u local'"
 
 [color]
