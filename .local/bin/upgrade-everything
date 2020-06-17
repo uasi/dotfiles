@@ -42,7 +42,7 @@ fi
 if [[ -x ~/.volta/bin/volta ]]; then
     (
         volta_latest_version() {
-            curl -fs https://raw.githubusercontent.com/volta-cli/volta/master/RELEASES.md \
+            curl -fs https://raw.githubusercontent.com/volta-cli/volta/main/RELEASES.md \
                 | grep '^# Version ' \
                 | sed  '1!d; s/# Version //'
         }
