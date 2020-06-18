@@ -63,4 +63,6 @@ if [[ -x ~/.volta/bin/volta ]]; then
     )
 
     ( set -x ; ~/.volta/bin/volta completions zsh -f -o ~/.zsh/functions/_volta )
+
+    ( set -x ; volta list --format=plain all | perl -lnE 'say $1 if /^package ([^@]+)/' | xargs volta install )
 fi
