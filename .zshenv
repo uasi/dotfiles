@@ -66,6 +66,9 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
 ### My apps
 
+# phog (a.k.a. photo_grabber-NG)
+export PHOG_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
+
 # photo_grabber
 export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
 
