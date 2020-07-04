@@ -87,7 +87,7 @@ _arguments "${_arguments_options[@]}" \
 '--version[Prints version information]' \
 '--verbose[Enables verbose diagnostics]' \
 '(--verbose)--quiet[Prevents unnecessary output]' \
-'::tool -- The tool to lookup: `all`, `node`, `yarn`, or the name of a package or binary.:_files' \
+'::tool -- The tool to lookup - `all`, `node`, `yarn`, or the name of a package or binary.:_files' \
 && ret=0
 ;;
 (list)
@@ -103,7 +103,7 @@ _arguments "${_arguments_options[@]}" \
 '--version[Prints version information]' \
 '--verbose[Enables verbose diagnostics]' \
 '(--verbose)--quiet[Prevents unnecessary output]' \
-'::tool -- The tool to lookup: `all`, `node`, `yarn`, or the name of a package or binary.:_files' \
+'::tool -- The tool to lookup - `all`, `node`, `yarn`, or the name of a package or binary.:_files' \
 && ret=0
 ;;
 (completions)
