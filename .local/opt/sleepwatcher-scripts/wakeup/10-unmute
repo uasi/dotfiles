@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+use v5.10;
+use strict;
+use warnings;
+use JSON::PP;
+use List::Util qw(any);
+
+sub notify {
+    my $msg = shift;
+    `osascript -e 'display notification "$msg"'`;
+    $msg;
+}
+
+sub get_home_ssids {
+    my $ssids = eval {
+        decode_json `defaults read localhost.sleepwatcher HomeSSIDs | plutil -convert json - -o -`;
+    };
+    if ($@) {
+        die notify('~/.wakeup could not read defaults from localhost.sleepwatcher.plist.');
+        # Try `defaults write localhost.sleepwatcher HomeSSIDs '("Foo", "Bar")'`
+    }
+    @$ssids;
+}
+
+if (`defaults read localhost.sleepwatcher IsMutedBeforeSleep` eq "true\n") {
+    say 'Speaker had been muted before Mac was going to sleep. Kept speaker muted.';
+    exit;
+}
+
+# ~/.sleep should have muted speaker. Mute again just in case it haven't.
+`osascript -e 'set volume output muted true'`;
+
+my @home_ssids = get_home_ssids;
+
+say 'Waiting 5 seconds to make sure network connection is established...';
+sleep 5;
+
+my $network = `networksetup -getairportnetwork en0`;
+chomp $network;
+
+if ($network =~ /^Current Wi-Fi Network: (.*)/) {
+    if (any { $_ eq $1 } @home_ssids) {
+        `osascript -e 'set volume output muted false'`;
+        say notify('Detected home network. Unmuted speaker.');
+    } else {
+        say notify('Detected non-home network. Kept speaker muted.');
+    }
+} elsif ($network =~ /^You are not associated with an AirPort network\./) {
+    say notify('Could not detect Wi-Fi network. Kept speaker muted.');
+} else {
+    die notify('~/.wakeup detected unexpected network configuration.');
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ "$(osascript -e 'output muted of (get volume settings)')" = true ]]; then
+    defaults write localhost.sleepwatcher IsMutedBeforeSleep true
+else
+    defaults write localhost.sleepwatcher IsMutedBeforeSleep false
+fi
+
+osascript -e 'set volume output muted true'
