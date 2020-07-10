@@ -42,7 +42,7 @@ chomp $network;
 if ($network =~ /^Current Wi-Fi Network: (.*)/) {
     if (any { $_ eq $1 } @home_ssids) {
         `osascript -e 'set volume output muted false'`;
-        say notify('Detected home network. Unmuted speaker.');
+        say 'Detected home network. Unmuted speaker.';
     } else {
         say notify('Detected non-home network. Kept speaker muted.');
     }
