@@ -47,6 +47,7 @@ alias bu='bundle update'
 
 # Shorthands
 alias ydl=youtube-dl
+alias ydl-live='youtube-dl --hls-use-mpegts'
 
 # Alternatives
 has colordiff && alias diff=colordiff # brew install colordiff; https://www.colordiff.org
