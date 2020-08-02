@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>localhost.worklog-merger</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>FSWATCH_BIN</key>
+		<string>/usr/local/bin/fswatch</string>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<!--
+			To allow the watch command to access Documents,
+			go to System Preferences / Security and Privacy / Full Disk Access and allow **/bin/bash**.
+		-->
+		<string>/Users/uasi/.local/opt/worklog-merger/bin/watch</string>
+		<string>--desc</string>
+		<string>/Users/uasi/Documents/Worklog</string>
+		<string>/Users/uasi/Documents/MERGED_WORKLOG.md</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+</dict>
+</plist>

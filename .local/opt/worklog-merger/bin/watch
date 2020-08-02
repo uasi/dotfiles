@@ -1,0 +1,8 @@
+#!/bin/bash
+
+dir="$(cd "$(dirname "$0")" && pwd)"
+
+"${FSWATCH_BIN:-fswatch}" --one-per-batch --latency=3 "$2" | while read -r _changed; do
+    echo "Change detected. Running merger."
+    "$dir/merge" "$1" "$2" "$3"
+done
