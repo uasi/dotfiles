@@ -25,6 +25,7 @@ Plug 'terryma/vim-multiple-cursors' " |vim_multiple_cursors|
 Plug 'thinca/vim-quickrun' " |vim_quickrun|
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive' " |vim_fugitive|
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/Align'
