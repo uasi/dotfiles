@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'uri'
+
+trap :INT do
+  exit 1
+end
+
+ARGF.each do |line|
+  URI.extract(line).each do |uri|
+    puts uri
+  end
+  $stdout.flush
+end
+
