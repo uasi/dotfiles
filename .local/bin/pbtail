@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+raw = ARGV.include?('-r') || ARGV.include?('--raw')
+
+trap :INT do
+  exit 0
+end
+
+prev_pb = `pbpaste`
+
+loop do
+  sleep 1
+
+  pb = `pbpaste`
+  if pb != prev_pb
+    print pb
+    puts if !raw && pb[-1] != "\n"
+    prev_pb = pb
+  end
+end
