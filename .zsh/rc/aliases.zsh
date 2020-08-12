@@ -46,6 +46,7 @@ alias bi='bundle install'
 alias bu='bundle update'
 
 # Shorthands
+alias phog='RUST_BACKTRACE=full phog'
 alias ydl=youtube-dl
 alias ydl-live='youtube-dl --hls-use-mpegts'
 
