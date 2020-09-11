@@ -63,7 +63,7 @@ mk,bin() {
         return 0
     fi
 
-    cat > .envrc <<'EOS'
+    cat >> .envrc <<'EOS'
 export PATH=$PWD/,bin:$PATH
 EOS
 
