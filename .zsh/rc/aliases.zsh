@@ -20,7 +20,6 @@ esac
 
 # Shorthands for builtin commands
 alias h=history
-alias j=jobs
 
 # chdir shorthands
 alias -g ...=../..
@@ -46,6 +45,7 @@ alias bi='bundle install'
 alias bu='bundle update'
 
 # Shorthands
+alias j=just
 alias phog='RUST_BACKTRACE=full phog'
 alias ydl=youtube-dl
 alias ydl-live='youtube-dl --hls-use-mpegts'
