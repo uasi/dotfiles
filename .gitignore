@@ -118,3 +118,4 @@
 /.help/
 /.totp.toml
 /.vimrc.tags
+/.zshrc.local
