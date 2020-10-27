@@ -44,8 +44,17 @@ alias be='bundle exec'
 alias bi='bundle install'
 alias bu='bundle update'
 
+# Yarn
+alias ya='yarn add'
+alias yi='yarn install'
+alias yr='yarn run'
+alias yrm='yarn remove'
+alias yu='yarn upgrade'
+alias yui='yarn upgrade-interactive'
+
 # Shorthands
 alias j=just
+alias J='just --choose'
 alias phog='RUST_BACKTRACE=full phog'
 alias ydl=youtube-dl
 alias ydl-live='youtube-dl --hls-use-mpegts'
