@@ -6,6 +6,8 @@
 	email = uasi@uasi.jp
 [includeIf "gitdir:~/work/"]
 	path = ~/.gitconfig.work
+[includeIf "gitdir:~/repos/ghe.ckpd.co/"]
+	path = ~/.gitconfig.work
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
 [alias]
