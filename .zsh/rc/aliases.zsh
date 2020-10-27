@@ -53,7 +53,7 @@ alias yu='yarn upgrade'
 alias yui='yarn upgrade-interactive'
 
 # Shorthands
-alias .j='just --justfile ~/.local/share/just/global.justfile'
+alias .j='just --justfile=~/.local/share/just/global.justfile'
 alias j=just
 alias J='just --choose'
 alias .j="just --justfile ${(q)HOME}/.local/share/just/global.justfile"
