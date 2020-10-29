@@ -4,7 +4,7 @@ autoload -U is-at-least
 
 _just() {
     typeset -A opt_args
-    typeset -a _arguments_options
+    typeset -a _arguments_options justfile_opt
     local ret=1
 
     if is-at-least 5.2; then
@@ -17,8 +17,8 @@ _just() {
     local common=(
 '--chooser=[Override binary invoked by `--choose`]' \
 '--color=[Print colorful output]: :(auto always never)' \
-'-f+[Use <JUSTFILE> as justfile.]' \
-'--justfile=[Use <JUSTFILE> as justfile.]' \
+'(-f --justfile)-f+[Use <JUSTFILE> as justfile.]: :->file' \
+'(-f --justfile)--justfile=[Use <JUSTFILE> as justfile.]: :->file' \
 '*--set[Override <VARIABLE> with <VALUE>]: :_just_variables' \
 '--shell=[Invoke <SHELL> to run recipes]' \
 '*--shell-arg=[Invoke shell with <SHELL-ARG> as an argument]' \
@@ -59,6 +59,8 @@ _just() {
         '*: :->args' \
         && ret=0
 
+    _just_extract_justfile_opt
+
     case $state in
         args)
             curcontext="${curcontext%:*}-${words[2]}:"
@@ -67,7 +69,7 @@ _just() {
             local recipe
 
             local cmds; cmds=(
-                ${(s: :)$(_call_program commands just --summary)}
+                ${(s: :)$(_call_program commands just ${justfile_opt[@]} --summary)}
             )
 
             # Find first recipe name
@@ -86,7 +88,7 @@ _just() {
                 _message "value"
             elif [[ $recipe ]]; then
                 # Show usage message
-                _message "`just --show $recipe`"
+                _message "$(just ${(Q)justfile_opt[@]} --show $recipe)" # ZSH BUG???: Unquote needed here. Maybe because the $() is in a double-quoted string.
                 # Or complete with other commands
                 #_arguments -s -S $common '*:: :_just_commands'
             else
@@ -102,11 +104,12 @@ _just() {
 _just_commands() {
     [[ $PREFIX = -* ]] && return 1
     integer ret=1
+    _just_extract_justfile_opt
     local variables; variables=(
-        ${(s: :)$(_call_program commands just --variables)}
+        ${(s: :)$(_call_program commands just ${justfile_opt[@]} --variables)}
     )
     local commands; commands=(
-        ${${${(M)"${(f)$(_call_program commands just --list)}":#    *}/ ##/}/ ##/:Args: }
+        ${${${(M)"${(f)$(_call_program commands just ${justfile_opt[@]} --list)}":#    *}/ ##/}/ ##/:Args: }
     )
 
     if compset -P '*='; then
@@ -124,8 +127,9 @@ _just_commands() {
 _just_variables() {
     [[ $PREFIX = -* ]] && return 1
     integer ret=1
+    _just_extract_justfile_opt
     local variables; variables=(
-        ${(s: :)$(_call_program commands just --variables)}
+        ${(s: :)$(_call_program commands just ${justfile_opt[@]} --variables)}
     )
 
     if compset -P '*='; then
@@ -137,6 +141,15 @@ _just_variables() {
     fi
 
     return ret
+}
+
+(( $+functions[_just_extract_justfile_opt] )) ||
+_just_extract_justfile_opt() {
+    local file=${(v)opt_args[(I)(-f|--justfile)]}
+    if [[ -n "$file" ]]; then
+        file=$(print $file) # ZSH BUG???: Without this, `${(Q)file}` or `${(Q)justfile_opt}` don't unquote a space escaped by a backslash.
+        justfile_opt=(--justfile $file)
+    fi
 }
 
 _just "$@"
