@@ -55,6 +55,7 @@ alias yui='yarn upgrade-interactive'
 # Shorthands
 alias j=just
 alias J='just --choose'
+alias .j="just --justfile ${(q)HOME}/.local/share/just/global.justfile"
 alias phog='RUST_BACKTRACE=full phog'
 alias ydl=youtube-dl
 alias ydl-live='youtube-dl --hls-use-mpegts'
