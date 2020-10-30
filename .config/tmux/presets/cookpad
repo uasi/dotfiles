@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cd ~/work/cookpad_all/cookpad
+cd ~/repos/ghe.ckpd.co/tech/cookpad_all/cookpad
 
 tmux \
     new-window -n cookpad \;\
     split-window -d -h -p 30 \;\
-    send-keys -t .+ "envchain aws-cookpad foreman start" Enter
+    send-keys -t .+ "envchain aws foreman start" Enter
