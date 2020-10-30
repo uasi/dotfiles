@@ -49,8 +49,9 @@ alias ya='yarn add'
 alias yi='yarn install'
 alias yr='yarn run'
 alias yrm='yarn remove'
-alias yu='yarn upgrade'
+alias yul='yarn upgrade --latest'
 alias yui='yarn upgrade-interactive'
+alias yuil='yarn upgrade-interactive --latest'
 
 # Shorthands
 alias .j='just --justfile=~/.local/share/just/global.justfile'
