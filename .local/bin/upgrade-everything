@@ -5,7 +5,7 @@ has() {
 }
 
 if has brew; then
-    ( set -x ; brew update && brew upgrade && brew cask upgrade )
+    ( set -x ; brew update && brew upgrade && brew upgrade --cask )
 fi
 
 if has rustup; then
