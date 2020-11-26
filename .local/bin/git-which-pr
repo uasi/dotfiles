@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+
+use 5.026;
+use strict;
+use warnings;
+
+my @output = `git-when-merged -l $ARGV[0]`;
+
+for my $line (@output) {
+    $line =~ /Merge pull request #(\d+)/;
+    if ($1) {
+        exec 'gh', 'pr', 'view', '-w', $1;
+    }
+}
