@@ -112,6 +112,7 @@
 /.wine/
 /.yarn/
 /.yeoman/
+/.zcompcache/
 /.zoekt/
 
 # Personal stuff
