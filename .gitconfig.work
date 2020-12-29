@@ -1,3 +1,4 @@
+# vi: ft=gitconfig
 [user]
 	name = Tomoki Aonuma
 	email = uasi@cookpad.com
@@ -7,3 +8,16 @@
 	insteadOf = https://ghe.ckpd.co/
 [hub]
 	host = ghe.ckpd.co
+[maintenance]
+	repo = /Users/uasi/repos/ghe.ckpd.co/infra/infra/iam
+	repo = /Users/uasi/repos/ghe.ckpd.co/tech/cookpad_all
+	repo = /Users/uasi/repos/ghe.ckpd.co/tech/groupad
+	repo = /Users/uasi/repos/ghe.ckpd.co/tech/next-cookpad
+	repo = /opt/brew/Homebrew
+	repo = /opt/brew/Homebrew/Library/Taps/adoptopenjdk/homebrew-openjdk
+	repo = /opt/brew/Homebrew/Library/Taps/homebrew/homebrew-cask
+	repo = /opt/brew/Homebrew/Library/Taps/homebrew/homebrew-cask-versions
+	repo = /opt/brew/Homebrew/Library/Taps/homebrew/homebrew-core
+	repo = /opt/brew/Homebrew/Library/Taps/homebrew/homebrew-services
+	repo = /opt/brew/Homebrew/Library/Taps/tech/homebrew-cookpad
+	repo = /opt/brew/Homebrew/Library/Taps/tmspzz/homebrew-tap
