@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+
+use 5.032;
+use strict;
+use warnings;
+
+use Getopt::Long;
+use JSON::PP;
+use List::Util qw(any none);
+
+GetOptions('invert|v' => \my $inverted);
+
+my $info_json = `brew info --installed --json=v1`;
+
+exit $? unless $? == 0;
+
+my $formulae = decode_json($info_json);
+
+for my $formula (@$formulae) {
+    if ($inverted) {
+        say $formula->{'name'} if none { $_->{'installed_on_request'} } $formula->{'installed'}->@*;
+    } else {
+        say $formula->{'name'} if any { $_->{'installed_on_request'} } $formula->{'installed'}->@*;
+    }
+}
