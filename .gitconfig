@@ -9,6 +9,7 @@
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
 [alias]
+	addf           = !"git status --porcelain | grep '^.[^ ]' | fzf --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git add -v --"
 	amend          = commit --amend
 	b              = branch
 	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
@@ -64,6 +65,7 @@
 	top            = rev-parse --show-toplevel
 	uncommit       = !git backup-index && git reset HEAD^
 	unstage        = !git backup-index && git reset HEAD
+	unstagef       = !"git status --porcelain | grep '^[^ ]' | fzf --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git unstage --"
 	unmerge        = reset --hard ORIG_HEAD
 	up             = !"git fetch --all && git pull --ff-only && git submodule update && git prune-branches"
 	setup-origin   = !"sh -c 'git remote add origin $1; git config branch.master.remote origin; git config branch.master.merge refs/heads/master' -"
@@ -135,3 +137,5 @@
 	ff = only
 [advice]
 	detachedHead = false
+[init]
+	defaultBranch = master

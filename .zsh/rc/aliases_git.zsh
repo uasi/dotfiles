@@ -17,6 +17,7 @@ tig() {
 typeset -a git_aliases
 git_aliases=(
     add
+    addf
     amend
     b
     c
@@ -55,6 +56,7 @@ git_aliases=(
     uncommit
     unmerge
     unstage
+    unstagef
     st
     tag
     wip
