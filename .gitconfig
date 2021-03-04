@@ -50,7 +50,7 @@
 	password       = !"security find-internet-password -a uasi -s github.com -w | tr -d '\n'"
 	pullff         = pull --ff-only
 	pullr          = pull --rebase
-	pushfl         = push --force-if-includes
+	pushfl         = push --force-with-lease
 	re             = rebase
 	rea            = rebase --abort
 	rec            = rebase --continue
