@@ -85,6 +85,7 @@ set mouse=a " Enable mouse for *a*ll modes.
 set visualbell t_vb= " Silence beep sound.
 set hidden " Hide buffer when it is abonedoned.
 set scrolloff=2 " Set minimum number of lines to keep visible around the cursor.
+set nofixeol " Do not fix missing EOL.
 
 " Enable incremental search with highlight.
 set hlsearch
