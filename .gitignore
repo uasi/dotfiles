@@ -25,6 +25,7 @@
 /.VID*_PID*.xml
 /.babel.json
 /.boto
+/.deno
 /.ec2ssh
 /.envrc
 /.erlang.cookie
