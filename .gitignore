@@ -17,6 +17,7 @@
 /.trc
 
 # Backups, caches, dumps, histories, logs, sessions, and whatever
+.vscode/
 /.*-history
 /.*_history
 /.*_session

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec deno run --allow-all ~/.local/libexec/deno/"$(basename "$0")".ts "$@"
