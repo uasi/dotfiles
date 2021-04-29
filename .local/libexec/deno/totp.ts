@@ -78,7 +78,7 @@ class CredentialsWriter {
 
   private async listItems(): Promise<OpListItemsResult> {
     const process = Deno.run({
-      cmd: ["op", "--session", this.token, "list", "items"],
+      cmd: ["op", "--cache", "--session", this.token, "list", "items"],
       stdout: "piped",
     });
     const data = new TextDecoder().decode(await process.output());
@@ -87,7 +87,7 @@ class CredentialsWriter {
 
   private async getDetailedItem(uuid: string): Promise<OpGetItemResult> {
     const process = Deno.run({
-      cmd: ["op", "--session", this.token, "get", "item", uuid],
+      cmd: ["op", "--cache", "--session", this.token, "get", "item", uuid],
       stdout: "piped",
     });
     const data = new TextDecoder().decode(await process.output());
