@@ -64,6 +64,9 @@ export LC_CTYPE=ja_JP.UTF-8
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
+# Ruby
+export RUBYLIB=$HOME/.local/lib/ruby
+
 ### My apps
 
 # phog
