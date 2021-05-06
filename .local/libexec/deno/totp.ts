@@ -1,5 +1,3 @@
-#!/usr/bin/env deno run -q -A
-
 import { dirname } from "https://deno.land/std@0.95.0/path/posix.ts";
 
 import { TOTP } from "https://deno.land/x/god_crypto@v1.4.9/src/otp/totp.ts";
@@ -33,6 +31,7 @@ class CredentialsWriter {
   constructor() {
     this.token = "";
   }
+
   async run() {
     Deno.mkdirSync(dirname(CREDENTIALS_PATH), { recursive: true });
 
@@ -47,6 +46,7 @@ class CredentialsWriter {
 
     for (const item of items) {
       console.log(`Processing items... (${++index}/${items.length})`);
+
       const detailed = await this.getDetailedItem(item.uuid);
       const totpField = detailed.details.sections.flatMap((section) =>
         section.fields
@@ -127,7 +127,7 @@ if (import.meta.main) {
     await cmds.update();
   }
 
-  if (args.list) {
+  if (args.list && args._.length === 0) {
     cmds.list();
   } else if (args._.length === 1) {
     cmds.get(args._[0] as string);
