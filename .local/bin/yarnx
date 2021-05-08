@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# yarnx self update subcommand
+
+if [[ "$1" = self && "$2" = update ]]; then
+    cd ~/.local/share/yarn && yarn set version "${3:-latest}"
+    exit $?
+fi
+
+# Look up yarn bin
+
+export YARN_IGNORE_PATH=1
+yarn_releases=(~/.local/share/yarn/.yarn/releases/yarn-*.cjs)
+yarn_bin="${yarn_releases[0]}"
+
+if [[ -z "$yarn_bin" ]]; then
+    echo 'error: yarn 2+ is not installed. Run `yarn2 self update`.'
+    exit 1
+fi
+
+# yarnx self pin subcommand
+
+if [[ "$1" = self && "$2" = pin ]]; then
+    "$yarn_bin" set version "$("$yarn_bin" --version)"
+    exit $?
+fi
+
+# Run yarn
+
+exec "$yarn_bin" "$@"
