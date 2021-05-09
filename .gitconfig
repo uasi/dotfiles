@@ -1,6 +1,5 @@
 [core]
 	quotePath = false
-	pager     = git pager-shim
 [user]
 	name  = Tomoki Aonuma
 	email = uasi@uasi.jp
@@ -68,8 +67,11 @@
 	unstagef       = !"git status --porcelain | grep '^[^ ]' | fzf --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git unstage --"
 	unmerge        = reset --hard ORIG_HEAD
 	up             = !"git fetch --all && git pull --ff-only && git submodule update && git prune-branches"
+	sdi            = -c core.pager='git-split-diffs --color | less -RFX' diff
+	sdis           = -c core.pager='git-split-diffs --color | less -RFX' diff --staged
 	setup-origin   = !"sh -c 'git remote add origin $1; git config branch.master.remote origin; git config branch.master.merge refs/heads/master' -"
 	setup-pull-req = config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
+	sl             = -c core.pager='git-split-diffs --color | less -RFX' log --decorate
 	submodule-pull = "submodule foreach 'git fetch; git checkout origin/master'"
 	st             = !"git stash list && git status --short --branch"
 	edit-unmerged  = !"$EDITOR `git ls-files --unmerged | cut -f2 | sort -u`"

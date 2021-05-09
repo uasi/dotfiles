@@ -52,6 +52,9 @@ git_aliases=(
     reseth1
     reseth2
     reseth3
+    sdi
+    sdis
+    sl
     stash
     uncommit
     unmerge
