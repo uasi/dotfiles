@@ -60,7 +60,7 @@ alias J='just --choose'
 alias .j="just --justfile ${(q)HOME}/.local/share/just/global.justfile"
 alias phog='RUST_BACKTRACE=full phog'
 alias ydl=youtube-dl
-alias ydl-live='youtube-dl --hls-use-mpegts'
+alias ydl-live='youtube-dl --hls-use-mpegts --fragment-retries=30 --keep-fragments'
 
 # Alternatives
 has colordiff && alias diff=colordiff # brew install colordiff; https://www.colordiff.org
