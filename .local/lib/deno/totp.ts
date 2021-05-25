@@ -1,7 +1,7 @@
-import { dirname } from "https://deno.land/std@0.95.0/path/posix.ts";
+import { dirname } from "https://deno.land/std@0.97.0/path/posix.ts";
+import { parse as argparse } from "https://deno.land/std@0.97.0/flags/mod.ts";
 
 import { TOTP } from "https://deno.land/x/god_crypto@v1.4.9/src/otp/totp.ts";
-import argparse from "https://deno.land/x/yargs_parser@v20.2.7-deno/deno.ts";
 
 const CREDENTIALS_PATH = `${
   Deno.env.get("HOME")
@@ -120,7 +120,7 @@ if (import.meta.main) {
   const args = argparse(Deno.args, {
     alias: { list: "l", update: "u" },
     boolean: ["list", "update"],
-    configuration: { "parse-numbers": false },
+    string: ["_"],
   });
 
   if (args.update) {
