@@ -6,6 +6,7 @@ type Route = {
   path: string;
   action: string;
 };
+
 class Query {
   words: { kind: keyof Route; value: string }[];
 
@@ -15,15 +16,16 @@ class Query {
     for (const arg of args) {
       if (/[A-Z|]/.test(arg)) {
         this.words.push({ kind: "method", value: arg });
-      } else if (/^\//.test(arg)) {
+      } else if (arg.length > 1 && /^\//.test(arg)) {
         this.words.push({ kind: "path", value: arg.replace(/^\//, "") });
-      } else if (/#/.test(arg)) {
+      } else if (arg.length > 1 && /#/.test(arg)) {
         this.words.push({ kind: "action", value: arg.replace(/^#/, "") });
-      } else {
+      } else if (arg.length > 0) {
         this.words.push({ kind: "name", value: arg });
       }
     }
   }
+
   exec(routes: Route[]): Route[] {
     const matches = [];
 
