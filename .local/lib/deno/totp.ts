@@ -100,7 +100,12 @@ const cmds = {
     const data = Deno.readTextFileSync(CREDENTIALS_PATH);
     const credentials = JSON.parse(data);
     const secret = credentials[item];
-    console.log(new TOTP(secret).generate());
+    if (secret) {
+      console.log(new TOTP(secret).generate());
+    } else {
+      console.error("error: not found");
+      Deno.exit(1);
+    }
   },
 
   list() {
