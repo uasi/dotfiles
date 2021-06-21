@@ -35,6 +35,7 @@
 /.journal.json
 /.lesshst
 /.my.cnf
+/.pnpm-state.json
 /.rnd
 /.tempPath.xml
 /.v8flags.*
@@ -98,12 +99,14 @@
 /.nvm/
 /.op/
 /.oracle_jre_usage/
+/.pnpm-store/
 /.pylint.d/
 /.rbenv/
 /.rustup/
 /.serverless/
 /.solargraph/
 /.subversion/
+/.swiftpm/
 /.terraform.d/
 /.up/
 /.vagrant.d/
