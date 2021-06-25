@@ -1,6 +1,7 @@
 require 'digest'
 require 'pathname'
 require 'securerandom'
+require 'set'
 require 'time'
 require 'uri'
 
