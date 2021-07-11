@@ -1,3 +1,7 @@
+explainshell() {
+    open "https://explainshell.com/explain?cmd=$(ruby -rcgi -e 'puts CGI.escape(ARGV.join(" "))' -- "$@")"
+}
+
 # Taken from http://qiita.com/mollifier/items/14bbea7503910300b3ba
 zman() {
     PAGER="less -g -s '+/^       "$1"'" man zshall
