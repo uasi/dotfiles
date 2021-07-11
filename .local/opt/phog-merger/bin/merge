@@ -1,0 +1,26 @@
+#!/bin/bash
+
+local_db=$(realpath "$1")
+remote_db=$2
+
+mkdir -p ~/.cache/phog-merger
+if [[ $? != 0 ]]; then
+    echo "error: Failed to create cache dir." >&2
+    exit 1
+fi
+
+cd ~/.cache/phog-merger
+if [[ $? != 0 ]]; then
+    echo "error: Failed to chdir to cache dir." >&2
+    exit 1
+fi
+
+rsync --archive --human-readable --verbose "$remote_db" remote_db.sqlite3 &&
+    sqlite3 "$local_db" < "$(cd "$(dirname "$BASH_SOURCE")"; pwd)"/../share/merge.sql
+
+if [[ $? = 0 ]]; then
+    echo "Merged databases successfully."
+else
+    echo "error: Failed to merge databases." >&2
+    exit 1
+fi
