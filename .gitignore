@@ -86,6 +86,8 @@
 /.kiex/
 /.kube/
 /.livedl/
+/.local/include/python*/
+/.local/lib/python*/
 /.local/share/
 /.minikube/
 /.mitmproxy/
