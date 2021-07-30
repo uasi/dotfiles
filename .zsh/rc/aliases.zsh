@@ -54,7 +54,7 @@ alias yui='yarn upgrade-interactive'
 alias yuil='yarn upgrade-interactive --latest'
 
 # Shorthands
-alias .j='just --justfile=~/.local/share/just/global.justfile'
+alias .j='just --justfile="$HOME/.local/share/just/global.justfile"'
 alias j=just
 alias J='just --choose'
 alias phog='RUST_BACKTRACE=full phog'
