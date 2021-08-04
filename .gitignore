@@ -67,6 +67,7 @@
 /.ecr/
 /.electron/
 /.elm/
+/.faktory/
 /.flow-typed/
 /.gdrive/
 /.gem/
@@ -101,6 +102,7 @@
 /.nvm/
 /.op/
 /.oracle_jre_usage/
+/.pnpm-state/
 /.pnpm-store/
 /.pylint.d/
 /.rbenv/
