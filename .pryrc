@@ -4,5 +4,6 @@ Pry.commands.alias_command 'n', 'next'
 Pry.commands.alias_command 's', 'step'
 
 autoload :JSON, 'json'
+autoload :Pathname, 'pathname'
 autoload :Set, 'set'
 autoload :YAML, 'yaml'
