@@ -259,6 +259,7 @@ _tm() {
     # Hint: _arguments '<arg-pos-to-complete>:<desc>:<completer>'
     _arguments '1: :_tm_presets'
 }
+compdef _tm tm
 
 _tm_presets() {
     # Hint: _values <group-name> <candidate>...
@@ -267,7 +268,35 @@ _tm_presets() {
         ~/.config/tmux/presets/^README.md(.:t)
 }
 
-compdef _tm tm
+rn() {
+    if [[ $# = 0 ]]; then
+        if [[ ! -e package.json ]]; then
+            echo "error: package.json not found" >&2
+            exit 1
+        fi
+        node -e 'Object.entries(JSON.parse(require("fs").readFileSync("package.json")).scripts || {}).forEach(([k, v]) => console.log(`${k}\t\x1b[32m${v}\x1b[0m`))' | column -t -s $'\t'
+    else
+        if [[ -e yarn.lock ]]; then
+            yarn run "$@"
+        elif [[ -e pnpm-lock.yaml ]]; then
+            pnpm run "$@"
+        else
+            npm run "$@"
+        fi
+    fi
+}
+
+_rn() {
+    # Adapted from "$(npm completion)"
+    local si=$IFS
+    compadd -- $(COMP_CWORD=2 \
+                 COMP_LINE="npm run " \
+                 COMP_POINT=0 \
+                 npm completion -- npm run "" \
+                 2>/dev/null)
+    IFS=$si
+}
+compdef _rn rn
 
 # Complete case-insensitively and make matching occur on both sides of the current word.
 zstyle ':completion:*:complete:tm:*' matcher '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
