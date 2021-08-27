@@ -3,7 +3,7 @@
 get_pr_number() {
     local url=$(osascript -e 'tell application "Google Chrome" to return URL of active tab of front window' 2>/dev/null)
     [[ $? = 0 ]] || return
-    perl -E 'say $1 if $ARGV[0] =~ m{/pull/(\d+)(?:/|$)}' "$url"
+    perl -E 'say $1 if $ARGV[0] =~ m{/pull/(\d+)(?:[/?#]|$)}' "$url"
 }
 
 if [[ $# > 0 ]]; then
