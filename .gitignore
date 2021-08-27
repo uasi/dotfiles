@@ -90,6 +90,7 @@
 /.local/include/python*/
 /.local/lib/python*/
 /.local/share/
+/.local/state/gh/
 /.minikube/
 /.mitmproxy/
 /.mix/
@@ -104,8 +105,10 @@
 /.oracle_jre_usage/
 /.pnpm-state/
 /.pnpm-store/
+/.pnpm/
 /.pylint.d/
 /.rbenv/
+/.redhat/
 /.rustup/
 /.serverless/
 /.solargraph/
