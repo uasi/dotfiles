@@ -47,6 +47,7 @@
 	ff             = merge --ff-only
 	m              = merge --no-ff
 	password       = !"security find-internet-password -a uasi -s github.com -w | tr -d '\n'"
+	pbapply        = !"{ pbpaste; echo; } | git apply -"
 	pullff         = pull --ff-only
 	pullr          = pull --rebase
 	pushfl         = push --force-with-lease
