@@ -39,7 +39,7 @@ if has vim; then
 fi
 
 
-if [[ -x ~/.volta/bin/volta ]]; then
+if has volta; then
     (
         volta_latest_version() {
             curl -fs https://raw.githubusercontent.com/volta-cli/volta/main/RELEASES.md \
@@ -62,7 +62,7 @@ if [[ -x ~/.volta/bin/volta ]]; then
         fi
     )
 
-    ( set -x ; ~/.volta/bin/volta completions zsh -f -o ~/.zsh/functions/_volta )
+    ( set -x ; volta completions zsh -f -o ~/.zsh/functions/_volta )
 
     ( set -x ; volta list --format=plain all | perl -lnE 'say $1 if /^package ([^@]+)/' | xargs volta install )
 fi
