@@ -16,6 +16,10 @@ zmanf() {
     echo "Search word: $w"
 }
 
+k() {
+    fzf --no-sort --header='^X to execute' --bind='ctrl-x:execute(echo {2} && bash -c {2})+abort' -d ' *::: *' "--query=$@" < ~/.config/k/knowledge.txt
+}
+
 help() {
     local pager=$PAGER
     local helpdir=$HOME/.help
