@@ -91,6 +91,17 @@ bindkey '^R' _history-incremental-preserving-pattern-search-backward
 bindkey -M isearch '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
+open-oneliner-selector() {
+    local output=$(grep -v '^ *#|^ *$' ~/.config/local/oneliner.txt | \
+        fzf --no-sort --delimiter=' *::: *' --bind='enter:execute(echo {2})+abort')
+
+    if [[ -n "$output" ]]; then
+        LBUFFER+=$output
+    fi
+}
+zle -N open-oneliner-selector
+bindkey '^O' open-oneliner-selector
+
 # Toggle between zsh and vim with ^Z
 run-fg-editor() {
     zle push-input
