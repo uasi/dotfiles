@@ -91,9 +91,26 @@ bindkey '^R' _history-incremental-preserving-pattern-search-backward
 bindkey -M isearch '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
+open-oneliner-selector--filter() {
+    perl -MList::Util=max -E '
+        my $in = do { local $/; <> };
+        my $maxlen = max(map { length $_ } $in =~ /^.*(?=:::)/gm);
+        my @out;
+        open my $fh, "<", \$in;
+        while (<$fh>) {
+            if (/^(.*?)(:::.*)/) {
+                push @out, sprintf("%-${maxlen}s%s\n", $1, $2);
+            } else {
+                push @out, $_ unless /^\s*#|^\s*$/;
+            }
+        }
+        print for sort @out;
+    '
+}
+
 open-oneliner-selector() {
-    local output=$(grep -v '^ *#|^ *$' ~/.config/local/oneliner.txt | \
-        fzf --no-sort --delimiter=' *::: *' --bind='enter:execute(echo {2})+abort')
+    local output=$(open-oneliner-selector--filter < ~/.config/local/oneliner.{,*.}txt(N) \
+        | fzf --no-sort --delimiter=' *::: *' --bind='enter:execute(echo {2})+abort')
 
     if [[ -n "$output" ]]; then
         LBUFFER+=$output
