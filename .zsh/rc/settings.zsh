@@ -60,6 +60,22 @@ autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
 bindkey '^[m' copy-earlier-word
 
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^[e' edit-command-line
+
+autoload -Uz replace-argument
+zle -N replace-argument
+bindkey '^[a' replace-argument
+
+autoload -Uz replace-string
+zle -N replace-string
+zle -N replace-string-pattern replace-string
+zle -N replace-string-regex replace-string
+bindkey '^[r' replace-string
+bindkey '^[R' replace-string-pattern
+bindkey '^[^R' replace-string-regex
+
 # http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
 autoload -Uz narrow-to-region
 _history-incremental-preserving-pattern-search-backward() {
