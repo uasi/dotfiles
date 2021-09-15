@@ -66,19 +66,20 @@ bindkey '^[e' edit-command-line
 
 autoload -Uz replace-argument
 zle -N replace-argument
-bindkey -r '^[a'
-bindkey '^[aa' replace-argument
 
 for i in {0..5}; do
     eval "replace-argument-$i() { NUMERIC=$i replace-argument; }"
     zle -N replace-argument-$i
-    bindkey '^[a'$i replace-argument-$i
+    bindkey '^[h'$i replace-argument-$i
     (( $i == 0 )) && continue
 
     eval "replace-argument-neg$i() { NUMERIC=-$i replace-argument; }"
     zle -N replace-argument-neg$i
-    bindkey '^[a-'$i replace-argument-neg$i
+    bindkey '^[l'$i replace-argument-neg$i
 done
+
+bindkey '^[hh' replace-argument-0
+bindkey '^[ll' replace-argument
 
 autoload -Uz replace-string
 zle -N replace-string
