@@ -4,3 +4,4 @@ Go - Migrate go.mod to new version ::: go mod tidy -go=1.17
 Go - Update deps                   ::: go get -u ./... && go mod tidy
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
+Vim - Install/update neovim helper ::: pip3 install --upgrade neovim
