@@ -2,6 +2,7 @@ Deno - Update deps                 ::: deno run -A https://deno.land/x/udd@0.5.0
 Git - Apply patch from pasteboard  ::: { pbpaste; echo; } | git apply
 Go - Migrate go.mod to new version ::: go mod tidy -go=1.17
 Go - Update deps                   ::: go get -u ./... && go mod tidy
+Local - Edit oneliner.txt          ::: vim -o ~/.config/local/oneliner{.txt,.*.txt}(N)
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
 Vim - Install/update neovim helper ::: pip3 install --upgrade neovim
