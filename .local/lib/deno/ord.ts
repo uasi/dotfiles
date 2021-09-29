@@ -1,0 +1,10 @@
+const codePoints = Deno.args.flatMap((s) =>
+  [...s].map((c) => c.codePointAt(0) ?? 0)
+);
+
+console.log(codePoints.map((cp) => cp.toString(10).padStart(8, " ")).join(" "));
+console.log(
+  codePoints.map((cp) =>
+    ("U+" + cp.toString(16)).padStart(8, " ").toUpperCase()
+  ).join(" "),
+);
