@@ -2,7 +2,7 @@ import {
   Application,
   Router,
   RouterContext,
-} from "https://deno.land/x/oak@v7.7.0/mod.ts";
+} from "https://deno.land/x/oak@v9.0.1/mod.ts";
 
 const authToken = Deno.env.get("AUTH_TOKEN");
 const dataDir = Deno.env.get("DATA_DIR");
