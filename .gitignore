@@ -90,7 +90,7 @@
 /.local/include/python*/
 /.local/lib/python*/
 /.local/share/
-/.local/state/gh/
+/.local/state/
 /.minikube/
 /.mitmproxy/
 /.mix/
