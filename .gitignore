@@ -43,6 +43,7 @@
 /.viminfo
 /.viminfo.tmp
 /.virtualchain-spv-headers.dat
+/.vuerc
 /.wget-hsts
 /.yarnrc
 /.zcompdump
@@ -58,7 +59,10 @@
 /.cargo/
 /.cmake/
 /.cocoapods/
+/.composer/
+/.config/iterm2/
 /.cpad2/
+/.cpan/
 /.cups/
 /.dat/
 /.dlv/
@@ -87,6 +91,7 @@
 /.kiex/
 /.kube/
 /.livedl/
+/.lldb/
 /.local/include/python*/
 /.local/lib/python*/
 /.local/share/
@@ -106,6 +111,7 @@
 /.pnpm-state/
 /.pnpm-store/
 /.pnpm/
+/.pyenv/
 /.pylint.d/
 /.rbenv/
 /.redhat/
