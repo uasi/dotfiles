@@ -19,3 +19,5 @@ require 'uri'
     warn "note: Restart to require #{lib}"
   end
 end
+
+autoload :XRails, 'x/rails'
