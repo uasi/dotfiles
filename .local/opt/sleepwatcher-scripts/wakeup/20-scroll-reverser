@@ -1,0 +1,9 @@
+#!/bin/bash
+
+app_path='/Applications/Scroll Reverser.app'
+
+[[ -d "$app_path" ]] || exit
+
+if ! pgrep -q "$app_path"; then
+    open "$app_path"
+fi
