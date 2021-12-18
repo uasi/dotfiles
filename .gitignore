@@ -63,6 +63,7 @@
 /.config/iterm2/
 /.cpad2/
 /.cpan/
+/.cpanm/
 /.cups/
 /.dat/
 /.dlv/
@@ -102,6 +103,7 @@
 /.multirust/
 /.nanobox/
 /.ngrok2/
+/.node/
 /.node-gyp/
 /.nodebrew/
 /.npm/
