@@ -4,7 +4,9 @@ call plug_helper#install_plug_vim_if_needed()
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'LumaKernel/ddc-file'
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
+Plug 'Shougo/ddc.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim' " |unite_vim|
 Plug 'Yggdroot/indentLine' " |indentline|
@@ -28,14 +30,9 @@ Plug 'tpope/vim-fugitive' " |vim_fugitive|
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-denops/denops.vim'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/sudo.vim'
-
-if has('python3')
-  Plug 'Shougo/deoplete.nvim' " |deoplete_nvim|
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 Plug 'digitaltoad/vim-jade', {'for': 'jade'}
 Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
