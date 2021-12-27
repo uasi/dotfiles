@@ -8,4 +8,3 @@ Local - Start file server          ::: python3 -m http.server 8080
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
 Ubuntu - Print motd                ::: cat /var/run/motd.dynamic
-Vim - Install/update neovim helper ::: pip3 install --upgrade neovim
