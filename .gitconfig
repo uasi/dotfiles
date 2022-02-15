@@ -8,7 +8,7 @@
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
 [alias]
-	addf           = !"git status --porcelain | grep '^.[^ ]' | fzf --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git add -v --"
+	addf           = !"git status --porcelain | grep '^.[^ ]' | fzf --tac --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git add -v --"
 	amend          = commit --amend
 	b              = branch
 	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
@@ -88,7 +88,7 @@
 	user = uasi
 [merge]
 	tool = vimdiff
-	conflictStyle = diff3
+	conflictStyle = zdiff3
 [mergetool]
 	keepbackup = false
 [difftool "sourcetree"]
