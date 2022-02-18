@@ -20,4 +20,5 @@ require 'uri'
   end
 end
 
+autoload :EasyDB, 'x/easy_db'
 autoload :XRails, 'x/rails'
