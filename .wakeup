@@ -2,5 +2,5 @@
 
 for script in ~/.local/opt/sleepwatcher-scripts/wakeup/*; do
     echo "~/.wakeup: running $script"
-   "$script"
+    "$script"
 done
