@@ -3,6 +3,15 @@ require 'ostruct'
 require 'pathname'
 require 'sqlite3'
 
+#
+# # Usage
+#
+# - Run `EasyDB.init` to create db.sqlite3, db.schema.sql, and db.ops.sql.
+# - Edit db.schema.sql and db.ops.sql as you like.
+# - `db = EasyDB.open` opens the database.
+# - `db.ops.${query_name}` executes the query of that name defined in db.ops.sql.
+#
+
 class EasyDB < SimpleDelegator
   class Ops < OpenStruct
     def self.from_sql(sql)
