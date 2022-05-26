@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ $# != 2 || "$1" = -h || "$1" = --help ]]; then
+    echo "usage: git eject <repository>[#<branch>] <directory>" >&2
+    [[ $# != 2 ]] && exit 1
+    exit
+fi
+
+repo_branch=$1
+dest_path=$2
+
+branch=${repo_branch##*#}
+if [[ "$branch" = "$repo_branch" ]]; then
+    branch=
+fi
+repository=${repo_branch%#*}
+
+if [[ -e "$dest_path" ]]; then
+    echo "error: destination directory '$dest_path' already exists." >&2
+    exit 1
+fi
+
+mkdir -p "$dest_path"
+
+cleanup() { rmdir "$dest_path" 2>/dev/null; }
+trap cleanup EXIT
+
+tmp_repo_path="$(mktemp -d "${TMPDIR:-/tmp}/git-eject.XXXXXX")"
+
+if [[ -n "$branch" ]]; then
+    git -C "$tmp_repo_path" clone --bare --depth 1 --branch "$branch" "$repository" "$tmp_repo_path"
+else
+    git -C "$tmp_repo_path" clone --bare --depth 1 "$repository" "$tmp_repo_path"
+fi
+
+git -C "$tmp_repo_path" archive --format tar HEAD | tar xf - -C "$dest_path"
