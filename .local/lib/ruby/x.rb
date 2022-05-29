@@ -21,6 +21,7 @@ require 'uri'
 end
 
 require_relative 'x/pathname'
+require_relative 'x/shell'
 
 autoload :EasyDB, 'x/easy_db'
 autoload :XRails, 'x/rails'
