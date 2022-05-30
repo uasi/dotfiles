@@ -49,6 +49,7 @@
 /.zcompdump
 
 # Hodgepodge
+/.android/
 /.atom/
 /.aws/
 /.bdash/
@@ -75,6 +76,7 @@
 /.elm/
 /.faktory/
 /.flow-typed/
+/.fly/
 /.gdrive/
 /.gem/
 /.ghost/
@@ -98,6 +100,7 @@
 /.local/lib/python*/
 /.local/share/
 /.local/state/
+/.m2/
 /.minikube/
 /.mitmproxy/
 /.mix/
