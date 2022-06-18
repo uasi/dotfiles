@@ -1,6 +1,7 @@
 curl
 ffmpeg
 fzf
+ghq
 git
 mosh
 perl
