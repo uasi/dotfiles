@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if ! command -v "$1" >/dev/null 2>&1; then
+    echo "ensure-command: fatal: '$1' does not exist." >&2
+    exit 1
+fi
+
+exec "$@"
