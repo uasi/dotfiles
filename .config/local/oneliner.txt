@@ -7,4 +7,6 @@ Local - Edit oneliner.txt          ::: vim -o ~/.config/local/oneliner{.txt,.*.t
 Local - Start file server          ::: python3 -m http.server 8080
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
+SSH - Show fingerprint             ::: ssh-keygen -l -f
+SSH - Show fingerprint (MD5 fmt)   ::: ssh-keygen -E MD5 -l -f
 Ubuntu - Print motd                ::: cat /var/run/motd.dynamic
