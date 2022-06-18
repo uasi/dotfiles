@@ -1,3 +1,17 @@
 #!/bin/bash
 
-xargs brew install < ~/.config/local/brew-install-all.txt
+cask=0
+
+if [[ "$1" = --cask ]]; then
+    cask=1
+    shift
+elif [[ -n "$1" ]]; then
+    echo "usage: brew-install-all [--cask]" >&2
+    exit 1
+fi
+
+case $cask in
+    0) xargs brew install < ~/.config/local/brew-install-all.txt ;;
+    1) xargs brew install --cask < ~/.config/local/brew-install-all-cask.txt ;;
+esac
+
