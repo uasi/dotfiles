@@ -5,6 +5,7 @@ ghq
 git
 mosh
 perl
+postgresql
 rbenv
 reattach-to-user-namespace
 terraform
