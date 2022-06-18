@@ -83,6 +83,10 @@ path=(
     # Local (high priority)
     $HOME/bin(N-/)
 
+    # Homebrew
+    /opt/homebrew/bin(N-/)
+    /opt/homebrew/(s|)bin(N-/)
+
     # Deno
     $DENO_INSTALL_ROOT/bin(N-/)
 
