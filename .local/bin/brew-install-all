@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xargs brew install < ~/.config/local/brew-install-all.txt

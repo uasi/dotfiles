@@ -1,0 +1,12 @@
+curl
+ffmpeg
+fzf
+git
+mosh
+perl
+rbenv
+reattach-to-user-namespace
+terraform
+tig
+tmux
+vim

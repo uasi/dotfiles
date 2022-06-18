@@ -1,0 +1,14 @@
+1password
+alfred
+atok
+bartender
+dropbox
+firefox
+istat-menus
+iterm2
+jetbrains-toolbox
+karabiner-elements
+rancher
+scroll-reverser
+shottr
+visual-studio-code

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xargs brew install --cask < ~/.config/local/brew-install-cask-all.txt
