@@ -18,6 +18,14 @@ export REALNAME="Tomoki Aonuma"
 export EMAIL="uasi@uasi.jp"
 export EDITOR=vim
 
+# Explicitly set the XDG_* variables to their default values in the hope of
+# overriding preference of certain software (e.g. pnpm) that would otherwise
+# use macOS paths such as ~/Library.
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+
 #-- User settings }}} --------------------------------------------------------
 #-- Zsh settings {{{ ---------------------------------------------------------
 
@@ -60,6 +68,9 @@ export GOPATH=$HOME/.local/share/go
 #
 # Related discussion: https://bugs.python.org/issue39397
 export LC_CTYPE=ja_JP.UTF-8
+
+# pnpm
+export PNPM_HOME=$HOME/.local/share/pnpm/bin
 
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
@@ -109,6 +120,9 @@ path=(
 
     # nodebrew
     $HOME/.nodebrew/current/bin(N-/)
+
+    # pnpm
+    $HOME/.local/share/pnpm/bin(N-/)
 
     # rbenv
     $HOME/.rbenv/shims(N-/)
