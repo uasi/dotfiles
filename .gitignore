@@ -69,6 +69,7 @@
 /.dlv/
 /.docker/
 /.dropbox/
+/.earthly/
 /.ecr/
 /.electron/
 /.elm/
