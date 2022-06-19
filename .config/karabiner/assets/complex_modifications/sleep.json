@@ -1,0 +1,31 @@
+{
+  "title": "Sleep",
+  "rules": [
+    {
+      "description": "Sleep now (hyper+2 & hyper+5)",
+      "manipulators": [
+        {
+          "from": {
+            "simultaneous": [
+              { "key_code": "2" },
+              { "key_code": "5" }
+            ],
+            "modifiers": {
+              "mandatory": ["control", "option", "shift", "command"]
+            }
+          },
+          "to": [
+            {
+              "software_function": {
+                "iokit_power_management_sleep_system": {
+                  "delay_milliseconds": 500
+                }
+              }
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
