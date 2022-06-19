@@ -116,6 +116,7 @@
 /.pyenv/
 /.pylint.d/
 /.rbenv/
+/.rd/
 /.redhat/
 /.rustup/
 /.serverless/
