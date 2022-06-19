@@ -89,6 +89,9 @@ path=(
     # Go
     $HOME/.local/share/go/bin(N-/)
 
+    # Rancher Desktop
+    $HOME/.rd/bin(N-/)
+
     # Rust
     $HOME/.cargo/bin(N-/)
 
