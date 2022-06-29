@@ -18,8 +18,8 @@ Plug 'elzr/vim-json' " |vim_json|
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'rhysd/committia.vim'
-Plug 'scrooloose/nerdcommenter' " |nerdcommenter|
-Plug 'scrooloose/nerdtree' " |nerdtree|
+Plug 'preservim/nerdcommenter' " |nerdcommenter|
+Plug 'preservim/nerdtree' " |nerdtree|
 Plug 'sheerun/vim-polyglot' " |vim_polyglot|
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region' " |vim_expand_region|
