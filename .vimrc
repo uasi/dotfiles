@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'LumaKernel/ddc-file'
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
-Plug 'Shougo/ddc.vim'
+Plug 'Shougo/ddc.vim' " |ddc_vim|
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim' " |unite_vim|
 Plug 'Yggdroot/indentLine' " |indentline|
@@ -43,7 +43,7 @@ Plug 'slim-template/vim-slim', {'for': 'slim'}
 
 call plug#end()
 
-" See ~/.vim/plugin/pluged/*.vim for settings of plugins.
+" See ~/.vim/plugin/plugged/*.vim for settings of plugins.
 " See ~/.vim/etc/unused_settings.vim for unused plugins.
 
 " Define commands to create/remove empty settings file for each plugin.
