@@ -34,7 +34,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/sudo.vim'
 
-Plug 'digitaltoad/vim-jade', {'for': 'jade'}
+Plug 'digitaltoad/vim-pug', {'for': 'pug'}
 Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
