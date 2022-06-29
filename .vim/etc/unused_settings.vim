@@ -60,6 +60,9 @@ Plug 'thinca/vim-localrc'
 " Rails
 Plug 'tpope/vim-rails'
 
+" Multi cursors
+Plug 'mg979/vim-visual-multi'
+
 "-- Plugins and Related Settings }}} -----------------------------------------
 
 "-- Other Settings {{{ -------------------------------------------------------

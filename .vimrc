@@ -23,7 +23,6 @@ Plug 'scrooloose/nerdtree' " |nerdtree|
 Plug 'sheerun/vim-polyglot' " |vim_polyglot|
 Plug 'slack/vim-l9'
 Plug 'terryma/vim-expand-region' " |vim_expand_region|
-Plug 'terryma/vim-multiple-cursors' " |vim_multiple_cursors|
 Plug 'thinca/vim-quickrun' " |vim_quickrun|
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive' " |vim_fugitive|
