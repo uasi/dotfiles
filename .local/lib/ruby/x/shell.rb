@@ -3,10 +3,16 @@ require 'pathname'
 
 extend FileUtils
 
-def cd_each(paths, options = {}, &block)
-  paths.each do |path|
-    FileUtils.chdir(path, options, &block)
+class Array
+  def cd_each(**options, &block)
+    each do |path|
+      FileUtils.chdir(path, **options, &block)
+    end
   end
+end
+
+def cd_each(paths, **options, &block)
+  paths.cd_each(**options, &block)
 end
 
 def glob(...)
