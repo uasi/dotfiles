@@ -1,0 +1,13 @@
+theme = "base16_terminal"
+
+[editor.whitespace.render]
+tab = "all"
+
+[keys.normal]
+"0" = "goto_line_start"
+"$" = "goto_line_end"
+"D" = "kill_to_line_end"
+
+[keys.select]
+"$" = "goto_line_end"
+"D" = "kill_to_line_end"
