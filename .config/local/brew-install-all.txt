@@ -1,8 +1,12 @@
+cargo-outdated
 curl
 ffmpeg
 fzf
+gh
 ghq
 git
+jq
+just
 mosh
 perl
 postgresql

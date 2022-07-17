@@ -2,6 +2,7 @@
 alfred
 atok
 bartender
+dash
 dropbox
 firefox
 istat-menus
