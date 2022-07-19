@@ -1,18 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env perl
 
-get_pr_number() {
-    local url=$(osascript -e 'tell application "Google Chrome" to return URL of active tab of front window' 2>/dev/null)
-    [[ $? = 0 ]] || return
-    perl -E 'say $1 if $ARGV[0] =~ m{/pull/(\d+)(?:[/?#]|$)}' "$url"
+use v5.26;
+use warnings;
+
+sub get_pr_number {
+    my $url = `osascript -e 'tell application "Google Chrome" to return URL of active tab of front window' 2>/dev/null`;
+    $url =~ m{/pull/(\d+)(?:[/?#]|$)};
+    $1;
 }
 
-if [[ $# > 0 ]]; then
-    hub pr checkout "$@"
-else
-    number=$(get_pr_number)
-    if [[ -z "$number" ]]; then
-        echo "Error: No pull request number found in the frontmost browser window" >&2
-        exit 1
-    fi
-    hub pr checkout "$number"
-fi
+exec qw(hub pr checkout), @ARGV if $ARGV[0];
+
+my $number = get_pr_number
+    or die 'error: no pull request number found in the frontmost browser window';
+
+exec qw(hub pr checkout), $number;
