@@ -9,9 +9,9 @@ sub get_pr_number {
     $1;
 }
 
-exec qw(hub pr checkout), @ARGV if $ARGV[0];
+exec qw(gh pr checkout), @ARGV if $ARGV[0];
 
 my $number = get_pr_number
-    or die 'error: no pull request number found in the frontmost browser window';
+    or die 'fatal: no pull request number found in the frontmost browser window';
 
-exec qw(hub pr checkout), $number;
+exec qw(gh pr checkout), $number;

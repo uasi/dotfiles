@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 
-use 5.032;
-use strict;
+use v5.26;
 use warnings;
 
 use Getopt::Long;
@@ -12,14 +11,14 @@ GetOptions('invert|v' => \my $inverted);
 
 my $info_json = `brew info --installed --json=v1`;
 
-exit $? unless $? == 0;
+exit $? if $?;
 
 my $formulae = decode_json($info_json);
 
 for my $formula (@$formulae) {
     if ($inverted) {
-        say $formula->{'name'} if none { $_->{'installed_on_request'} } $formula->{'installed'}->@*;
+        say $formula->{name} if none { $_->{installed_on_request} } $formula->{installed}->@*;
     } else {
-        say $formula->{'name'} if any { $_->{'installed_on_request'} } $formula->{'installed'}->@*;
+        say $formula->{name} if any { $_->{installed_on_request} } $formula->{installed}->@*;
     }
 }

@@ -1,21 +1,20 @@
 #!/usr/bin/env perl
 
-use 5.010;
-use strict;
+use v5.26;
 use warnings;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use Getopt::Long;
 
-sub get_url {
-    my ($remote) = @_;
+sub get_url ($remote) {
     my $url = `git config --local remote.${remote}.url`;
-    return unless $? == 0;
+    return if $?;
     chomp $url;
     $url;
 }
 
-sub make_repo_url {
-    my ($url) = @_;
+sub make_repo_url ($url) {
     $_ = $url;
     if (m|^https?://[^@]+?/|) {
         $url =~ s/\.git$//;
@@ -33,8 +32,7 @@ sub make_repo_url {
     undef;
 }
 
-sub get_path_info {
-    my ($url) = @_;
+sub get_path_info ($url) {
     $_ = $url;
     if (m|//[^/]*\bgithub\.com/|) {
         return {issues => 'issues', pr => 'pulls'};
@@ -53,26 +51,24 @@ sub main {
         issues
         pr
     ));
+
     my $remote = shift(@ARGV) || 'origin';
-    my $url = get_url($remote);
-    unless ($url) {
-        warn "fatal: remote.${remote}.url is not set\n";
-        exit 1;
-    }
-    my $repo_url = make_repo_url($url);
-    unless ($repo_url) {
-        warn "fatal: Unknown scheme: ${url}";
-        exit 1;
-    }
+
+    my $url = get_url($remote)
+        or die "fatal: remote.${remote}.url is not set\n";
+
+    my $repo_url = make_repo_url($url)
+        or die "fatal: unknown scheme: ${url}\n";
+
     my $type = ($opts{pr} ? 'pr' :
                 $opts{issues} ? 'issues' :
                 '');
-    if ($type) {
-        if (my $path = get_path_info($repo_url)->{$type}) {
-            $repo_url .= '/' . $path;
-        }
+
+    if ($type and my $path = get_path_info($repo_url)->{$type}) {
+        $repo_url .= '/' . $path;
     }
-    system "open '${repo_url}'";
+
+    exec 'open', $repo_url;
 }
 
 main;
