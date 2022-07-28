@@ -3,13 +3,15 @@
 set -euo pipefail
 
 if [[ $# != 2 || "$1" = -h || "$1" = --help ]]; then
-    echo "usage: git eject <repository>[#<branch>] <directory>" >&2
+    echo "usage: git eject <repository>[#<branch>] <directory> [<path>...]" >&2
     [[ $# != 2 ]] && exit 1
     exit
 fi
 
 repo_branch=$1
 dest_path=$2
+shift
+shift
 
 branch=${repo_branch##*#}
 if [[ "$branch" = "$repo_branch" ]]; then
@@ -35,4 +37,4 @@ else
     git -C "$tmp_repo_path" clone --bare --depth 1 "$repository" "$tmp_repo_path"
 fi
 
-git -C "$tmp_repo_path" archive --format tar HEAD | tar xf - -C "$dest_path"
+git -C "$tmp_repo_path" archive --format tar HEAD "$@" | tar xf - -C "$dest_path"
