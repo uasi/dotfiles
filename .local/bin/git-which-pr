@@ -3,7 +3,10 @@
 use v5.26;
 use warnings;
 
-my @output = `git-when-merged -l $ARGV[0]`;
+my @output = do {
+    local $ENV{refspec} = $ARGV[0];
+    `git-when-merged -l "\$refspec"`;
+};
 
 for my $line (@output) {
     $line =~ /Merge pull request #(\d+)/;
