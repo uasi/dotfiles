@@ -97,6 +97,12 @@ path=(
     # Deno
     $DENO_INSTALL_ROOT/bin(N-/)
 
+    # Elixir
+    $HOME/.mix/escripts(N-/)
+
+    # JetBrains Toolbox
+    $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'(N-/)
+
     # Go
     $HOME/.local/share/go/bin(N-/)
 
