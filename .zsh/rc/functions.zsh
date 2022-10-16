@@ -268,6 +268,52 @@ _tm_presets() {
         ~/.config/tmux/presets/^README.md(.:t)
 }
 
+launch() {
+    [[ $# > 0 ]] || return 1
+
+    local -A opts
+    zparseopts -D -A opts -- d:
+
+    local -A actions=(
+        up bootstrap
+        down bootout
+        list list
+        print print
+    )
+    local action=$actions[$1]
+
+    if [[ "$action" = list ]]; then
+        ( cd ~/Library/LaunchAgents && ls )
+        return
+    fi
+
+    echo "#" launchctl "$action" "${opts[-d]:-gui/$(id -u)}" "~"/Library/LaunchAgents/"$2"
+    launchctl "$action" "${opts[-d]:-gui/$(id -u)}" ~/Library/LaunchAgents/"$2"
+}
+
+_launch() {
+    _arguments '-d[domain]: :->domains' '1: :->commands' '2: :_launchagents_list'
+    case $state in
+        domains)
+            _values \
+                domain \
+                system "user/$(id -u)" "gui/$(id -u)"
+            ;;
+        commands)
+            _values \
+                command \
+                up down list print
+            ;;
+    esac
+}
+compdef _launch launch
+
+_launchagents_list() {
+    _values \
+        LaunchAgents \
+        ~/Library/LaunchAgents/*.plist(:t)
+}
+
 rn() {
     if [[ $# = 0 ]]; then
         if [[ ! -e package.json ]]; then
