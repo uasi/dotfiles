@@ -269,26 +269,55 @@ _tm_presets() {
 }
 
 launch() {
-    [[ $# > 0 ]] || return 1
+    local usage="\
+usage: launch (up|down|reload|run) [-d <domain-target>] <plist-name>
+usage: launch list"
 
-    local -A opts
-    zparseopts -D -A opts -- d:
+    local -A opts=()
+    zparseopts -D -E -F -A opts -- h -help d:
 
     local -A actions=(
-        up bootstrap
-        down bootout
-        list list
-        print print
+        up     bootstrap
+        down   bootout
+        reload reload
+        run    kickstart
+        list   list
     )
-    local action=$actions[$1]
 
-    if [[ "$action" = list ]]; then
-        ( cd ~/Library/LaunchAgents && ls )
-        return
-    fi
+    local domain=${opts[-d]:-gui/$(id -u)}
+    local action=${actions[$1]}
+    local plist_name=$2
 
-    echo "#" launchctl "$action" "${opts[-d]:-gui/$(id -u)}" "~"/Library/LaunchAgents/"$2"
-    launchctl "$action" "${opts[-d]:-gui/$(id -u)}" ~/Library/LaunchAgents/"$2"
+    case $action in
+        ""|-h|--help)
+            echo "$usage" >&2
+            return 1
+            ;;
+        bootstrap|bootout|reload|kickstart)
+            if [[ -z "$plist_name" ]]; then
+                echo "$usage" >&2
+                return 1
+            fi
+            ;;
+    esac
+
+    case $action in
+        bootstrap|bootout)
+            echo \# launchctl "$action" "$domain" \~/Library/LaunchAgents/"$plist_name"
+            launchctl "$action" "$domain" ~/Library/LaunchAgents/"$plist_name"
+            ;;
+        reload)
+            launch down -d "$domain" "$plist_name" && launch up -d "$domain" "$plist_name"
+            ;;
+        kickstart)
+            local label=$(/usr/libexec/PlistBuddy -c "print :Label" ~/Library/LaunchAgents/"$plist_name")
+            echo \# launchctl kickstart "$domain/$label"
+            launchctl kickstart "$domain/$label"
+            ;;
+        list)
+            ( cd ~/Library/LaunchAgents && ls )
+            ;;
+    esac
 }
 
 _launch() {
@@ -302,7 +331,7 @@ _launch() {
         commands)
             _values \
                 command \
-                up down list print
+                up down reload run list
             ;;
     esac
 }
