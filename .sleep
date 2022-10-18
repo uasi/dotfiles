@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for script in ~/.local/opt/sleepwatcher-scripts/sleep/*; do
+for script in ~/.sleep.d/*; do
     echo "~/.sleep: running $script"
     "$script"
 done
