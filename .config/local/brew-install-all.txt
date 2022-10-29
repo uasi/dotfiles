@@ -1,5 +1,6 @@
 cargo-outdated
 curl
+direnv
 ffmpeg
 fzf
 gh
