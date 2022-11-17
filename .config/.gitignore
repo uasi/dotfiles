@@ -1,13 +1,17 @@
 /Melonbooks/
+/asciinema/
+/borg/
 /configstore/
 /dagger/
 /fish/fishd*
 /gcloud/
 /gh/
+/git/gitk
 /grv/
 /htop/
 /hub
 /karabiner/automatic_backups/
 /keybase/
+/op/
 /ranger/
 /yarn/

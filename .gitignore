@@ -75,6 +75,7 @@
 /.electron/
 /.elm/
 /.faktory/
+/.fleet/
 /.flow-typed/
 /.fly/
 /.gdrive/
