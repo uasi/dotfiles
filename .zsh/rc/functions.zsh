@@ -16,6 +16,19 @@ zmanf() {
     echo "Search word: $w"
 }
 
+cdm() {
+    [[ -n "$1" ]] || return 1
+    mkdir -p -- "$1"
+    cd -- "$1"
+}
+
+cdl() {
+    local last_cmd=$(fc -l -LIn -1) # [l]ist hist item, [L]ocal (not from other shells), [I]nternal (not from $HISTFILE), no hist [n]umber, [1]st entry from last
+    local last_arg=${(Q)${(z)last_cmd}[-1]}
+    echo cd "$last_arg"
+    cd -- "$last_arg"
+}
+
 help() {
     local pager=$PAGER
     local helpdir=$HOME/.help
@@ -270,7 +283,7 @@ _tm_presets() {
 
 launch() {
     local usage="\
-usage: launch (up|down|reload|run) [-d <domain-target>] <plist-name>
+usage: launch (up|down|reload|run|edit) [-d <domain-target>] <plist-name>
 usage: launch list"
 
     local -A opts=()
@@ -282,6 +295,8 @@ usage: launch list"
         reload reload
         run    kickstart
         list   list
+        ls     list
+        edit   edit
     )
 
     local domain=${opts[-d]:-gui/$(id -u)}
@@ -293,7 +308,7 @@ usage: launch list"
             echo "$usage" >&2
             return 1
             ;;
-        bootstrap|bootout|reload|kickstart)
+        bootstrap|bootout|reload|kickstart|edit)
             if [[ -z "$plist_name" ]]; then
                 echo "$usage" >&2
                 return 1
@@ -317,6 +332,9 @@ usage: launch list"
         list)
             ( cd ~/Library/LaunchAgents && ls )
             ;;
+        edit)
+            "$EDITOR" ~/Library/launchAgents/"$plist_name"
+            ;;
     esac
 }
 
@@ -331,7 +349,7 @@ _launch() {
         commands)
             _values \
                 command \
-                up down reload run list
+                up down reload run list edit
             ;;
     esac
 }
