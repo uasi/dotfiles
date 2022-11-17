@@ -35,7 +35,7 @@ export async function main(rawArgs: string[] = Deno.args) {
   }
 
   if (args.help) {
-    console.log(`usage: gentoken [--bytes <num>] --type (${Object.keys(encoders).join("|")})`);
+    console.log(`usage: gentoken [--bytes <num>] [--type (${Object.keys(encoders).join("|")})]`);
     return;
   }
 
