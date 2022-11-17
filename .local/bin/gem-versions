@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ $# != 1 ]]; then
+    echo "usage: gem-versions <gem-name>" >&2
+    exit 1
+fi
+
+gem_name=$1
+
+curl -fsSL "https://rubygems.org/api/v1/versions/$gem_name.json" | jq -r '.[].number'
