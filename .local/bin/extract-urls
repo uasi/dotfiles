@@ -12,4 +12,3 @@ ARGF.each do |line|
   end
   $stdout.flush
 end
-

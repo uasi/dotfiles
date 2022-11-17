@@ -12,6 +12,6 @@ sub get_pr_number {
 exec qw(gh pr checkout), @ARGV if $ARGV[0];
 
 my $number = get_pr_number
-    or die 'fatal: no pull request number found in the frontmost browser window';
+    or die "fatal: no pull request number found in the frontmost browser window\n";
 
 exec qw(gh pr checkout), $number;
