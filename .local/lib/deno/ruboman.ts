@@ -1,9 +1,9 @@
-import * as yaml from "https://deno.land/std@0.110.0/encoding/yaml.ts";
-import { Type as YAMLType } from "https://deno.land/std@0.110.0/encoding/_yaml/type.ts";
-import { parse as argparse } from "https://deno.land/std@0.110.0/flags/mod.ts";
-import { ensureDir } from "https://deno.land/std@0.110.0/fs/ensure_dir.ts";
-import { exists } from "https://deno.land/std@0.110.0/fs/exists.ts";
-import { dirname } from "https://deno.land/std@0.110.0/path/mod.ts";
+import * as yaml from "https://deno.land/std@0.165.0/encoding/yaml.ts";
+import { Type as YAMLType } from "https://deno.land/std@0.165.0/encoding/_yaml/type.ts";
+import { parse as argparse } from "https://deno.land/std@0.165.0/flags/mod.ts";
+import { ensureDir } from "https://deno.land/std@0.165.0/fs/ensure_dir.ts";
+import { exists } from "https://deno.land/std@0.165.0/fs/exists.ts";
+import { dirname } from "https://deno.land/std@0.165.0/path/mod.ts";
 
 export type LoaderOptions = {
   cachePath?: string | null | undefined;

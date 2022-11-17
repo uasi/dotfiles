@@ -1,8 +1,8 @@
-import { parse as argparse } from "https://deno.land/std@0.160.0/flags/mod.ts";
-import { encode as base32 } from "https://deno.land/std/encoding/base32.ts";
-import { encode as base58 } from "https://deno.land/std/encoding/base58.ts";
-import { encode as base64 } from "https://deno.land/std/encoding/base64.ts";
-import { encode as base64url } from "https://deno.land/std/encoding/base64url.ts";
+import { parse as argparse } from "https://deno.land/std@0.165.0/flags/mod.ts";
+import { encode as base32 } from "https://deno.land/std@0.165.0/encoding/base32.ts";
+import { encode as base58 } from "https://deno.land/std@0.165.0/encoding/base58.ts";
+import { encode as base64 } from "https://deno.land/std@0.165.0/encoding/base64.ts";
+import { encode as base64url } from "https://deno.land/std@0.165.0/encoding/base64url.ts";
 
 const defaultBytes = 24;
 const defaultEncoder = base64;

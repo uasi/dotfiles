@@ -1,4 +1,4 @@
-import { parse as argparse } from "https://deno.land/std@0.110.0/flags/mod.ts";
+import { parse as argparse } from "https://deno.land/std@0.165.0/flags/mod.ts";
 
 type Route = {
   name: string;

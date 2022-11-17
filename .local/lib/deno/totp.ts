@@ -1,7 +1,7 @@
-import { dirname } from "https://deno.land/std@0.110.0/path/posix.ts";
-import { parse as argparse } from "https://deno.land/std@0.110.0/flags/mod.ts";
+import { dirname } from "https://deno.land/std@0.165.0/path/posix.ts";
+import { parse as argparse } from "https://deno.land/std@0.165.0/flags/mod.ts";
 
-import { TOTP } from "https://deno.land/x/god_crypto@v1.4.10/src/otp/totp.ts";
+import { TOTP } from "https://deno.land/x/god_crypto@v1.4.11/src/otp/totp.ts";
 
 const CREDENTIALS_PATH = `${
   Deno.env.get("HOME")
