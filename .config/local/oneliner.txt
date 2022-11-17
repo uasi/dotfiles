@@ -1,4 +1,5 @@
 AWS - Get caller identity          ::: aws sts get-caller-identity
+AWS - Get parameter                ::: aws ssm get-parameter --with-decryption --name
 AWS - Search parameter             ::: aws ssm describe-parameters --parameter-filters Key=Name,Values=QUERY_HERE
 Deno - Init CLI                    ::: git eject https://github.com/uasi/deno-cli-starter DIR
 Deno - Update deps                 ::: deno run -A https://deno.land/x/udd@0.7.3/main.ts *.ts
@@ -12,4 +13,5 @@ Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
 SSH - Show fingerprint             ::: ssh-keygen -l -f
 SSH - Show fingerprint (MD5 fmt)   ::: ssh-keygen -E MD5 -l -f
+Terraform - Use tmp local backend  ::: echo $'terraform {\\n backend "local" {\\n}\\n}' | terraform fmt - > _backend_override.tf && terraform init -reconfigure
 Ubuntu - Print motd                ::: cat /var/run/motd.dynamic
