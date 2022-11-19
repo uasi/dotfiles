@@ -1,0 +1,53 @@
+#!/bin/bash
+
+die() {
+    echo "usage: args-to-stdin [-0] [--end=<marker>] <cmd> [<cmd-arg>...] (;|<marker>) [<stdin-arg>...]" >&2
+    exit 1
+}
+
+delim=$'\n'
+
+if [[ "$1" = -0 ]]; then
+    delim=$'\0'
+    shift
+fi
+
+end_marker=";"
+
+if [[ "$1" = --end=* ]]; then
+    end_marker=${1#--end=}
+    shift
+fi
+
+cmd=()
+end_marker_found=
+
+for arg in "$@"; do
+    if [[ "$arg" = "$end_marker" ]]; then
+        end_marker_found=1
+        shift
+        break
+    fi
+    cmd+=("$arg")
+    shift
+done
+
+if [[ "${#cmd[@]}" = 0 ]]; then
+    echo "error: command not specified" >&2
+    echo
+    die
+fi
+
+if [[ -z "$end_marker_found" ]]; then
+    echo "error: expected end marker '$end_marker' after command" >&2
+    echo
+    die
+fi
+
+print_args() {
+    for arg in "$@"; do
+        printf "%s%s" "$arg" "$delim"
+    done
+}
+
+print_args "$@" | "${cmd[@]}"
