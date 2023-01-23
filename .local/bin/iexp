@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec iex --dot-iex ~/.local/lib/elixir/iexp.dot.exs -- "$@"
