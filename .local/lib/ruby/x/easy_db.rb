@@ -1,5 +1,4 @@
 require 'delegate'
-require 'ostruct'
 require 'pathname'
 require 'sqlite3'
 
@@ -13,10 +12,10 @@ require 'sqlite3'
 #
 
 class EasyDB < SimpleDelegator
-  class Ops < OpenStruct
+  class Ops < Data
     def self.from_sql(sql)
       matches = sql.to_enum(:scan, /^--\s*def\s+([0-9A-Za-z_?!]+)$/).map do |(name)|
-        [name, Regexp.last_match.offset(0)]
+        [name.to_sym, Regexp.last_match.offset(0)]
       end
 
       op_names = matches.map(&:first)
@@ -24,7 +23,7 @@ class EasyDB < SimpleDelegator
         sql[match_end...next_match_begin]
       end
 
-      new(op_names.zip(op_sqls).to_h)
+      define(*op_names).new(*op_sqls)
     end
   end
 
