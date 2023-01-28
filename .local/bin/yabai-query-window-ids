@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+
+use v5.30;
+use warnings;
+
+use JSON::PP;
+
+sub parse_spec {
+    my @spec;
+
+    for my $arg (@ARGV) {
+        $arg =~ /^(\w+):(.+)/;
+        my ($key, $value) = ($1, $2);
+
+        push @spec, { key => $key, value => $value, raw => $arg };
+    }
+
+    @spec;
+}
+
+sub get_windows {
+    my $result = `yabai -m query --windows`;
+    $result =~ s/\n//g;
+
+    decode_json($result)->@*;
+}
+
+sub main {
+    my @spec = parse_spec;
+
+    my @windows = get_windows;
+
+    my @ids = ('') x ($#spec + 1);
+
+    for my $window (@windows) {
+        while (my ($i, $spec) = each @spec) {
+            if (!$ids[$i] && $window->{$spec->{key}} eq $spec->{value} && !$spec->{found}) {
+                $ids[$i] = $window->{id};
+                $spec->{found} = 1;
+                next;
+            }
+        }
+    }
+
+    do {
+        local $, = ' ';
+        say @ids;
+    };
+
+    for my $i (0 .. $#ids) {
+        if (!$ids[$i]) {
+            warn "warning: no window found matching '$spec[$i]->{raw}'\n";
+        }
+    }
+}
+
+main;

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+open -a Logseq
+open -a Obsidian
+
+ids=($(yabai-query-window-ids app:Logseq app:Obsidian))
+logseq_id=${ids[0]}
+obsidian_id=${ids[1]}
+
+# grid: <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
+top_left=2:5:3:0:2:1
+bottom_left=2:5:3:1:2:1
+
+yabai -m window "$logseq_id" --grid "$top_left"
+yabai -m window "$obsidian_id" --grid "$bottom_left"
