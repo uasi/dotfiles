@@ -17,6 +17,7 @@ call ddc#custom#patch_filetype(
     \     'mode': 'win32',
     \   },
     \ }})
+call ddc#custom#patch_global('ui', 'native')
 
 inoremap <silent><expr> <TAB>
     \ ddc#map#pum_visible() ? '<C-n>' :

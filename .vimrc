@@ -4,9 +4,15 @@ call plug_helper#install_plug_vim_if_needed()
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'Shougo/ddc.vim'
+Plug 'shun/ddc-vim-lsp'
+
 Plug 'LumaKernel/ddc-file'
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
 Plug 'Shougo/ddc.vim' " |ddc_vim|
+Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim' " |unite_vim|
 Plug 'Yggdroot/indentLine' " |indentline|

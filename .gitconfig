@@ -122,11 +122,6 @@
 	root = ~/repos
 [ghq "import"]
 	local = "ghq list | sed 's/^/https:\\/\\//'"
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
-	process = git-lfs filter-process
 [heroku]
 	account = personal
 [grep]

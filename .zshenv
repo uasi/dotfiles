@@ -100,11 +100,11 @@ path=(
     # Elixir
     $HOME/.mix/escripts(N-/)
 
-    # JetBrains Toolbox
-    $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'(N-/)
-
     # Go
     $HOME/.local/share/go/bin(N-/)
+
+    # JetBrains Toolbox
+    $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'(N-/)
 
     # Rancher Desktop
     $HOME/.rd/bin(N-/)
@@ -141,6 +141,7 @@ path=(
     # Homebrew
     /opt/homebrew/bin(N-/)
     /opt/homebrew/(s|)bin(N-/)
+    /opt/homebrew/opt/postgresql@*/bin(N-/)
 
     ${path}
 )
