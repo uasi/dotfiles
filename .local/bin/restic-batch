@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+
+use v5.30;
+use warnings;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+use Encode;
+use JSON::PP;
+use List::Util 'first';
+
+sub load_targets($json_path) {
+    open my $fh, '<', $json_path or die "error: cannot open $json_path: $!\n";
+    my $json = do { local $/; <$fh> };
+    close $fh;
+
+    decode_json(decode('UTF-8', $json))->@*;
+}
+
+sub run_restic($target, @args) {
+    my $cmd = shift @args;
+
+    if ($cmd eq 'backup') {
+        @args = ('--tag', $target->{tag}, @args, $target->{path});
+    } elsif ($cmd eq 'forget') {
+        @args = ('--tag', $target->{tag}, @args);
+    } else {
+        die "error: unsupported restic command: $cmd\n";
+    }
+
+    system('restic', $cmd, @args);
+}
+
+sub main {
+    if (@ARGV < 2 || $ARGV[0] eq '-h' || $ARGV[0] eq '--help') {
+        say "usage: restic-batch <targets.json> <restic arg>...";
+        exit 0;
+    }
+
+    my @targets = load_targets($ARGV[0]);
+    my @restic_args = @ARGV[1..$#ARGV];
+
+    for my $target (@targets) {
+        say "restic-batch: tag=$target->{tag} path=$target->{path}";
+        run_restic($target, @restic_args);
+    }
+}
+
+main;
