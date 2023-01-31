@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+# Dumb unzip for deno_install
+
+use strict;
+use warnings;
+
+use File::Path 'mkpath';
+use Getopt::Long 'GetOptions';
+use IO::Uncompress::Unzip qw(unzip $UnzipError);
+
+GetOptions(d => \my $_decompress, o => \my $_overwrite);
+
+my ($dest_dir, $zip_path) = @ARGV;
+
+mkpath($dest_dir);
+
+unzip($zip_path => "$dest_dir/deno") or die "error: $UnzipError";

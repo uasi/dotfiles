@@ -7,6 +7,11 @@ echo "Installing dotfiles..."
 git clone --bare https://github.com/uasi/dotfiles.git ~/.dotfiles.git
 git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME" checkout master
 
+echo "Installing deno..."
+
+curl -fsSL https://deno.land/install.sh | \
+    PATH=$HOME/.local/opt/dotfiles-tools/bin:$PATH DENO_INSTALL=$HOME sh
+
 cat <<'END'
 
 Completed.
