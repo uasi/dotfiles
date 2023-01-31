@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -ex
+
+case `uname -sm` in
+    "Darwin x86_64") target="x86_64-darwin"  ;;
+    "Darwin arm64" ) target="aarch64-darwin" ;;
+    "Linux x86_64" ) target="x86_64-linux"   ;;
+    "Linux aarch64") target="aarch64-linux"  ;;
+*)
+    echo "errror: unsupported architecture: `uname -sm`"
+esac
+
+mkdir -p "$HOME/bin"
+
+curl -fsSL -o "$HOME/bin/mitamae" "https://github.com/itamae-kitchen/mitamae/releases/latest/download/mitamae-${target}"
+
+chmod +x "$HOME/bin/mitamae"
