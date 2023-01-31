@@ -4,20 +4,8 @@ set -ex
 
 echo "Installing dotfiles..."
 
-git clone --bare https://github.com/uasi/dotfiles.git "$HOME/.dotfiles.git"
+git clone --bare https://github.com/uasi/dotfiles.git ~/.dotfiles.git
 git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME" checkout master
-
-echo "Installing mitamae..."
-
-"$HOME/.local/opt/dotfiles-tools/bin/bootstrap-mitamae"
-
-echo "Installing essentials..."
-
-"$HOME/bin/mitamae" "$HOME/.local/opt/dotfiles-tools/share/recipe-essentials.rb"
-
-echo "Installing deno..."
-
-DENO_INSTALL=$HOME curl -fsSL https://deno.land/x/install/install.sh | sh
 
 cat <<'END'
 
