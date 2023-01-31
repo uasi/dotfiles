@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+use v5.30;
+use warnings;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+use Encode;
+use JSON::PP;
+
+sub parse_spec(%args) {
+    my @spec;
+
+    while (my ($target, $grid) = each %args) {
+        $target =~ /^(\w+):(.+)/;
+        my ($key, $value) = ($1, $2);
+
+        push @spec, { key => $key, value => $value, raw => $target, grid => $grid };
+    }
+
+    @spec;
+}
+
+sub matches_spec($spec, $window) {
+    $window->{$spec->{key}} eq $spec->{value};
+}
+
+sub get_windows {
+    my $result = `yabai -m query --windows`;
+    $result =~ s/\n//g;
+
+    decode_json($result)->@*;
+}
+
+sub move_window($id, $grid) {
+    system qw(yabai -m window), $id, '--grid', $grid;
+}
+
+sub main {
+    if ($#ARGV % 2 == 0) {
+        die "usage: yabai-move-windows (app:<app-name> <grid>)...\n\n" .
+            "    <grid> = <rows>:<cols>:<start-x>:<start-y>:<w>:<h>\n";
+    }
+
+    my %args = map { decode('UTF-8', $_) } @ARGV;
+    my @spec = parse_spec(%args);
+    my @windows = get_windows;
+
+    SPEC: for my $spec (@spec) {
+        for my $window (@windows) {
+            if (matches_spec($spec, $window)) {
+                move_window($window->{id}, $spec->{grid});
+                next SPEC;
+            }
+        }
+
+        warn "warning: no window found matching '$spec->{raw}'\n";
+    }
+}
+
+main;
