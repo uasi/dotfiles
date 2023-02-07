@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while [[ $# > 0 && "$1" != -- ]]; do
-    source "$1"
+    PATH=$1:$PATH
     shift
 done
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+pg_isready_args=()
+
 while [[ $# > 0 && "$1" != -- ]]; do
-    source "$1"
+    pg_isready_args+=("$1")
     shift
 done
 
@@ -12,4 +14,6 @@ fi
 
 shift
 
-exec -- "$@"
+if pg_isready "${pg_isready_args[@]}" >/dev/null 2>&1; then
+    exec -- "$@"
+fi
