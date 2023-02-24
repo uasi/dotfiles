@@ -11,25 +11,21 @@ func echo(_ string: String, raw: Bool) {
 func watchPasteboard(options: Options) {
   let pasteboard = NSPasteboard.general
   var lastChangeCount = pasteboard.changeCount
-  var lastString = pasteboard.string(forType: .string) ?? ""
 
   if options.printInitialValue {
-    echo(lastString, raw: options.raw)
+    echo(pasteboard.string(forType: .string) ?? "", raw: options.raw)
   }
 
   Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
-    guard
-      pasteboard.changeCount != lastChangeCount,
-      let string = pasteboard.string(forType: .string),
-      string != lastString
-    else {
+   if pasteboard.changeCount == lastChangeCount {
       return
     }
 
-    echo(string, raw: options.raw)
-
     lastChangeCount = pasteboard.changeCount
-    lastString = string
+
+    if let string = pasteboard.string(forType: .string) {
+      echo(string, raw: options.raw)
+    }
   }
 }
 
