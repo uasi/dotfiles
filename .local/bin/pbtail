@@ -2,10 +2,20 @@
 
 import Cocoa
 
-func watchPasteboard(raw: Bool) {
+func echo(_ string: String, raw: Bool) {
+  let terminator = raw || string.hasSuffix("\n") ? "" : "\n"
+  print(string, terminator: terminator)
+  fflush(stdout)
+}
+
+func watchPasteboard(options: Options) {
   let pasteboard = NSPasteboard.general
   var lastChangeCount = pasteboard.changeCount
   var lastString = pasteboard.string(forType: .string) ?? ""
+
+  if options.printInitialValue {
+    echo(lastString, raw: options.raw)
+  }
 
   Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
     guard
@@ -16,9 +26,7 @@ func watchPasteboard(raw: Bool) {
       return
     }
 
-    let terminator = raw || string.hasSuffix("\n") ? "" : "\n"
-    print(string, terminator: terminator)
-    fflush(stdout)
+    echo(string, raw: options.raw)
 
     lastChangeCount = pasteboard.changeCount
     lastString = string
@@ -41,9 +49,14 @@ func onSIGINT(handler: @escaping () -> Void) {
 }
 
 struct Options {
+  let printInitialValue: Bool
   let raw: Bool
 
   init() {
+    self.printInitialValue = CommandLine.arguments.contains { argument in
+      argument == "-i" || argument == "--print-initial-value"
+    }
+
     self.raw = CommandLine.arguments.contains { argument in
       argument == "-r" || argument == "--raw"
     }
@@ -61,7 +74,7 @@ func main() {
     }
   }
 
-  watchPasteboard(raw: options.raw)
+  watchPasteboard(options: options)
 
   while shouldKeepRunning {
     RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
