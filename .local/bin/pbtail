@@ -1,20 +1,71 @@
-#!/usr/bin/env ruby
+#!/usr/bin/swift
 
-raw = ARGV.include?('-r') || ARGV.include?('--raw')
+import Cocoa
 
-trap :INT do
-  exit 0
-end
+func watchPasteboard(raw: Bool) {
+  let pasteboard = NSPasteboard.general
+  var lastChangeCount = pasteboard.changeCount
+  var lastString = pasteboard.string(forType: .string) ?? ""
 
-prev_pb = `pbpaste`
+  Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+    guard
+      pasteboard.changeCount != lastChangeCount,
+      let string = pasteboard.string(forType: .string),
+      string != lastString
+    else {
+      return
+    }
 
-loop do
-  sleep 1
+    let terminator = raw || string.hasSuffix("\n") ? "" : "\n"
+    print(string, terminator: terminator)
+    fflush(stdout)
 
-  pb = `pbpaste`
-  if pb != prev_pb
-    print pb
-    puts if !raw && pb[-1] != "\n"
-    prev_pb = pb
-  end
-end
+    lastChangeCount = pasteboard.changeCount
+    lastString = string
+  }
+}
+
+func onSIGINT(handler: @escaping () -> Void) {
+  let group = DispatchGroup()
+
+  let queue = DispatchQueue.global(qos: .userInteractive)
+
+  let source = DispatchSource.makeSignalSource(signal: SIGINT, queue: queue)
+  source.setEventHandler(handler: handler)
+
+  signal(SIGINT, SIG_IGN)
+  source.activate()
+
+  group.enter()
+  group.wait()
+}
+
+struct Options {
+  let raw: Bool
+
+  init() {
+    self.raw = CommandLine.arguments.contains { argument in
+      argument == "-r" || argument == "--raw"
+    }
+  }
+}
+
+func main() {
+  let options = Options()
+
+  var shouldKeepRunning = true
+
+  DispatchQueue.global(qos: .background).async {
+    onSIGINT {
+      shouldKeepRunning = false
+    }
+  }
+
+  watchPasteboard(raw: options.raw)
+
+  while shouldKeepRunning {
+    RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+  }
+}
+
+main()
