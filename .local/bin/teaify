@@ -1,0 +1,63 @@
+#!/usr/bin/env perl
+
+use v5.26;
+use warnings;
+
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+use Getopt::Long;
+
+sub prompt ($msg) {
+    do { local $| = 1; print $msg; };
+    chomp(my $reply = <STDIN>);
+    $reply;
+}
+
+sub which ($cmd) {
+    system('bash', '-c', 'command -v "$0" &>/dev/null', $cmd) == 0;
+}
+
+sub install_tea {
+    system('bash', '-c', 'sh <(curl https://tea.xyz) --yes');
+}
+
+sub install_command ($cmd, $use_hardlink) {
+    my $prefix = $ENV{TEA_PREFIX} || "$ENV{HOME}/.tea";
+    my $src = "$prefix/tea.xyz/v*/bin/tea";
+    my $dest = "$ENV{HOME}/bin/$cmd";
+
+    if ($use_hardlink) {
+        link($src, $dest);
+    } else {
+        symlink($src, $dest);
+    }
+
+    say "Created ${\($use_hardlink ? 'hardlink' : 'symlink')} for $cmd in ~/bin.";
+}
+
+sub main {
+    my @cmds = @ARGV;
+
+    for my $cmd (@cmds) {
+        if (-e "$ENV{HOME}/bin/$cmd") {
+            die "$cmd already exists in ~/bin.\n";
+        }
+    }
+
+    unless (which('tea')) {
+        if (prompt('tea not found. Install? [Y/n] ') =~ /^(?:y(?:es)?)?$/) {
+            install_tea;
+        } else {
+            die "Canceled.\n";
+        }
+    }
+
+    my $use_hardlink = `uname -s` eq 'Linux';
+
+    for my $cmd (@cmds) {
+        install_command($cmd, $use_hardlink);
+    }
+}
+
+main;
