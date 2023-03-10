@@ -1,5 +1,1 @@
-#!/bin/bash
-
-script_path=".local/lib/deno/$(basename "$0").ts"
-
-exec deno run --allow-all --location "http://localhost/~/$script_path" "$HOME/$script_path" "$@"
+../libexec/deno-trampoline
