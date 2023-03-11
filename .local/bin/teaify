@@ -66,7 +66,7 @@ sub main {
 
     die "tea not found. Aborted.\n" unless $tea_bin;
 
-    my $use_hardlink = `uname -s` eq 'Linux';
+    my $use_hardlink = `uname -s` eq "Linux\n";
 
     for my $cmd (@cmds) {
         install_command($tea_bin, $cmd, $use_hardlink);
