@@ -19,7 +19,7 @@ sub which ($cmd) {
 }
 
 sub install_tea {
-    system('bash', '-c', 'sh <(curl https://tea.xyz) --yes');
+    system('bash', '-c', 'sh <(curl https://tea.xyz)');
 }
 
 sub install_command ($cmd, $use_hardlink) {
