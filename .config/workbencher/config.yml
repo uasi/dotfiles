@@ -1,0 +1,9 @@
+users:
+  cookpad_readonly: /hako/common/mysql_ckpd_r_password
+  ckpd_r: /hako/common/mysql_ckpd_r_password
+  ckpd_readonly: /hako/common/mysql_ckpd_r_password
+  work_readonly: token
+
+hosts:
+  cookpad-main-staging.cluster-ro-cyaxvia5gf7a.ap-northeast-1.rds.amazonaws.com:
+    ckpd_readonly: /hako/common/mysql_common_password

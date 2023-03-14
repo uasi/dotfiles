@@ -2,13 +2,14 @@
 
 use v5.30;
 use warnings;
+
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
 use Encode;
 use JSON::PP;
 
-sub parse_spec(%args) {
+sub parse_spec (%args) {
     my @spec;
 
     while (my ($target, $grid) = each %args) {
@@ -21,7 +22,7 @@ sub parse_spec(%args) {
     @spec;
 }
 
-sub matches_spec($spec, $window) {
+sub matches_spec ($spec, $window) {
     $window->{$spec->{key}} eq $spec->{value};
 }
 
@@ -32,14 +33,15 @@ sub get_windows {
     decode_json($result)->@*;
 }
 
-sub move_window($id, $grid) {
+sub move_window ($id, $grid) {
     system qw(yabai -m window), $id, '--grid', $grid;
 }
 
 sub main {
     if ($#ARGV % 2 == 0) {
-        die "usage: yabai-move-windows (app:<app-name> <grid>)...\n\n" .
-            "    <grid> = <rows>:<cols>:<start-x>:<start-y>:<w>:<h>\n";
+        die "usage: yabai-move-windows (<window> <grid>)...\n\n" .
+            "    <window> = app:<app-name> | title:<window-title>\n" .
+            "    <grid>   = <rows>:<cols>:<start-x>:<start-y>:<w>:<h>\n";
     }
 
     my %args = map { decode('UTF-8', $_) } @ARGV;

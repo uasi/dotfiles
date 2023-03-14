@@ -1,0 +1,14 @@
+users:
+  - user: ckpd_r
+    password: /hako/common/mysql_ckpd_r_password
+hosts:
+  - host: blog-aurora.cluster-cyaxvia5gf7a.ap-northeast-1.rds.amazonaws.com
+    aliases: [blog-aurora]
+    users:
+      - user: cookpad_readonly
+        password: /hako/common/mysql_ckpd_r_password
+  - host: cookpad-main2-free.cluster-custom-cyaxvia5gf7a.ap-northeast-1.rds.amazonaws.com
+    aliases: [main2]
+    users:
+      - user: work_readonly
+        password: token
