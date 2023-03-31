@@ -1,5 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env -S deno run --ext=ts
 
-script_path=".local/lib/deno/$(basename "$0").ts"
-
-exec deno run --allow-all --location "http://localhost/~/$script_path" "$HOME/$script_path" "$@"
+console.log(Deno.args.map((n) => parseInt(n, 16)).toString());
