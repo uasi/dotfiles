@@ -13,6 +13,6 @@ Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
 SSH - Show fingerprint             ::: ssh-keygen -l -f
 SSH - Show fingerprint (MD5 fmt)   ::: ssh-keygen -E MD5 -l -f
-Terraform - Use tmp local backend  ::: echo $'terraform {\\n backend "local" {\\n}\\n}' | terraform fmt - > _backend_override.tf && terraform init -reconfigure
+Terraform - Use tmp local backend  ::: echo $'terraform {\\n backend "local" {\\n}\\n}' | terraform fmt - > _backend_override.tf && terraform init -migrate-state
 Ubuntu - Print motd                ::: cat /var/run/motd.dynamic
 yt-dlp - video=res:360, audio=best ::: yt-dlp -S res:360,vcodec:mp4,acodec:m4a
