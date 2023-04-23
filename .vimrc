@@ -12,6 +12,9 @@ Plug 'shun/ddc-vim-lsp'
 Plug 'LumaKernel/ddc-file'
 Plug 'MattesGroeger/vim-bookmarks' " |vim_bookmarks|
 Plug 'Shougo/ddc.vim' " |ddc_vim|
+Plug 'Shougo/ddc-filter-matcher_head'
+Plug 'Shougo/ddc-filter-sorter_rank'
+Plug 'Shougo/ddc-source-around'
 Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim' " |unite_vim|
