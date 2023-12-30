@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# rot is a tool for managing secrets.
+# https://github.com/candiddev/rot
+
+key_name=$1
+shift
+
+case $key_name in
+    "" | help | -h | --help)
+        echo "usage: rotx <key-name> <rot-args>..."
+        echo
+        echo "example:"
+        echo "    rotx home add-value FOO"
+        echo "    rotx home show-value FOO | rot jq .value"
+        echo "    rotx home run bash -c 'echo \$FOO'"
+
+        exit 0
+        ;;
+esac
+
+exec rot -x "keyPath=$HOME/.local/share/rot/rot-keys" -c "$HOME/Dropbox/Data/Secrets/rot-$key_name.jsonnet" "$@"
