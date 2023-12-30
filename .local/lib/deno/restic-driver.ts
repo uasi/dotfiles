@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -q -A --ext=ts
+#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=restic,rotx
 
 import { parseArgs } from "https://deno.land/std@0.210.0/cli/mod.ts";
 import { join as joinPath } from "https://deno.land/std@0.210.0/path/mod.ts";
