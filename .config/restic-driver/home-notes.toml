@@ -1,0 +1,19 @@
+repo = "~/Dropbox/Data/restic/repos/home-notes"
+
+[forget]
+args = [
+  "--keep-within=1h",
+  "--keep-within-hourly=7d",
+  "--keep-within-daily=1m",
+  "--keep-within-monthly=1y",
+  "--compact",
+  "--prune",
+]
+
+[[targets]]
+tag = "logseq"
+path = "~/Library/Mobile Documents/iCloud~com~logseq~logseq/Documents"
+
+[[targets]]
+tag = "obsidian"
+path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents"
