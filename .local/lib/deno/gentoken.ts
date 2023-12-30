@@ -13,7 +13,8 @@ const encoders = Object.assign(Object.create(null), {
   base58,
   base64,
   base64url,
-  hex: (a: Uint8Array) => Array.from(a).map((i) => i.toString(16).padStart(2, "0")).join(""),
+  hex: (a: Uint8Array) =>
+    Array.from(a).map((i) => i.toString(16).padStart(2, "0")).join(""),
 });
 
 export async function main(rawArgs: string[] = Deno.args) {
@@ -32,12 +33,18 @@ export async function main(rawArgs: string[] = Deno.args) {
   }
 
   if (!encode) {
-    console.error(`error: type must be one of (${Object.keys(encoders).join("|")})`);
+    console.error(
+      `error: type must be one of (${Object.keys(encoders).join("|")})`,
+    );
     Deno.exit(1);
   }
 
   if (args.help) {
-    console.log(`usage: gentoken [--bytes <num>] [--type (${Object.keys(encoders).join("|")})]`);
+    console.log(
+      `usage: gentoken [--bytes <num>] [--type (${
+        Object.keys(encoders).join("|")
+      })]`,
+    );
     return;
   }
 
