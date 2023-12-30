@@ -16,7 +16,7 @@
 /.serverlessrc
 /.trc
 
-# Backups, caches, dumps, histories, logs, sessions, and whatever
+# Backups, caches, dumps, histories, logs, sessions, etc.
 .vscode/
 /.*-history
 /.*_history
@@ -35,6 +35,7 @@
 /.journal.json
 /.lesshst
 /.my.cnf
+/.pgpass
 /.pnpm-state.json
 /.rnd
 /.tempPath.xml
@@ -54,6 +55,7 @@
 /.aws/
 /.bdash/
 /.blockstack/
+/.bun/
 /.bundle/
 /.cache/
 /.caddy/
@@ -69,11 +71,13 @@
 /.dat/
 /.dlv/
 /.docker/
+/.dotnet/
 /.dropbox/
 /.earthly/
 /.ecr/
 /.electron/
 /.elm/
+/.expo/
 /.faktory/
 /.fleet/
 /.flow-typed/
@@ -91,8 +95,8 @@
 /.idea/
 /.ipython/
 /.itmstransporter/
-/.jupyter/
 /.jspm/
+/.jupyter/
 /.kiex/
 /.kube/
 /.livedl/
@@ -101,10 +105,12 @@
 /.local/lib/python*/
 /.local/share/
 /.local/state/
+/.logseq/
 /.m2/
 /.minikube/
 /.mitmproxy/
 /.mix/
+/.mshell/
 /.multirust/
 /.nanobox/
 /.ngrok2/
@@ -112,8 +118,10 @@
 /.node-gyp/
 /.nodebrew/
 /.npm/
+/.nuget/
 /.nvm/
 /.op/
+/.opam/
 /.oracle_jre_usage/
 /.pnpm-state/
 /.pnpm-store/
@@ -135,6 +143,8 @@
 /.virtualenvs/
 /.volta/
 /.vscode/
+/.vscode-*/
+/.webdrivers/
 /.wine/
 /.yarn/
 /.yeoman/
