@@ -1,0 +1,23 @@
+repo = "~/Dropbox/Data/restic/repos/home-unsecured-images"
+
+[backup]
+cwd = "$CONFIG"
+args = [
+  "--iexclude-file=home-unsecured-images.iexcludes.txt",
+]
+
+[forget]
+args = [
+  "--keep-within-hourly=1d",
+  "--keep-within-daily=3d",
+  "--compact",
+  "--prune",
+]
+
+[[targets]]
+tag = "downloads"
+path = "~/Downloads"
+
+[[targets]]
+tag = "playwright-scripts"
+path = "~/repos/github.com/uasi/playwright-scripts"

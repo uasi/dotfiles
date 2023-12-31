@@ -1,0 +1,9 @@
+$TARGET/*
+!$TARGET/**/*.bmp
+!$TARGET/**/*.gif
+!$TARGET/**/*.heif
+!$TARGET/**/*.jpeg
+!$TARGET/**/*.jpg
+!$TARGET/**/*.png
+!$TARGET/**/*.tiff
+!$TARGET/**/*.webp
