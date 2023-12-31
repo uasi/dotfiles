@@ -7,11 +7,25 @@ import * as v from "https://deno.land/x/valibot@v0.25.0/mod.ts";
 
 const CONFIG_DIR = joinPath(Deno.env.get("HOME")!, ".config", "restic-driver");
 
+const CommandOptionsSchema = v.optional(
+  v.object({
+    args: v.optional(v.array(v.string())),
+    cwd: v.optional(v.string()),
+  })
+);
+
 const ConfigSchema = v.object({
   repo: v.string(),
-  targets: v.array(v.object({ tag: v.string(), path: v.string() })),
-  backup: v.optional(v.object({ args: v.optional(v.array(v.string())) })),
-  forget: v.optional(v.object({ args: v.optional(v.array(v.string())) })),
+  targets: v.array(
+    v.object({
+      tag: v.string(),
+      path: v.string(),
+      backup: CommandOptionsSchema,
+      forget: CommandOptionsSchema,
+    })
+  ),
+  backup: CommandOptionsSchema,
+  forget: CommandOptionsSchema,
 });
 
 type Config = v.Output<typeof ConfigSchema>;
@@ -22,45 +36,51 @@ async function main() {
   const rest = args._ as string[];
 
   if (rest.length < 2) {
-    console.error("usage: restic-driver [--rot-key=<key>] <command> <config>");
+    console.error("usage: restic-driver [--rot-key=<key>] <command> <config>...");
     Deno.exit(1);
   }
 
   const command = rest[0];
-  const configName = rest[1];
+  const configNames = rest.slice(1);
 
   if (command !== "backup" && command !== "forget") {
     console.error(`error: unknown command: ${command}`);
     Deno.exit(1);
   }
 
-  const config = loadConfig(configName);
+  for (const configName of configNames) {
+    const config = loadConfig(configName);
 
-  await runCommand(command, config, rotKey);
+    await runCommand(command, config, rotKey);
+  }
 }
 
 async function runCommand(
   command: "backup" | "forget",
   config: Config,
-  rotKey: string | undefined,
+  rotKey: string | undefined
 ) {
   console.log("########################");
   console.log(new Date().toISOString());
   console.log("########################");
 
   const repo = expandHome(config.repo);
-  const extraArgs = config[command]?.args ?? [];
 
-  for (const { tag, path: rawPath } of config.targets) {
+  for (const { tag, path: rawPath, ...target } of config.targets) {
     console.log(`=== ${command} ===`);
     console.log(`restic-driver: tag=${tag} path=${rawPath}`);
 
     const path = expandHome(rawPath);
-    const args = command === "backup"
-      ? ["--repo", repo, command, "--tag", tag, ...extraArgs, path]
-      : ["--repo", repo, command, "--tag", tag, ...extraArgs];
 
-    const status = await runRestic(args, rotKey);
+    const cwd = target[command]?.cwd ?? config[command]?.cwd;
+
+    const extraArgs = target[command]?.args ?? config[command]?.args ?? [];
+    const args =
+      command === "backup"
+        ? [command, "--repo", repo, "--tag", tag, ...extraArgs, path]
+        : [command, "--repo", repo, "--tag", tag, ...extraArgs];
+
+    const status = await runRestic(args, path, cwd, rotKey);
 
     if (!status.success) {
       return;
@@ -70,11 +90,28 @@ async function runCommand(
 
 async function runRestic(
   args: string[],
-  rotKey: string | undefined,
+  target: string,
+  cwd: string | undefined,
+  rotKey: string | undefined
 ): Promise<Deno.CommandStatus> {
-  const command = rotKey === undefined
-    ? new Deno.Command("restic", { args })
-    : new Deno.Command("rotx", { args: [rotKey, "run", "restic", ...args] });
+  const realCwd =
+    cwd === "$CONFIG"
+      ? CONFIG_DIR
+      : cwd === "$HOME"
+      ? Deno.env.get("HOME")!
+      : cwd === "$TARGET"
+      ? target
+      : cwd;
+
+  const options = { cwd: realCwd, env: { TARGET: target } };
+
+  const command =
+    rotKey === undefined
+      ? new Deno.Command("restic", { args, ...options })
+      : new Deno.Command("rotx", {
+          args: [rotKey, "run", "restic", ...args],
+          ...options,
+        });
 
   const child = command.spawn();
 
@@ -82,9 +119,10 @@ async function runRestic(
 }
 
 function loadConfig(name: string): Config {
-  const configPath = name.includes("/") || name.includes("\\")
-    ? name
-    : joinPath(CONFIG_DIR, name + ".toml");
+  const configPath =
+    name.includes("/") || name.includes("\\")
+      ? name
+      : joinPath(CONFIG_DIR, name + ".toml");
 
   return v.parse(ConfigSchema, parseToml(Deno.readTextFileSync(configPath)));
 }
