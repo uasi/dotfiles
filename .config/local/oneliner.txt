@@ -10,6 +10,7 @@ Go - Update deps                   ::: go get -u ./... && go mod tidy
 Local - Edit brew-install-all.txt  ::: vim -o ~/.config/local/brew-install-all{,-cask}.txt
 Local - Edit oneliner.txt          ::: vim -o ~/.config/local/oneliner{.txt,.*.txt}(N)
 Local - Start file server          ::: python3 -m http.server --bind 127.0.0.1 8080
+Logseq - Remove empty journals     ::: ruby -rpathname -e 'ARGV.each { |p| p = Pathname(p); puts(p) || p.delete if /\A-\s*\z/.match?(p.read) }' "$HOME/Library/Mobile Documents/iCloud~com~logseq~logseq/Documents/Default/journals"/*.md
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings
 Rust - Profile crate build timings ::: cargo +nightly build -Z timings --release
 SSH - Show fingerprint             ::: ssh-keygen -l -f
