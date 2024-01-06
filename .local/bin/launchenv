@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+if [[ $# = 0 ]]; then
+    echo "usage: launchenv [--env=VAR=VALUE]... [--source=PATH]... <command> <arg>..."
+    echo
+    echo "note: VALUE and PATH undergo shell expansions"
+
+    exit 0
+fi
+
+PATH=$HOME/bin:$HOME/.local/bin:$HOME/Dropbox/Data/Executables:/opt/homebrew/bin:$PATH
+
+while :; do
+    case $1 in
+        --env=*)
+            arg=${1#--env=}
+            shift
+
+            export "${(e)arg}"
+            ;;
+        --source=*)
+            arg=${1#--source=}
+            shift
+
+            emulate sh
+            source "${(e)arg}"
+            emulate zsh
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+exec "$@"
