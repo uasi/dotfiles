@@ -1,3 +1,0 @@
-#!/bin/bash
-
-PATH=$HOME/bin:$HOME/.local/bin:$HOME/Dropbox/Data/Executables:/opt/homebrew/bin:$PATH exec env "$@"
