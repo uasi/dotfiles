@@ -1,0 +1,13 @@
+repo = "~/Dropbox/Data/restic/repos/work-tmp"
+
+[forget]
+args = [
+  "--keep-within-hourly=1d",
+  "--keep-within-daily=3d",
+  "--compact",
+  "--prune",
+]
+
+[[targets]]
+tag = "tmp"
+path = "~/tmp"
