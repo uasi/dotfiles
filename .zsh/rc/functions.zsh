@@ -361,6 +361,28 @@ _launchagents_list() {
         ~/Library/LaunchAgents/*.plist(:t)
 }
 
+_restic-driver() {
+    _arguments '--rot-key=[key]: :->keys' '1: :->commands' '*: :->configs'
+    case $state in
+        keys)
+            _values \
+                key \
+                ~/Dropbox/Data/Secrets/rot-*.jsonnet(:r:t:s/rot-/)
+            ;;
+        commands)
+            _values \
+                command \
+                backup forget
+            ;;
+        configs)
+            _values \
+                config \
+                ~/.config/restic-driver/*.toml(:r:t)
+            ;;
+    esac
+}
+compdef _restic-driver restic-driver
+
 rn() {
     if [[ $# = 0 ]]; then
         if [[ ! -e package.json ]]; then
