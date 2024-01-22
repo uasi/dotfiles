@@ -20,6 +20,7 @@ require 'uri'
   end
 end
 
+require_relative 'x/debug'
 require_relative 'x/pathname'
 require_relative 'x/shell'
 
