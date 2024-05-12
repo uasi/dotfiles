@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --ext=ts -q --allow-read
 
-import { dirname } from "https://deno.land/std@0.210.0/path/posix/mod.ts";
-import { parseArgs } from "https://deno.land/std@0.210.0/cli/mod.ts";
+import { dirname } from "jsr:@std/path@^0.224.0";
+import { parseArgs } from "jsr:@std/cli@^0.224.0";
 
 import { TOTP } from "https://deno.land/x/god_crypto@v1.4.11/src/otp/totp.ts";
 

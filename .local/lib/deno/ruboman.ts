@@ -1,11 +1,11 @@
-#!/usr/bin/env -S deno run --ext=ts --allow-net --allow-read
+#!/usr/bin/env -S deno run --ext=ts --allow-net --allow-read --allow-write --allow-env=HOME --allow-run=open
 
-import { parseArgs } from "https://deno.land/std@0.210.0/cli/mod.ts";
-import { ensureDir } from "https://deno.land/std@0.210.0/fs/ensure_dir.ts";
-import { exists } from "https://deno.land/std@0.210.0/fs/exists.ts";
-import { dirname } from "https://deno.land/std@0.210.0/path/mod.ts";
-import * as yaml from "https://deno.land/std@0.210.0/yaml/mod.ts";
-import { Type as YAMLType } from "https://deno.land/std@0.210.0/yaml/type.ts";
+import { parseArgs } from "jsr:@std/cli@^0.224.0";
+import { ensureDir } from "jsr:@std/fs@^0.224.0";
+import { exists } from "jsr:@std/fs@^0.224.0";
+import { dirname } from "jsr:@std/path@^0.224.0";
+import * as yaml from "jsr:@std/yaml@^0.224.0";
+import { Type as YAMLType } from "jsr:@std/yaml@^0.224.0/type";
 
 export type LoaderOptions = {
   cachePath?: string | null | undefined;

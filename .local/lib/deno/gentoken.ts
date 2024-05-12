@@ -1,10 +1,10 @@
 #!/usr/bin/env -S deno run --ext=ts
 
-import { parse as argparse } from "https://deno.land/std@0.185.0/flags/mod.ts";
-import { encode as base32 } from "https://deno.land/std@0.185.0/encoding/base32.ts";
-import { encode as base58 } from "https://deno.land/std@0.185.0/encoding/base58.ts";
-import { encode as base64 } from "https://deno.land/std@0.185.0/encoding/base64.ts";
-import { encode as base64url } from "https://deno.land/std@0.185.0/encoding/base64url.ts";
+import { parseArgs } from "jsr:@std/cli@^0.224.0";
+import { encodeBase32 as base32 } from "jsr:@std/encoding@^0.224.0/base32";
+import { encodeBase58 as base58 } from "jsr:@std/encoding@^0.224.0/base58";
+import { encodeBase64 as base64 } from "jsr:@std/encoding@^0.224.0/base64";
+import { encodeBase64Url as base64url } from "jsr:@std/encoding@^0.224.0/base64url";
 
 const defaultBytes = 24;
 const defaultEncoder = base64;
@@ -18,7 +18,7 @@ const encoders = Object.assign(Object.create(null), {
 });
 
 export async function main(rawArgs: string[] = Deno.args) {
-  const args = argparse(rawArgs, {
+  const args = parseArgs(rawArgs, {
     alias: { b: "bytes", h: "help", t: "type" },
     boolean: ["help"],
     string: ["bytes", "type", "_"],

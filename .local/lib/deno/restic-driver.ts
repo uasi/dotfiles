@@ -1,9 +1,9 @@
 #!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=restic,rotx
 
-import { parseArgs } from "https://deno.land/std@0.210.0/cli/mod.ts";
-import { join as joinPath } from "https://deno.land/std@0.210.0/path/mod.ts";
-import { parse as parseToml } from "https://deno.land/std@0.210.0/toml/mod.ts";
-import * as v from "https://deno.land/x/valibot@v0.25.0/mod.ts";
+import { parseArgs } from "jsr:@std/cli@^0.224.0";
+import { join as joinPath } from "jsr:@std/path@^0.224.0";
+import { parse as parseToml } from "jsr:@std/toml@^0.224.0";
+import * as v from "jsr:@valibot/valibot@^0.30.0";
 
 const CONFIG_DIR = joinPath(Deno.env.get("HOME")!, ".config", "restic-driver");
 
