@@ -37,6 +37,9 @@ export SAVEHIST=100000
 #-- Zsh settings }}} ---------------------------------------------------------
 #-- Application settings {{{ -------------------------------------------------
 
+# .NET
+export DOTNET_CLI_UI_LANGUAGE=en-US
+
 # Deno
 export DENO_DIR=$HOME/.local/share/deno
 export DENO_INSTALL_ROOT=$DENO_DIR
@@ -78,6 +81,9 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 # Ruby
 export RUBYLIB=$HOME/.local/lib/ruby
 
+# Rye
+export RYE_HOME=$HOME/.local/share/rye
+
 ### My apps
 
 # phog
@@ -92,67 +98,75 @@ export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
 
 path=(
     # Local (high priority)
-    $HOME/bin(N-/)
+    $HOME/bin
 
     # Deno
-    $DENO_INSTALL_ROOT/bin(N-/)
+    $DENO_INSTALL_ROOT/bin
 
     # Elixir
-    $HOME/.mix/escripts(N-/)
+    $HOME/.mix/escripts
 
     # Go
-    $HOME/.local/share/go/bin(N-/)
+    $HOME/.local/share/go/bin
 
     # JetBrains Toolbox
-    $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'(N-/)
+    $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'
+
+    # Proto
+    $PROTO_HOME/shims
+    $PROTO_HOME/bin
 
     # Rancher Desktop
-    $HOME/.rd/bin(N-/)
+    $HOME/.rd/bin
 
     # Rust
-    $HOME/.cargo/bin(N-/)
+    $HOME/.cargo/bin
 
     # Sublime Merge
-    '/Applications/Sublime Merge.app/Contents/SharedSupport/bin'(N-/)
+    '/Applications/Sublime Merge.app/Contents/SharedSupport/bin'
 
     # Sublime Text
-    '/Applications/Sublime Text.app/Contents/SharedSupport/bin'(N-/)
+    '/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
     # Visual Studio Code
-    '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'(N-/)
+    '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
 
     # Volta
-    $HOME/.volta/bin(N-/)
+    $HOME/.volta/bin
 
     # nodebrew
-    $HOME/.nodebrew/current/bin(N-/)
+    $HOME/.nodebrew/current/bin
 
     # pnpm
-    $HOME/.local/share/pnpm/bin(N-/)
+    $HOME/.local/share/pnpm/bin
 
     # rbenv
-    $HOME/.rbenv/shims(N-/)
+    $HOME/.rbenv/shims
+
+    # ---
 
     # Local
-    $HOME/.local/bin(N-/)
-    /usr/local/(s|)bin(N-/)
-    $HOME/Dropbox/Data/Executables(N-/)
+    $HOME/.local/bin
+    /usr/local/(s|)bin
+    $HOME/Dropbox/Data/Executables
 
     # Homebrew
-    /opt/homebrew/bin(N-/)
-    /opt/homebrew/(s|)bin(N-/)
-    /opt/homebrew/opt/postgresql@*/bin(N-/)
+    /opt/homebrew/bin
+    /opt/homebrew/(s|)bin
+    /opt/homebrew/opt/postgresql@*/bin
 
-    ${path}
+    $path
 )
+path=(${(u)^path:A}(N-/))
 
 cdpath=$HOME
 
 fpath=(
-    $ZSHHOME/functions(N-/)
-    /usr/local/share/zsh-completions(N-/)
-    ${fpath}
+    $ZSHHOME/functions
+    /usr/local/share/zsh-completions
+    $fpath
 )
+fpath=(${(u)^fpath:A}(N-/))
 
 # Save PATH in case we need to restore PATH clobbered by system-wide
 # configuration scripts.
