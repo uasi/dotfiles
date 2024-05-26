@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=restic,rotx
+#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=agenvx,restic
 
 import { parseArgs } from "jsr:@std/cli@^0.224.0";
 import { join as joinPath } from "jsr:@std/path@^0.224.0";
@@ -11,7 +11,7 @@ const CommandOptionsSchema = v.optional(
   v.object({
     args: v.optional(v.array(v.string())),
     cwd: v.optional(v.string()),
-  })
+  }),
 );
 
 const ConfigSchema = v.object({
@@ -22,7 +22,7 @@ const ConfigSchema = v.object({
       path: v.string(),
       backup: CommandOptionsSchema,
       forget: CommandOptionsSchema,
-    })
+    }),
   ),
   backup: CommandOptionsSchema,
   forget: CommandOptionsSchema,
@@ -31,12 +31,14 @@ const ConfigSchema = v.object({
 type Config = v.Output<typeof ConfigSchema>;
 
 async function main() {
-  const args = parseArgs(Deno.args, { string: ["_", "rot-key"] });
-  const rotKey = args["rot-key"];
+  const args = parseArgs(Deno.args, { string: ["_", "agenv"] });
+  const envFileName = args.agenv;
   const rest = args._ as string[];
 
   if (rest.length < 2) {
-    console.error("usage: restic-driver [--rot-key=<key>] <command> <config>...");
+    console.error(
+      "usage: restic-driver [--agenv=<env-file-name>] <command> <config>...",
+    );
     Deno.exit(1);
   }
 
@@ -51,14 +53,14 @@ async function main() {
   for (const configName of configNames) {
     const config = loadConfig(configName);
 
-    await runCommand(command, config, rotKey);
+    await runCommand(command, config, envFileName);
   }
 }
 
 async function runCommand(
   command: "backup" | "forget",
   config: Config,
-  rotKey: string | undefined
+  envFileName: string | undefined,
 ) {
   console.log("########################");
   console.log(new Date().toISOString());
@@ -75,12 +77,11 @@ async function runCommand(
     const cwd = target[command]?.cwd ?? config[command]?.cwd;
 
     const extraArgs = target[command]?.args ?? config[command]?.args ?? [];
-    const args =
-      command === "backup"
-        ? [command, "--repo", repo, "--tag", tag, ...extraArgs, path]
-        : [command, "--repo", repo, "--tag", tag, ...extraArgs];
+    const args = command === "backup"
+      ? [command, "--repo", repo, "--tag", tag, ...extraArgs, path]
+      : [command, "--repo", repo, "--tag", tag, ...extraArgs];
 
-    const status = await runRestic(args, path, cwd, rotKey);
+    const status = await runRestic(args, path, cwd, envFileName);
 
     if (!status.success) {
       return;
@@ -92,26 +93,24 @@ async function runRestic(
   args: string[],
   target: string,
   cwd: string | undefined,
-  rotKey: string | undefined
+  envFileName: string | undefined,
 ): Promise<Deno.CommandStatus> {
-  const realCwd =
-    cwd === "$CONFIG"
-      ? CONFIG_DIR
-      : cwd === "$HOME"
-      ? Deno.env.get("HOME")!
-      : cwd === "$TARGET"
-      ? target
-      : cwd;
+  const realCwd = cwd === "$CONFIG"
+    ? CONFIG_DIR
+    : cwd === "$HOME"
+    ? Deno.env.get("HOME")!
+    : cwd === "$TARGET"
+    ? target
+    : cwd;
 
   const options = { cwd: realCwd, env: { TARGET: target } };
 
-  const command =
-    rotKey === undefined
-      ? new Deno.Command("restic", { args, ...options })
-      : new Deno.Command("rotx", {
-          args: [rotKey, "run", "restic", ...args],
-          ...options,
-        });
+  const command = envFileName === undefined
+    ? new Deno.Command("restic", { args, ...options })
+    : new Deno.Command("agenvx", {
+      args: [envFileName, "restic", ...args],
+      ...options,
+    });
 
   const child = command.spawn();
 
@@ -119,10 +118,9 @@ async function runRestic(
 }
 
 function loadConfig(name: string): Config {
-  const configPath =
-    name.includes("/") || name.includes("\\")
-      ? name
-      : joinPath(CONFIG_DIR, name + ".toml");
+  const configPath = name.includes("/") || name.includes("\\")
+    ? name
+    : joinPath(CONFIG_DIR, name + ".toml");
 
   return v.parse(ConfigSchema, parseToml(Deno.readTextFileSync(configPath)));
 }
