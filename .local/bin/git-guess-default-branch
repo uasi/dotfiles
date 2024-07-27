@@ -1,0 +1,24 @@
+#!/bin/bash
+
+branch=$(git config --local init.defaultBranch)
+
+if [[ -n "$branch" ]]; then
+    echo "$branch"
+    exit
+fi
+
+branch=$(git branch --format='%(refname:short)' --list main master | head -n1)
+
+if [[ -n "$branch" ]]; then
+    echo "$branch"
+    exit
+fi
+
+branch=$(git config --global init.defaultBranch)
+
+if [[ -n "$branch" ]]; then
+    echo "$branch"
+    exit
+fi
+
+echo master

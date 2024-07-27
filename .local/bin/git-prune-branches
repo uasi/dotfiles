@@ -4,21 +4,21 @@
 # git-prune-branches - prune merged branches
 #
 # Configurations:
-#   .git/protected-branches - one-line regex matching the names of the branches to be protected.
+#   pruneBranches.protected - one-line regex matching the names of the branches to be protected.
 #
 
-DEFAULT_BRANCH=${DEFAULT_BRANCH:-master}
+DEFAULT_BRANCH=${DEFAULT_BRANCH:-"$(git guess-default-branch)"}
 
 if [[ "$(git rev-parse --abbrev-ref HEAD)" != "$DEFAULT_BRANCH" ]]; then
     echo "Error: not on $DEFAULT_BRANCH."
     exit 1
 fi
 
-protected_branches=$(cat "$(git rev-parse --git-dir)/protected-branches" 2> /dev/null | head -n1)
+protected_branches=$(git config --local pruneBranches.protected)
 protected_branches="${protected_branches}${protected_branches:+|}^$DEFAULT_BRANCH$"
 
-echo "Deleting branches ignoring $protected_branches"
+echo "Deleting merged branches except for $protected_branches"
 
 git branch --format '%(refname:short)' --merged | grep -v -E "$protected_branches" | xargs git branch -d
 
-git remote prune origin
+git remote | xargs git remote prune
