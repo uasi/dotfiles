@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+args = []
+cur = []
+
+ARGV.each do |arg|
+  case arg
+  when /\A,/ # , : string
+    cur << arg[1..].inspect
+  when /\Aas,\S/ # as, : reverse assignment
+    args.push(arg[3..], '=(', *cur, ');')
+    cur.clear
+  when /\Aa,\S/ # a, : [string]
+    cur << "Array[#{arg[2..].split(',').map(&:inspect).join(',')}]"
+  when /\Ah,\S/ # h, : {string=>string}
+    cur << "Hash[#{arg[2..].split(',').map(&:inspect).join(',')}]"
+  when /\Ait,\S/ # it, : block parameters
+    cur << "|#{arg[3..]}|"
+  when /\Ap,\S/ # p, : pathname
+    cur << "Pathname(#{arg[2..].inspect})"
+  when /\A(\d+),(\S.*)/ # \d, : index
+    cur << "#{$2}[#{$1}]"
+  else
+    cur << arg
+  end
+end
+
+args.push(*cur)
+
+if ENV['DEBUG'] == '1'
+  puts 'ruby', '-rx', '-e', args.join(' ')
+else
+  exec 'ruby', '-rx', '-e', args.join(' ')
+end
