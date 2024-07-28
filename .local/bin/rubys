@@ -18,6 +18,8 @@ ARGV.each do |arg|
     cur << "|#{arg[3..]}|"
   when /\Ap,\S/ # p, : pathname
     cur << "Pathname(#{arg[2..].inspect})"
+  when /\Apa,\S/ # pa, : pathname
+    cur << "Array[#{arg[3..].split(',').map { |path| "Pathname(#{path.inspect})" }.join(',')}]"
   when /\A(\d+),(\S.*)/ # \d, : index
     cur << "#{$2}[#{$1}]"
   else
