@@ -8,6 +8,7 @@ require 'uri'
 {
   'active_support/all' => 'activesupport',
   'awesome_print' => 'awesome_print',
+  'faraday' => 'faraday',
 }.each do |lib, gem_name|
 
   begin
