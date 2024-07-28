@@ -3,25 +3,37 @@
 args = []
 cur = []
 
+IDENT = /[A-Za-z_][0-9A-Za-z]*/
+
 ARGV.each do |arg|
   case arg
-  when /\A,/ # , : string
-    cur << arg[1..].inspect
-  when /\Aas,\S/ # as, : reverse assignment
-    args.push(arg[3..], '=(', *cur, ');')
+  when /\A,(.*)/ # , : string
+    cur << $1.inspect
+  when /\Aand,(\S.*)/ # and, : reverse function call (only usable at toplevel)
+    args.push("#{$1}(", *cur, ');')
     cur.clear
-  when /\Aa,\S/ # a, : [string]
-    cur << "Array[#{arg[2..].split(',').map(&:inspect).join(',')}]"
-  when /\Ah,\S/ # h, : {string=>string}
-    cur << "Hash[#{arg[2..].split(',').map(&:inspect).join(',')}]"
-  when /\Ait,\S/ # it, : block parameters
-    cur << "|#{arg[3..]}|"
-  when /\Ap,\S/ # p, : pathname
-    cur << "Pathname(#{arg[2..].inspect})"
-  when /\Apa,\S/ # pa, : pathname
-    cur << "Array[#{arg[3..].split(',').map { |path| "Pathname(#{path.inspect})" }.join(',')}]"
-  when /\A(\d+),(\S.*)/ # \d, : index
-    cur << "#{$2}[#{$1}]"
+  when /\Aas,(\S.*)/ # as, : reverse assignment (only usable at toplevel)
+    args.push($1, '=(', *cur, ');')
+    cur.clear
+  when /\Aa,(\S.*)/ # a, : array of strings
+    cur << "Array[#{$1.split(',').map(&:inspect).join(',')}]"
+  when /\Ah,(\S.*)/ # h, : hash of string-to-string entries
+    cur << "Hash[#{$1.split(',').map(&:inspect).join(',')}].with_indifferent_access"
+  when /\Ait,(\S.*)/ # it, : block parameters
+    cur << "|#{$1}|"
+  when /\Ap,(\S.*)/ # p, : pathname
+    cur << "Pathname(#{$1.inspect})"
+  when /\Apa,(\S.*)/ # pa, : [pathname]
+    cur << "Array[#{$1.split(',').map { |path| "Pathname(#{path.inspect})" }.join(',')}]"
+  when /\A(#{IDENT})@(-?\d.*)\z/ # @ : array subscript
+    cur << "#{$1}[#{$2}]"
+  when /\A(#{IDENT})@@(\S.*)\z/ # @@ : hash subscript
+    cur << "#{$1}.with_indifferent_access[#{$2.inspect}]"
+  when /\A\$\z/ # $ : parenthesize left (a la Haskell's $)
+    cur = ['(', *cur, ')']
+  when /;\z/ # ; : delimit statements (this arm must come before the else arm)
+    args.push(*cur, ';')
+    cur.clear
   else
     cur << arg
   end
@@ -30,7 +42,7 @@ end
 args.push(*cur)
 
 if ENV['DEBUG'] == '1'
-  puts 'ruby', '-rx', '-e', args.join(' ')
+  puts args.join(' ')
 else
   exec 'ruby', '-rx', '-e', args.join(' ')
 end
