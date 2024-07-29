@@ -1,11 +1,24 @@
 #!/usr/bin/env ruby
 
+IDENT = /[A-Za-z_][0-9A-Za-z]*/
+
+if ARGV[0].start_with?('-')
+  unless (split_at = ARGV.index('--'))
+    $stderr.puts 'error: args must include "--"'
+    exit 1
+  end
+
+  opts = ARGV[0...split_at]
+  argv = ARGV[(split_at + 1)..]
+else
+  opts = []
+  argv = ARGV
+end
+
 args = []
 cur = []
 
-IDENT = /[A-Za-z_][0-9A-Za-z]*/
-
-ARGV.each do |arg|
+argv.each do |arg|
   case arg
   when /\A,(.*)/ # , : string
     cur << $1.inspect
@@ -42,7 +55,8 @@ end
 args.push(*cur)
 
 if ENV['DEBUG'] == '1'
+  puts "# ruby options: #{opts.inspect}"
   puts args.join(' ')
 else
-  exec 'ruby', '-rx', '-e', args.join(' ')
+  exec 'ruby', *opts, '-rx', '-e', args.join(' ')
 end
