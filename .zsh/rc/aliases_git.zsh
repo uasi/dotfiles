@@ -20,6 +20,7 @@ git_aliases=(
     addf
     amend
     b
+    bl
     c
     ci
     cia

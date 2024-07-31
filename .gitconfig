@@ -11,6 +11,7 @@
 	addf           = !"git status --porcelain | grep '^.[^ ]' | fzf --tac --multi --exit-0 | sed 's!^...!:/!' | tr '\\n' '\\0' | xargs -0 git add -v --"
 	amend          = commit --amend
 	b              = branch
+	bl             = branch --format=%(refname:short) --list
 	base           = !sh -c 'git merge-base ${1:-master} HEAD' -
 	backup-index   = !"cp \"`git rev-parse --git-dir`/index\" \"`git rev-parse --git-dir`/index.bak\""
 	realclean      = clean -x -d
