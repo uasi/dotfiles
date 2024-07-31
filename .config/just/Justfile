@@ -49,7 +49,6 @@ clear-js-caches:
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
 upgrade-full: upgrade-tools _upgrade-brew
-    exec? brew upgrade
 
 # Upgrade tools.
 [group('housekeeping')]
@@ -64,12 +63,14 @@ _upgrade-brew:
 
 # Upgrade macOS.
 [group('housekeeping')]
+[macos]
 [confirm('May require GUI interaction, and after that, Mac will restart. Are you sure?')]
 upgrade-mac-os:
     sudo softwareupdate --install --os-only --restart --agree-to-license
 
 # Upgrade Mac App Store apps.
 [group('housekeeping')]
+[macos]
 [confirm('May require GUI interaction. Are you sure?')]
 upgrade-mac-apps:
     exec? mas upgrade
