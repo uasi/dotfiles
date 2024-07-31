@@ -63,7 +63,7 @@ alias ydl-live='youtube-dl --hls-use-mpegts --fragment-retries=30 --keep-fragmen
 
 # Alternatives
 has colordiff && alias diff=colordiff # brew install colordiff; https://www.colordiff.org
-has exa && alias ls='exa --time-style long-iso' # brew install exa; https://the.exa.website
+has eza && alias ls='eza --time-style long-iso' # brew install eza; https://eza.rocks
 
 # Noglob
 alias youtube-dl='noglob \youtube-dl'
