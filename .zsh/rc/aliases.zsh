@@ -55,6 +55,7 @@ alias yuil='yarn upgrade-interactive --latest'
 
 # Shorthands
 alias .j='just --justfile=~/.config/just/Justfile'
+alias .J='just --justfile=~/.config/just/Justfile --choose'
 alias j=just
 alias J='just --choose'
 alias phog='RUST_BACKTRACE=full phog'
