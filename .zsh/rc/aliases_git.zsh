@@ -24,18 +24,17 @@ git_aliases=(
     c
     ci
     cia
-    recommit
     co
     com
     copr
     di
     dis
-    l
-    ll
-    lg
     fetch
     ff
     fix
+    l
+    lg
+    ll
     m
     pull
     pullff
@@ -43,27 +42,28 @@ git_aliases=(
     push
     pushfl
     re
-    reflog
     rea
     rec
+    recommit
+    reflog
     rei
     reib
     reset
-    rev
     reseth
     reseth1
     reseth2
     reseth3
+    rev
     sdi
     sdis
     sl
+    st
     stash
+    tag
     uncommit
     unmerge
     unstage
     unstagef
-    st
-    tag
     wip
 )
 for cmd in $git_aliases; do
