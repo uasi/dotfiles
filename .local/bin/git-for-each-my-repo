@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ $# = 0 ]]; then
+    echo "usage: git for-each-my-repo <cmd>..." &>2
+    exit 1
+fi
+
+find ~/repos -mindepth 4 -maxdepth 4 -type d -name .git \
+    -exec echo '> {}' ';' \
+    \( -exec env 'GIT_DIR={}' "$@" ';' -o -quit \)
+
+find ~/repos/readonly -mindepth 4 -maxdepth 4 -type d -name .git \
+    -exec echo '> {}' ';' \
+    \( -exec env 'GIT_DIR={}' "$@" ';' -o -quit \)
+
