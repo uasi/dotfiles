@@ -1,0 +1,23 @@
+import? '_env.just'
+
+# Rarely-used setup tasks.
+mod setup
+
+_default:
+    @just --list
+
+# Edit the global Justfile.
+edit:
+    @"$EDITOR" {{ quote(justfile()) }}
+
+# Clear irrelevant Cargo artifacts in ~/repos.
+[group('housekeeping')]
+cargo-sweep-repos:
+    cargo sweep -i -r ~/repos
+
+# Clear global package caches of package managers for the npm ecosystem.
+[group('housekeeping')]
+clear-js-caches:
+    exec? bun pm cache rm
+    exec? pnpm store prune
+    exec? yarn cache clean
