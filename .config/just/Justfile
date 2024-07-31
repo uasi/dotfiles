@@ -1,14 +1,20 @@
+import '~/.local/lib/just/prelude.just'
 import? '_env.just'
 
 # Rarely-used setup tasks.
 mod setup
 
-_default:
-    @just --list
+_default: __list__
 
-# Edit the global Justfile.
-edit:
-    @"$EDITOR" {{ quote(justfile()) }}
+# Create Justfile with imports.
+[group('just')]
+[no-cd]
+init-justfile *imports:
+    [ ! -f Justfile ]
+    @for src in prelude {{ imports }}; do echo "import '~/.local/lib/just/$src.just'" >> Justfile; done
+    @echo >> Justfile
+    @echo '_default: __default__' >> Justfile
+    @echo 'Created Justfile.'
 
 # Clear irrelevant Cargo artifacts in ~/repos.
 [group('housekeeping')]
