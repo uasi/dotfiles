@@ -1,6 +1,18 @@
 rspec_examples_status_file := 'spec/examples.txt'
 
-# Run rspec --only-failures.
+# Dump Rails routes to ,routes.txt.
+[group('rails')]
+rails-dump-routes:
+    bundle exec rails routes > ,routes.txt
+
+# Run `bundle install` and `rails db:migrate`.
+[group('rails')]
+rails-sync:
+    bundle install
+    rails db:migrate
+    rails db:migrate RAILS_ENV=test
+
+# Run `rspec --only-failures`.
 [group('rspec')]
 rspec-only-failures:
     bundle exec rspec --only-failures
