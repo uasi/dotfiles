@@ -25,6 +25,7 @@ git_aliases=(
     cia
     recommit
     co
+    com
     copr
     di
     dis

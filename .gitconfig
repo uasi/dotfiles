@@ -19,6 +19,7 @@
 	cia            = commit -a -m
 	recommit       = commit -c ORIG_HEAD
 	co             = checkout
+	com            = !git checkout "$(git guess-default-branch)"
 	copr           = pr-checkout
 	dh             = diff HEAD
 	dh1            = diff HEAD^
