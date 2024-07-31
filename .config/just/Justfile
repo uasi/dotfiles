@@ -15,6 +15,16 @@ edit:
 cargo-sweep-repos:
     cargo sweep -i -r ~/repos
 
+# Run `git fetch` for each repo in ~/repos.
+[group('housekeeping')]
+git-fetch-repos:
+    git for-each-my-repo git fetch --all --prune --tags
+
+# Run `git gc` for each repo in ~/repos.
+[group('housekeeping')]
+git-gc-repos:
+    git for-each-my-repo git gc
+
 # Clear global package caches of package managers for the npm ecosystem.
 [group('housekeeping')]
 clear-js-caches:
