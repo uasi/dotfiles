@@ -19,7 +19,7 @@ export EMAIL="uasi@uasi.jp"
 export EDITOR=vim
 
 # Explicitly set the XDG_* variables to their default values in the hope of
-# overriding preference of certain software (e.g. pnpm) that would otherwise
+# overriding preference of certain softwares (e.g. pnpm) that would otherwise
 # use macOS paths such as ~/Library.
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
@@ -112,10 +112,6 @@ path=(
     # JetBrains Toolbox
     $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'
 
-    # Proto
-    $PROTO_HOME/shims
-    $PROTO_HOME/bin
-
     # Rancher Desktop
     $HOME/.rd/bin
 
@@ -130,12 +126,6 @@ path=(
 
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
-
-    # Volta
-    $HOME/.volta/bin
-
-    # nodebrew
-    $HOME/.nodebrew/current/bin
 
     # pnpm
     $HOME/.local/share/pnpm/bin
