@@ -18,6 +18,7 @@ cargo-sweep-repos:
 # Clear global package caches of package managers for the npm ecosystem.
 [group('housekeeping')]
 clear-js-caches:
-    exec? bun pm cache rm
+    @# Disable for now as Bun requires package.json to run `bun pm cache rm`.
+    @# exec? bun pm cache rm
     exec? pnpm store prune
     exec? yarn cache clean
