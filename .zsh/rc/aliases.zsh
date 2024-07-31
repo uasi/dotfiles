@@ -28,6 +28,9 @@ alias -g .....=../../../..
 alias -g ......=../../../../..
 alias -g .......=../../../../../..
 
+# Directories
+hash -d icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+
 # zmv
 autoload -Uz zmv
 alias zcp='noglob zmv -W -C'
