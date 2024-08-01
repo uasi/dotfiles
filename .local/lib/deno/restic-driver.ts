@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=agenvx,restic
+#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME,DEBUG --allow-run=agenvx,restic
 
 import { parseArgs } from "jsr:@std/cli@^1.0.0";
 import { join as joinPath } from "jsr:@std/path@^1.0.0";
@@ -101,9 +101,13 @@ async function runRestic(
   cwd: string | undefined,
   envFileName: string | undefined,
 ): Promise<Deno.CommandStatus> {
-  const realCwd = cwd === "$CONFIG" ? CONFIG_DIR : cwd;
+  const realCwd = cwd === "$CONFIG" ? CONFIG_DIR : cwd === "$HOME" ? Deno.env.get("HOME")! : cwd;
 
   const options = { cwd: realCwd, env: { TARGET: target ?? "" } };
+
+  if (Deno.env.get("DEBUG") === "1") {
+    console.debug("restic-driver: DEBUG: runRestic", args);
+  }
 
   const command = envFileName === undefined
     ? new Deno.Command("restic", { args, ...options })
