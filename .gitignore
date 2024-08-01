@@ -152,6 +152,7 @@
 /.zoekt/
 
 # Personal stuff
+*.ignore.*
 /.help/
 /.totp.toml
 /.vimrc.tags
