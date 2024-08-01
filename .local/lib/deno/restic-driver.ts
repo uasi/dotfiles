@@ -1,9 +1,9 @@
 #!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME --allow-run=agenvx,restic
 
-import { parseArgs } from "jsr:@std/cli@^0.224.0";
-import { join as joinPath } from "jsr:@std/path@^0.224.0";
-import { parse as parseToml } from "jsr:@std/toml@^0.224.0";
-import * as v from "jsr:@valibot/valibot@^0.30.0";
+import { parseArgs } from "jsr:@std/cli@^1.0.0";
+import { join as joinPath } from "jsr:@std/path@^1.0.0";
+import { parse as parseToml } from "jsr:@std/toml@^1.0.0";
+import * as v from "jsr:@valibot/valibot@^0.37.0";
 
 const CONFIG_DIR = joinPath(Deno.env.get("HOME")!, ".config", "restic-driver");
 
@@ -19,7 +19,7 @@ const ConfigSchema = v.object({
   targets: v.array(
     v.object({
       tag: v.string(),
-      path: v.string(),
+      path: v.union([v.string(), v.array(v.string())]),
       backup: CommandOptionsSchema,
       forget: CommandOptionsSchema,
     }),
@@ -28,7 +28,7 @@ const ConfigSchema = v.object({
   forget: CommandOptionsSchema,
 });
 
-type Config = v.Output<typeof ConfigSchema>;
+type Config = v.InferOutput<typeof ConfigSchema>;
 
 async function main() {
   const args = parseArgs(Deno.args, { string: ["_", "agenv"] });
@@ -68,20 +68,26 @@ async function runCommand(
 
   const repo = expandHome(config.repo);
 
-  for (const { tag, path: rawPath, ...target } of config.targets) {
+  for (const { tag, path, ...target } of config.targets) {
     console.log(`=== ${command} ===`);
-    console.log(`restic-driver: tag=${tag} path=${rawPath}`);
+    console.log(`restic-driver: tag=${tag} path=${path}`);
 
-    const path = expandHome(rawPath);
+    const paths = (() => {
+      if (typeof path === "string") {
+        return [expandHome(path)];
+      } else {
+        return path.map((p) => expandHome(p));
+      }
+    })();
 
     const cwd = target[command]?.cwd ?? config[command]?.cwd;
 
     const extraArgs = target[command]?.args ?? config[command]?.args ?? [];
     const args = command === "backup"
-      ? [command, "--repo", repo, "--tag", tag, ...extraArgs, path]
+      ? [command, "--repo", repo, "--tag", tag, ...extraArgs, ...paths]
       : [command, "--repo", repo, "--tag", tag, ...extraArgs];
 
-    const status = await runRestic(args, path, cwd, envFileName);
+    const status = await runRestic(args, paths[0], cwd, envFileName);
 
     if (!status.success) {
       return;
@@ -91,19 +97,13 @@ async function runCommand(
 
 async function runRestic(
   args: string[],
-  target: string,
+  target: string | undefined,
   cwd: string | undefined,
   envFileName: string | undefined,
 ): Promise<Deno.CommandStatus> {
-  const realCwd = cwd === "$CONFIG"
-    ? CONFIG_DIR
-    : cwd === "$HOME"
-    ? Deno.env.get("HOME")!
-    : cwd === "$TARGET"
-    ? target
-    : cwd;
+  const realCwd = cwd === "$CONFIG" ? CONFIG_DIR : cwd;
 
-  const options = { cwd: realCwd, env: { TARGET: target } };
+  const options = { cwd: realCwd, env: { TARGET: target ?? "" } };
 
   const command = envFileName === undefined
     ? new Deno.Command("restic", { args, ...options })
