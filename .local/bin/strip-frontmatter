@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+
+use v5.38;
+
+STRIP: {
+    while (<>) {
+        state $marker = do {
+            last STRIP unless /^(---|\+\+\+|\.\.\.)$/;
+            $1;
+        };
+
+        last unless /^$marker$/ ... /^$marker$/;
+    }
+
+    # Skip blank lines that follows the frontmatter.
+    while (<>) {
+       last if /./;
+    }
+};
+
+print $_, <>;
