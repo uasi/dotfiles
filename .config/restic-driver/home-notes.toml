@@ -1,5 +1,10 @@
 repo = "~/Dropbox/Data/restic/repos/home-notes"
 
+[backup]
+args = [
+  "--skip-if-unchanged",
+]
+
 [forget]
 args = [
   "--keep-within=1h",

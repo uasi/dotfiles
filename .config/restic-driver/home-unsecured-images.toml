@@ -3,6 +3,7 @@ repo = "~/Dropbox/Data/restic/repos/home-unsecured-images"
 [backup]
 cwd = "$CONFIG"
 args = [
+  "--skip-if-unchanged",
   "--iexclude-file=home-unsecured-images.iexcludes.txt",
 ]
 
