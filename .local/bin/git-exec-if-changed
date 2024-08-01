@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pathname'
+
+paths = []
+since = nil
+since_last_exec = nil
+verbose = false
+
+parser = OptionParser.new do |opts|
+  opts.banner = 'usage: git-exec-if-changed [<options>] [--] <cmd>...'
+
+  opts.on('-p <path>', '--path=<path>', 'File path to test if changed (can be specified multiple times)') do |path|
+    paths << path
+  end
+
+  opts.on('-s <branch>', '--since=<branch>') do |branch|
+    since = branch
+  end
+
+  opts.on('-S <history-file>', '--since-last-exec=<history-file>') do |path|
+    since_last_exec = Pathname(path)
+  end
+
+  opts.on('-v', '--verbose') do |v|
+    verbose = v
+  end
+end
+
+parser.parse!
+
+if ARGV.empty?
+  $stderr.puts parser.help
+  exit 1
+end
+
+if paths.empty?
+  $stderr.puts 'error: no paths specified'
+  exit 1
+end
+
+if since.nil? && since_last_exec.nil?
+  $stderr.puts 'error: neither --since nor --since-last-exec is specified'
+  exit 1
+end
+
+if since.nil?
+  if since_last_exec.file?
+    since = since_last_exec.read.chomp
+  else
+    since = :genesis
+  end
+end
+
+if since == :genesis || !system('git', 'diff', '--quiet', since, '--', *paths)
+  if since_last_exec
+    $stderr.puts "since: #{since == :genesis ? '(genesis)' : since}" if verbose
+    since_last_exec.write(`git rev-parse HEAD`)
+  end
+
+  exec *ARGV
+end
