@@ -12,6 +12,11 @@ rails-sync:
     rails db:migrate
     rails db:migrate RAILS_ENV=test
 
+# Run `rspec` against spec files changed between the default branch and HEAD.
+[group('rspec')]
+rspec-head:
+     git diff --name-only "$(git guess-default-branch)" | grep '_spec\.rb$' | xargs bundle exec rspec
+
 # Run `rspec --only-failures`.
 [group('rspec')]
 rspec-only-failures:

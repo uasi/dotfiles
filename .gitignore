@@ -47,7 +47,7 @@
 /.vuerc
 /.wget-hsts
 /.yarnrc
-/.zcompdump
+/.zcompdump*
 
 # Hodgepodge
 /.android/

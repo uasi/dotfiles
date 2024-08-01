@@ -23,6 +23,12 @@ ignore-justfile:
     git rev-parse --is-inside-work-tree >/dev/null
     echo $'Justfile\n*.just' >> "$(git rev-parse --git-dir)/info/exclude"
 
+# Choose and create LICENSE.
+[group('license')]
+[no-cd]
+init-license:
+    ( cd ~/.local/data/licenses && find . -type f -exec basename '{}' .txt ';' ) | sort | fzf --no-multi --bind='enter:become:cp ~/.local/data/licenses/{}.txt LICENSE'
+
 # Clear irrelevant Cargo artifacts in ~/repos.
 [group('housekeeping')]
 cargo-sweep-repos:
@@ -48,13 +54,18 @@ clear-js-caches:
 
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
-upgrade-full: upgrade-tools _upgrade-brew
+upgrade-full: upgrade-tools upgrade-vim _upgrade-brew
 
 # Upgrade tools.
 [group('housekeeping')]
 upgrade-tools:
     exec? mise upgrade
     exec? rustup update
+
+# Upgrade Vim plugins.
+[group('housekeeping')]
+upgrade-vim:
+    vim -c PlugUpgrade -c PlugUpdate -c qa
 
 # Upgrade formulae and casks.
 [group('housekeeping')]

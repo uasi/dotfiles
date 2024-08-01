@@ -6,6 +6,7 @@ abbreviations=(
     " H"  " | head"
     " H5" " | head -n5"
     " L"  " | less"
+    " M"  ' ${$(git config --local init.defaultBranch):-master}'
     " P"  " | pbcopy"
     " T"  " | tail"
     " T5" " | tail -n5"

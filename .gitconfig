@@ -1,8 +1,9 @@
 [core]
 	quotePath = false
 [user]
-	name  = Tomoki Aonuma
-	email = uasi@uasi.jp
+	name       = Tomoki Aonuma
+	email      = uasi@uasi.jp
+	signingKey = ~/.ssh/id_ed25519_signing.pub
 [includeIf "gitdir:~/repos/ghe.ckpd.co/"]
 	path = ~/.gitconfig.work
 [url "git@github.com:"]
@@ -139,3 +140,10 @@
 	detachedHead = false
 [init]
 	defaultBranch = master
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+[whenmerged "default"]
+	pattern = '^refs/heads/main$'
+	pattern = '^refs/heads/master$'
