@@ -1,0 +1,22 @@
+repo = "~/Dropbox/Data/restic/repos/work-repo-aux"
+
+[forget]
+args = [
+  "--keep-within=1h",
+  "--keep-within-hourly=7d",
+  "--keep-within-daily=1m",
+  "--keep-within-monthly=1y",
+  "--compact",
+  "--prune",
+]
+
+[[targets]]
+tag = "justfiles"
+path = []
+
+[targets.backup]
+cwd = "$HOME"
+args = [
+  "--skip-if-unchanged",
+  "--files-from=.config/restic-driver/repos-justfiles.txt",
+]
