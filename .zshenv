@@ -155,6 +155,7 @@ fpath=(
     $ZSHHOME/functions
     /usr/local/share/zsh-completions
     $fpath
+    $ZSHHOME/functions_fallback
 )
 fpath=(${(u)^fpath:A}(N-/))
 

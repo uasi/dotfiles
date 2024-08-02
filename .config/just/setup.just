@@ -18,8 +18,8 @@ init-restic-repo name:
 
 # Generate Zsh completion scripts.
 generate-completions:
-    just --completions zsh > ~/.zsh/functions/_just
-    exec? deno completions zsh > ~/.zsh/functions/_deno
-    exec? mise completions zsh > ~/.zsh/functions/_mise
-    exec? rustup completions zsh > ~/.zsh/functions/_rustup
-    exec? rustup completions zsh cargo > ~/.zsh/functions/_cargo
+    just --completions zsh > ~/.zsh/functions_fallback/_just
+    exec? deno completions zsh > ~/.zsh/functions_fallback/_deno
+    exec? mise completions zsh > ~/.zsh/functions_fallback/_mise
+    exec? rustup completions zsh > ~/.zsh/functions_fallback/_rustup
+    exec? rustup completions zsh cargo > ~/.zsh/functions_fallback/_cargo
