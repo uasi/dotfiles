@@ -15,9 +15,9 @@ rails-sync:
 # Run `bundle install` and `rails db:migrate` if needed.
 [group('rails')]
 rails-sync-if-needed:
-    git exec-if-changed -v -S .exec-if-changed.bundle-install.txt -p Gemfile.lock -- bundle install
-    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-dev.txt -p db/migrate -- bundle exec rails db:migrate
-    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-test.txt -p db/migrate -- bundle exec rails db:migrate RAILS_ENV=test
+    git exec-if-changed -v -S .exec-if-changed.bundle-install.ignore -p Gemfile.lock -- bundle install
+    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-dev.ignore -p db/migrate -- bundle exec rails db:migrate
+    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-test.ignore -p db/migrate -- bundle exec rails db:migrate RAILS_ENV=test
 
 # Run `rspec` against spec files changed between the default branch and HEAD.
 [group('rspec')]
