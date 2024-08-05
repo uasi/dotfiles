@@ -1,0 +1,77 @@
+#!/bin/bash
+
+set -eu
+
+usage="\
+usage: anypm (install|lockfile|name)
+"
+
+pm=
+lockfile=
+
+detect_pm() {
+    if [[ -f package-lock.json ]]; then
+        pm=npm
+        lockfile=package-lock.json
+    elif [[ -f yarn.lock ]]; then
+        pm=yarn
+        lockfile=yarn.lock
+    elif [[ -f pnpm-lock.yaml ]]; then
+        pm=pnpm
+        lockfile=pnpm-lock.yaml
+    elif [[ -f bun.lockb ]]; then
+        pm=bun
+        lockfile=bun.lockb
+    fi
+}
+
+ensure_pm() {
+    detect_pm
+
+    if [[ -z "$pm" ]]; then
+        echo "error: no lockfile found" >&2
+        exit 1
+    fi
+}
+
+do_install() {
+    ensure_pm
+
+    exec "$pm" install
+}
+
+do_lockfile() {
+    ensure_pm
+
+    echo "$lockfile"
+}
+
+do_name() {
+    ensure_pm
+
+    echo "$pm"
+}
+
+main() {
+    local command=$1
+    shift
+
+    case $command in
+        install)
+            do_install "$@"
+            ;;
+        lockfile)
+            do_lockfile "$@"
+            ;;
+        name)
+            do_name "$@"
+            ;;
+        *)
+            printf "%s" "$usage" >&2
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
+
