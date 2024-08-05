@@ -51,8 +51,8 @@ git-gc-repos:
 clear-js-caches:
     @# Disable for now as Bun requires package.json to run `bun pm cache rm`.
     @# exec? bun pm cache rm
-    exec? pnpm store prune
-    exec? yarn cache clean
+    -exec? pnpm store prune
+    -exec? yarn cache clean
 
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
@@ -61,18 +61,18 @@ upgrade-full: upgrade-tools upgrade-vim _upgrade-brew
 # Upgrade tools.
 [group('housekeeping')]
 upgrade-tools:
-    exec? mise upgrade
-    exec? rustup update
+    -exec? mise upgrade
+    -exec? rustup update
 
 # Upgrade Vim plugins.
 [group('housekeeping')]
 upgrade-vim:
-    vim -c PlugUpgrade -c PlugUpdate -c qa
+    -vim -c PlugUpgrade -c PlugUpdate -c qa
 
 # Upgrade formulae and casks.
 [group('housekeeping')]
 _upgrade-brew:
-    exec? brew upgrade
+    -exec? brew upgrade
 
 # Upgrade macOS.
 [group('housekeeping')]
