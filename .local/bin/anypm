@@ -13,15 +13,16 @@ detect_pm() {
     if [[ -f package-lock.json ]]; then
         pm=npm
         lockfile=package-lock.json
+    elif [[ -f bun.lockb ]]; then
+        # NOTE: bun also generates yarn.lock as a fallback.
+        pm=bun
+        lockfile=bun.lockb
     elif [[ -f yarn.lock ]]; then
         pm=yarn
         lockfile=yarn.lock
     elif [[ -f pnpm-lock.yaml ]]; then
         pm=pnpm
         lockfile=pnpm-lock.yaml
-    elif [[ -f bun.lockb ]]; then
-        pm=bun
-        lockfile=bun.lockb
     fi
 }
 
