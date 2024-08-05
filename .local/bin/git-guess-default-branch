@@ -1,24 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-branch=$(git config --local init.defaultBranch)
+set -u
 
-if [[ -n "$branch" ]]; then
-    echo "$branch"
-    exit
-fi
+guess() {
+    override=$(git config guessDefaultBranch.override)
 
-branch=$(git branch --format='%(refname:short)' --list main master | head -n1)
+    if [[ -n "$override" ]]; then
+        echo "$override"
+        return
+    fi
 
-if [[ -n "$branch" ]]; then
-    echo "$branch"
-    exit
-fi
+    well_known=$(git config guessDefaultBranch.wellKnown)
+    well_known=${well_known:-master main develop trunk}
 
-branch=$(git config --global init.defaultBranch)
+    candidates=($(git branch --format='%(refname:short)' --list $well_known))
 
-if [[ -n "$branch" ]]; then
-    echo "$branch"
-    exit
-fi
+    for branch in $well_known; do
+        if [[ " ${candidates[@]} " = *" $branch "* ]]; then
+            echo "$branch"
+            return
+        fi
+    done
 
-echo master
+    fallback=$(git config guessDefaultBranch.fallback)
+    fallback=${fallback:-$(git config init.defaultBranch)}
+    fallback=${fallback:-master}
+
+    echo "$fallback"
+}
+
+main() {
+    if [[ "${1:-}" = --is-head ]]; then
+        if [[ "$(git rev-parse --abbrev-ref HEAD)" = "$(guess)" ]]; then
+            echo true
+            exit
+        else
+            echo false
+            exit 1
+        fi
+    fi
+
+    guess
+}
+
+main "$@"

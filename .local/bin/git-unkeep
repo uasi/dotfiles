@@ -1,8 +1,10 @@
 #!/bin/bash
 
-git ls-files '**/.gitkeep' | while read -r gitkeep; do
-    count=$(git ls-files "$(dirname "$gitkeep")" | wc -l)
+keepfile=${1:-.gitkeep}
+
+git ls-files "**/$keepfile" | while IFS= read -r gitkeep; do
+    count=$(git ls-files -- "$(dirname -- "$gitkeep")" | wc -l)
     if (( count > 1 )); then
-        git rm "$gitkeep"
+        git rm -- "$gitkeep"
     fi
 done

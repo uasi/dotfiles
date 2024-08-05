@@ -11,15 +11,15 @@ verbose = false
 parser = OptionParser.new do |opts|
   opts.banner = 'usage: git-exec-if-changed [<options>] [--] <cmd>...'
 
-  opts.on('-p <path>', '--path=<path>', 'File path to test if changed (can be specified multiple times)') do |path|
+  opts.on('-p <path>', '--path=<path>', 'Path to test if changed (can be specified multiple times)') do |path|
     paths << path
   end
 
-  opts.on('-s <branch>', '--since=<branch>') do |branch|
-    since = branch
+  opts.on('-s <commit>', '--since=<commit>', 'Find changes since <commit> (use empty string for the root commit)') do |commit|
+    since = commit == '' ? :root : commit
   end
 
-  opts.on('-S <history-file>', '--since-last-exec=<history-file>') do |path|
+  opts.on('-S <history-file>', '--since-last-exec=<history-file>', 'Behave as --since=$(cat <history-file>) if it exists; write the current revision to <history-file> before exec') do |path|
     since_last_exec = Pathname(path)
   end
 
@@ -49,15 +49,16 @@ if since.nil?
   if since_last_exec.file?
     since = since_last_exec.read.chomp
   else
-    since = :genesis
+    since = :root
   end
 end
 
-if since == :genesis || !system('git', 'diff', '--quiet', since, '--', *paths)
-  if since_last_exec
-    $stderr.puts "since: #{since == :genesis ? '(genesis)' : since}" if verbose
-    since_last_exec.write(`git rev-parse HEAD`)
-  end
+if since == :root || !system('git', 'diff', '--quiet', since, '--', *paths)
+  $stderr.puts "exec-if-changed: changed since #{since == :root ? '(root)' : since}" if verbose
+
+  since_last_exec.write(`git rev-parse HEAD`) if since_last_exec
 
   exec *ARGV
 end
+
+puts "exec-if-changed: not changed since #{since == :root ? '(root)' : since}" if verbose

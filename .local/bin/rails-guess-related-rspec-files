@@ -1,0 +1,112 @@
+#!/usr/bin/env -S bundle exec rails runner
+
+if $stdin.tty?
+  $stderr.puts 'error: stdin expected'
+  exit 1
+end
+
+Rails.application.eager_load! # To load descendants.
+
+class Guesser
+  def initialize
+    @result = []
+  end
+
+  def print_result(only_existing: true)
+    @result.sort.uniq.each do |path|
+      if only_existing
+        puts path if path.file?
+      else
+        puts path
+      end
+    end
+  end
+
+  def guess(path)
+    app_dir, kind_dir = path.descend.to_a
+    kind = kind_dir&.basename&.to_s&.singularize
+
+    if app_dir.basename.to_s == 'app' && respond_to?("guess_#{kind}") && (cname = to_cname(path))
+      send("guess_#{kind}", cname)
+    else
+      $stderr.puts "warning: not guessable: #{path}"
+    end
+  end
+
+  def guess_controller(cname, descend: true)
+    stem_name = cname.delete_suffix('Controller')
+    stem_name_s = stem_name.singularize
+    stem_name_p = stem_name.pluralize
+
+    # Be lenient and find all files that match `{<thing>,<things>}{,_controller}_spec.rb`.
+    [stem_name_s, stem_name_p].each do |stem|
+      [stem.underscore, "#{stem.underscore}_controller"].each do |under|
+        @result.push(
+          Pathname("spec/controllers/#{under}_spec.rb"),
+          Pathname("spec/requests/#{under}_spec.rb"),
+          Pathname("spec/requests/api/#{under}_spec.rb"),
+          Pathname("spec/requests/web/#{under}_spec.rb"),
+          Pathname("spec/features/#{under}_spec.rb"),
+        )
+      end
+    end
+
+    if descend
+      cname.safe_constantize&.descendants&.each do |descendant|
+        guess_controller(descendant.to_s, descend: false)
+      end
+    end
+  end
+
+  def guess_model(cname, descend: true)
+    @result.push(
+      Pathname("spec/models/#{cname.underscore}_spec.rb"),
+    )
+
+    if descend
+      cname.safe_constantize&.descendants&.each do |descendant|
+        guess_model(descendant.to_s, descend: false)
+      end
+    end
+
+    ["#{cname.singularize}Controller", "#{cname.pluralize}Controller"].map(&:safe_constantize).compact.each do |controller|
+      guess_controller(controller.to_s)
+    end
+  end
+
+  def guess_serializer(cname, descend: true)
+    @result.push(
+      Pathname("spec/serializers/#{cname.underscore}_spec.rb"),
+    )
+
+    if descend
+      cname.safe_constantize&.descendants&.each do |descendant|
+        guess_serializer(descendant.to_s, descend: false)
+      end
+    end
+  end
+
+  def guess_service(cname, descend: true)
+    @result.push(
+      Pathname("spec/services/#{cname.underscore}_spec.rb"),
+    )
+
+    if descend
+      cname.safe_constantize&.descendants&.each do |descendant|
+        guess_service(descendant.to_s, descend: false)
+      end
+    end
+  end
+
+  private def to_cname(path)
+    Rails.autoloaders.map { |i| i.cpath_expected_at(path) }.find(&:present?)
+  end
+end
+
+guesser = Guesser.new
+
+$stdin.each_line(chomp: true) do |line|
+  guesser.guess(Pathname(line))
+end
+
+guesser.print_result(only_existing: %w(1 true).exclude?(ENV['DEBUG']))
