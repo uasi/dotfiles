@@ -161,3 +161,6 @@
 /.totp.toml
 /.vimrc.tags
 /.zshrc.local
+
+# Dayjob stuff
+.ckpd-*
