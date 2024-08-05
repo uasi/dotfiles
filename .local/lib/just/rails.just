@@ -5,12 +5,19 @@ rspec_examples_status_file := 'spec/examples.txt'
 rails-dump-routes:
     bundle exec rails routes > ,routes.txt
 
-# Run `bundle install` and `rails db:migrate`.
+# Run `bundle install` and `rails db:migrate` unconditionally.
 [group('rails')]
 rails-sync:
     bundle install
     rails db:migrate
     rails db:migrate RAILS_ENV=test
+
+# Run `bundle install` and `rails db:migrate` if needed.
+[group('rails')]
+rails-sync-if-needed:
+    git exec-if-changed -v -S .exec-if-changed.bundle-install.txt -p Gemfile.lock -- bundle install
+    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-dev.txt -p db/migrate -- bundle exec rails db:migrate
+    git exec-if-changed -v -S .exec-if-changed.rails-db-migrate-test.txt -p db/migrate -- bundle exec rails db:migrate RAILS_ENV=test
 
 # Run `rspec` against spec files changed between the default branch and HEAD.
 [group('rspec')]
