@@ -25,6 +25,7 @@
 /.VID*_PID*.xml
 /.babel.json
 /.boto
+/.copilot-*-token
 /.deno
 /.ec2ssh
 /.envrc
@@ -62,6 +63,7 @@
 /.cargo/
 /.cmake/
 /.cocoapods/
+/.codemod/
 /.composer/
 /.config/iterm2/
 /.cpad2/
@@ -99,6 +101,8 @@
 /.jupyter/
 /.kiex/
 /.kube/
+/.kuberlr/
+/.lima/
 /.livedl/
 /.lldb/
 /.local/include/python*/
