@@ -11,7 +11,7 @@ args = [
 ]
 
 [[targets]]
-tag = "justfiles"
+tag = "repos-aux"
 path = []
 
 [targets.backup]
