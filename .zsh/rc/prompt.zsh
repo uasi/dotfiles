@@ -1,9 +1,5 @@
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
-git-current-branch() {
-    git branch 2> /dev/null | grep '^\*' | cut -b 3-
-}
-
 rprompt-git-current-branch() {
     local name misc_info st color gitdir action
     if [[ "$PWD/" = */.git/* ]]; then
@@ -13,7 +9,7 @@ rprompt-git-current-branch() {
     if [[ -z "$gitdir" ]]; then
         return
     fi
-    name=`git-current-branch`
+    name=`git rev-parse --abbrev-ref HEAD`
     action=`VCS_INFO_git_getaction "$gitdir"`
     if [[ -n "$action" ]]; then
         action="($action)"
