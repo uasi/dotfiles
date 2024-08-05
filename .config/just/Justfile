@@ -28,6 +28,8 @@ ignore-justfile:
 [no-cd]
 init-license:
     ( cd ~/.local/data/licenses && find . -type f -exec basename '{}' .txt ';' ) | sort | fzf --no-multi --bind='enter:become:cp ~/.local/data/licenses/{}.txt LICENSE'
+    perl -pi -E 'BEGIN { chomp($y = `date +%Y`) }; s/\[year\]/$y/' LICENSE
+    perl -pi -E 'BEGIN { chomp($n = `git config user.name`) }; s/\[fullname\]/$n/' LICENSE
 
 # Clear irrelevant Cargo artifacts in ~/repos.
 [group('housekeeping')]
