@@ -1,4 +1,4 @@
-repo = "~/Dropbox/Data/restic/repos/work-repo-aux"
+repo = "~/Dropbox/Data/restic/repos/work-repos-aux"
 
 [forget]
 args = [
@@ -18,5 +18,5 @@ path = []
 cwd = "$HOME"
 args = [
   "--skip-if-unchanged",
-  "--files-from=.config/restic-driver/repos-justfiles.txt",
+  "--files-from=.config/restic-driver/repos-aux.txt",
 ]
