@@ -55,6 +55,17 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
         console.log(text.toSnakeCase(line));
       }
     },
+    "encoding:": null,
+    async "decode%"() {
+      for await (const line of stdinLines()) {
+        console.log(decodeURIComponent(line));
+      }
+    },
+    async "encode%"() {
+      for await (const line of stdinLines()) {
+        console.log(encodeURIComponent(line));
+      }
+    },
     "markdown:": null,
     async list() {
       for await (const line of stdinLines()) {
