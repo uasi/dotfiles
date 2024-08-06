@@ -67,7 +67,7 @@ upgrade-tools:
 # Upgrade Vim plugins.
 [group('housekeeping')]
 upgrade-vim:
-    -vim -c PlugUpgrade -c PlugUpdate -c qa
+    -vim -c PlugUpgrade -c PlugUpdate -c 'call denops#cache#update(#{reload: v:true})' -c qa
 
 # Upgrade formulae and casks.
 [group('housekeeping')]
