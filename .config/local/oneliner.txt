@@ -5,6 +5,8 @@ Deno - Init CLI                    ::: git eject https://github.com/uasi/deno-cl
 Deno - Init Biome                  ::: deno run -A npm:@biomejs/biome init
 Deno - Update deps                 ::: deno run -A https://deno.land/x/udd@0.7.3/main.ts *.ts
 Git - Apply patch from pasteboard  ::: { pbpaste; echo; } | git apply
+Git - List assume-unchanged        ::: git ls-files -v | grep '^[a-z]'
+Git - List skip-worktree           ::: git ls-files -v | grep '^[Ss]'
 Go - Migrate go.mod to new version ::: go mod tidy -go=1.17
 Go - Update deps                   ::: go get -u ./... && go mod tidy
 Local - Edit brew-install-all.txt  ::: vim -o ~/.config/local/brew-install-all{,-cask}.txt
