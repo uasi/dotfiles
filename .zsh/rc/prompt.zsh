@@ -9,7 +9,7 @@ rprompt-git-current-branch() {
     if [[ -z "$gitdir" ]]; then
         return
     fi
-    name=`git rev-parse --abbrev-ref HEAD`
+    name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
     action=`VCS_INFO_git_getaction "$gitdir"`
     if [[ -n "$action" ]]; then
         action="($action)"
