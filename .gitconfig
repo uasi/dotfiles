@@ -58,7 +58,7 @@
 	rea            = rebase --abort
 	rec            = rebase --continue
 	rei            = rebase --interactive
-	reib           = !sh -c 'git rebase -i $(git merge-base ${1:-master} HEAD)' -
+	reib           = !sh -c 'git rebase -i "$(git merge-base ${1:-"$(git guess-default-branch)"} HEAD)"' -
 	rev            = rev-parse --short HEAD
 	reseth         = !git backup-index && git reset --hard
 	reseth1        = !git backup-index && git reset --hard HEAD^
