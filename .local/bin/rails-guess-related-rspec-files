@@ -52,7 +52,7 @@ class Guesser
     end
 
     if descend
-      cname.safe_constantize&.descendants&.each do |descendant|
+      cname.safe_constantize.try(:descendants)&.each do |descendant|
         guess_controller(descendant.to_s, descend: false)
       end
     end
@@ -64,7 +64,7 @@ class Guesser
     )
 
     if descend
-      cname.safe_constantize&.descendants&.each do |descendant|
+      cname.safe_constantize.try(:descendants)&.each do |descendant|
         guess_model(descendant.to_s, descend: false)
       end
     end
@@ -80,7 +80,7 @@ class Guesser
     )
 
     if descend
-      cname.safe_constantize&.descendants&.each do |descendant|
+      cname.safe_constantize.try(:descendants)&.each do |descendant|
         guess_serializer(descendant.to_s, descend: false)
       end
     end
@@ -92,7 +92,7 @@ class Guesser
     )
 
     if descend
-      cname.safe_constantize&.descendants&.each do |descendant|
+      cname.safe_constantize.try(:descendants)&.each do |descendant|
         guess_service(descendant.to_s, descend: false)
       end
     end
