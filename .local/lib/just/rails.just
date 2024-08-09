@@ -1,5 +1,10 @@
 rspec_examples_status_file := 'spec/examples.txt'
 
+# Fix *.erb files which are changed between the default branch and HEAD.
+[group('erblint')]
+erblint-fix-head:
+    git diff --name-only "$(git guess-default-branch)" | grep '\.erb$' | xargs bundle exec erblint -a
+
 # Dump Rails routes to ,routes.txt.
 [group('rails')]
 rails-dump-routes:
@@ -34,12 +39,13 @@ rspec-only-failures:
 x-rspec-forget file=rspec_examples_status_file:
     rm -f {{ quote(file) }}
 
-# Fix *.rb files which are modified or staged.
+# Fix *.rb files that are modified or staged.
 [group('rubocop')]
 rubocop-fix-dirty:
     ( git ls-files --modified ; git diff --name-only --staged ) | grep '\.rb$' | xargs bundle exec rubocop -a
 
-# Fix *.rb files which are changed between the default branch and HEAD.
+# Fix *.rb files that are changed between the default branch and HEAD.
 [group('rubocop')]
 rubocop-fix-head:
     git diff --name-only "$(git guess-default-branch)" | grep '\.rb$' | xargs bundle exec rubocop -a
+
