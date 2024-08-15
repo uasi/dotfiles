@@ -10,7 +10,7 @@ _default: __list__
 [group('just')]
 [no-cd]
 init-justfile *imports:
-    [ ! -f Justfile ]
+    [[ ! -f Justfile ]]
     @for src in prelude {{ imports }}; do echo "import '~/.local/lib/just/$src.just'" >> Justfile; done
     @echo >> Justfile
     @echo '_default: __list__' >> Justfile
