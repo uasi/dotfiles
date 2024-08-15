@@ -1,0 +1,23 @@
+#!/bin/bash
+
+version=$1
+shift
+
+if [[ -z "$version" ]]; then
+    echo 'usage: yarn-self-dlx <version> <arg>...' >&2
+    exit 1
+fi
+
+mkdir -p ~/.cache/yarn-self-dlx
+
+bin=~/.cache/yarn-self-dlx/yarn-$version.js
+
+if [[ ! -f "$bin" ]]; then
+    curl -L -o "$bin" "https://repo.yarnpkg.com/$version/packages/yarnpkg-cli/bin/yarn.js"
+    if [[ $? != 0 ]]; then
+        echo 'error: download failed' >&2
+        exit 1
+    fi
+fi
+
+exec node "$bin" "$@"

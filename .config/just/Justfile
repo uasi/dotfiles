@@ -23,7 +23,7 @@ ignore-justfile:
     git rev-parse --is-inside-work-tree >/dev/null
     echo $'Justfile\n*.just' >> "$(git rev-parse --git-dir)/info/exclude"
 
-# Choose and create LICENSE.
+# Choose and create a LICENSE.
 [group('license')]
 [no-cd]
 init-license:
@@ -31,10 +31,17 @@ init-license:
     perl -pi -E 'BEGIN { chomp($y = `date +%Y`) }; s/\[year\]/$y/' LICENSE
     perl -pi -E 'BEGIN { chomp($n = `git config user.name`) }; s/\[fullname\]/$n/' LICENSE
 
+# Run safe/unobtrusive cleanup tasks.
+[group('housekeeping')]
+cleanup: cargo-sweep-repos git-gc-repos
+    exec? pnpm store prune
+    exec? brew autoremove
+    exec? brew cleanup
+
 # Clear irrelevant Cargo artifacts in ~/repos.
 [group('housekeeping')]
 cargo-sweep-repos:
-    cargo sweep -i -r ~/repos
+    exec? cargo-sweep sweep -i -r ~/repos
 
 # Run `git fetch` for each repo in ~/repos.
 [group('housekeeping')]
@@ -51,8 +58,10 @@ git-gc-repos:
 clear-js-caches:
     @# Disable for now as Bun requires package.json to run `bun pm cache rm`.
     @# exec? bun pm cache rm
+    -exec? npm cache clean --force
     -exec? pnpm store prune
     -exec? yarn cache clean
+    [[ -d ~/.local/share/yarn/berry ]] && yarn-self-dlx 4.4.0 cache clean
 
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
