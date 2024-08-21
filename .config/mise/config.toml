@@ -2,6 +2,7 @@
 node = "lts"
 ruby = "latest"
 usage = "latest"
+python = "latest"
 
 [settings]
 experimental = true
