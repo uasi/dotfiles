@@ -11,12 +11,12 @@ args = [
 ]
 
 [[targets]]
-tag = "justfiles"
+tag = "repos-aux"
 path = []
 
 [targets.backup]
 cwd = "$HOME"
 args = [
   "--skip-if-unchanged",
-  "--files-from=.config/restic-driver/repos-justfiles.txt",
+  "--files-from=.config/restic-driver/repos-aux.txt",
 ]
