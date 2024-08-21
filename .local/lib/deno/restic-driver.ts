@@ -101,7 +101,11 @@ async function runRestic(
   cwd: string | undefined,
   envFileName: string | undefined,
 ): Promise<Deno.CommandStatus> {
-  const realCwd = cwd === "$CONFIG" ? CONFIG_DIR : cwd === "$HOME" ? Deno.env.get("HOME")! : cwd;
+  const realCwd = cwd === "$CONFIG"
+    ? CONFIG_DIR
+    : cwd === "$HOME"
+    ? Deno.env.get("HOME")!
+    : cwd;
 
   const options = { cwd: realCwd, env: { TARGET: target ?? "" } };
 
