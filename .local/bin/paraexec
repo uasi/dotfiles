@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+require 'optparse'
+
+CommandSpec = Struct.new(:label, :command, :args, :envs)
+
+def parse_command_spec(spec)
+  return nil if spec.empty?
+
+  spec = spec.dup
+  label = spec.first
+
+  if label.end_with?('/') && !label.include?('=')
+    label = label.chomp('/')
+    spec.shift
+  else
+    label = nil
+  end
+
+  envs = spec
+    .take_while { |s| s.include?('=') }
+    .map { |s| s.split('=', 2) }
+    .to_h
+
+  spec.slice!(0, envs.size)
+
+  return nil if spec.empty?
+
+  command, *args = spec
+  label ||= command
+
+  CommandSpec.new(label, command, args, envs)
+end
+
+def split_array(ary, sep)
+  ary
+    .slice_before { |i| i == sep }
+    .map { |sub_ary| sub_ary.reject { |i| i == sep } }
+    .reject(&:empty?)
+end
+
+def stream_output(io, label, max_label_len, border)
+  io.each_line(chomp: true) do |line|
+    puts "#{label.ljust(max_label_len)} #{border} #{line}"
+  end
+end
+
+def run_command(spec, max_label_len)
+  Open3.popen3(spec.envs, spec.command, *spec.args) do |stdin, stdout, stderr, wait_thr|
+    stdin.close
+
+    threads = [
+      Thread.new { stream_output(stdout, spec.label, max_label_len, ' |') },
+      Thread.new { stream_output(stderr, spec.label, max_label_len, '!|') }
+    ]
+
+    threads.each(&:join)
+    status = wait_thr.value
+
+    puts "#{spec.label.ljust(max_label_len)}  = exit status: #{status.exitstatus}"
+
+    status.success?
+  end
+rescue StandardError => e
+  puts "#{spec.label.ljust(max_label_len)}  = failed to start: #{e}"
+end
+
+def usage(exit_code)
+  (exit_code == 0 ? STDOUT : STDERR).puts "usage: paraexec ( <separator> [<label>/] [<ENV>=<value>...] <command> [<argument>...] )+"
+  exit exit_code
+end
+
+def main
+  separator = ARGV.shift
+
+  usage(1) if separator.nil? || separator == '--help' || separator == '-h'
+
+  command_specs = split_array(ARGV, separator).map { |spec| parse_command_spec(spec) }.compact
+
+  usage(1) if command_specs.empty?
+
+  max_label_len = command_specs.map { |spec| spec.label.length }.max
+
+  threads = command_specs.map do |spec|
+    Thread.new { run_command(spec, max_label_len) }
+  end
+
+  results = threads.map(&:value)
+
+  exit 1 if results.include?(false)
+end
+
+main
