@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --ext=ts -q --allow-read
 
 import * as text from "jsr:@std/text@^1.0.0";
-import { TextLineStream } from "jsr:@std/streams@^0.224.5/text-line-stream";
+import { TextLineStream } from "jsr:@std/streams@^1.0.0/text-line-stream";
 
 function stdinLines() {
   return Deno.stdin.readable.pipeThrough(new TextDecoderStream()).pipeThrough(
@@ -22,6 +22,13 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
 
       for await (const line of stdinLines()) {
         console.log(`${indent}${line}`);
+      }
+    },
+    async repeat(args: string[]) {
+      const times = Number.parseInt(args[0] || "") || 1;
+
+      for await (const line of stdinLines()) {
+        console.log(line.repeat(times));
       }
     },
     "convert case:": null,
