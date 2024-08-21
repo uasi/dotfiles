@@ -53,6 +53,11 @@ git-fetch-repos:
 git-gc-repos:
     git for-each-my-repo git gc
 
+# Clear ~/var/log.
+[group('housekeeping')]
+clear-var-log:
+    rm -f ~/var/log/*
+
 # Clear global package caches of package managers for the npm ecosystem.
 [group('housekeeping')]
 clear-js-caches:
