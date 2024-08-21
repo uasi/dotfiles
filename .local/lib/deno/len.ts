@@ -17,12 +17,14 @@ for await (const chunk of Deno.stdin.readable) {
   const bytes = lengthOf(chunk);
 
   const text = decoder.decode(chunk);
-  const codepoints = lengthOf(text);
+  const codeUnits = text.length;
+  const codePoints = lengthOf(text);
 
   const segments = segmenter.segment(text);
   const graphemes = lengthOf(segments);
 
-  console.log(`bytes      ${bytes}`);
-  console.log(`codepoints ${codepoints}`);
-  console.log(`graphemes  ${graphemes}`);
+  console.log(`Bytes             = ${bytes}`);
+  console.log(`UTF-16 units      = ${codeUnits}`);
+  console.log(`Code points       = ${codePoints}`);
+  console.log(`Grapheme clusters = ${graphemes}`);
 }
