@@ -3,7 +3,7 @@
 import { parseArgs } from "jsr:@std/cli@^1.0.0";
 import { join as joinPath } from "jsr:@std/path@^1.0.0";
 import { parse as parseToml } from "jsr:@std/toml@^1.0.0";
-import * as v from "jsr:@valibot/valibot@^0.37.0";
+import * as v from "jsr:@valibot/valibot@^0.39.0";
 
 const CONFIG_DIR = joinPath(Deno.env.get("HOME")!, ".config", "restic-driver");
 
