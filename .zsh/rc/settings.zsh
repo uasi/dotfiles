@@ -123,7 +123,7 @@ open-oneliner-selector--filter() {
 
 open-oneliner-selector() {
     local output=$(open-oneliner-selector--filter < ~/.config/local/oneliner.{,*.}txt(N) \
-        | fzf --no-sort --delimiter=' *::: *' --bind='enter:execute(echo {2})+abort')
+        | fzf --no-sort --delimiter=' *::: *' --bind='enter:become(echo {2})')
 
     if [[ -n "$output" ]]; then
         LBUFFER+=$output
