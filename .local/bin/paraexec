@@ -3,7 +3,14 @@
 require 'open3'
 require 'optparse'
 
-CommandSpec = Struct.new(:label, :command, :args, :envs)
+# Colors are taken from https://github.com/DarthSim/hivemind/blob/v1.1.0/hivemind.go#L13
+$colors_cycle = [2, 3, 4, 5, 6, 42, 130, 103, 129, 108].cycle
+
+CommandSpec = Struct.new(:label, :command, :args, :envs, :color)
+
+def colorize(s, color)
+  "\e[1;38;5;#{color}m#{s}\e[0m"
+end
 
 def parse_command_spec(spec)
   return nil if spec.empty?
@@ -30,7 +37,7 @@ def parse_command_spec(spec)
   command, *args = spec
   label ||= command
 
-  CommandSpec.new(label, command, args, envs)
+  CommandSpec.new(label, command, args, envs, $colors_cycle.next)
 end
 
 def split_array(ary, sep)
@@ -40,9 +47,9 @@ def split_array(ary, sep)
     .reject(&:empty?)
 end
 
-def stream_output(io, label, max_label_len, border)
+def stream_output(io, label, max_label_len, border, color)
   io.each_line(chomp: true) do |line|
-    puts "#{label.ljust(max_label_len)} #{border} #{line}"
+    puts "#{colorize(label.ljust(max_label_len), color)} #{border} #{line}"
   end
 end
 
@@ -51,19 +58,19 @@ def run_command(spec, max_label_len)
     stdin.close
 
     threads = [
-      Thread.new { stream_output(stdout, spec.label, max_label_len, ' |') },
-      Thread.new { stream_output(stderr, spec.label, max_label_len, '!|') }
+      Thread.new { stream_output(stdout, spec.label, max_label_len, ' |', spec.color) },
+      Thread.new { stream_output(stderr, spec.label, max_label_len, '!|', spec.color) }
     ]
 
     threads.each(&:join)
     status = wait_thr.value
 
-    puts "#{spec.label.ljust(max_label_len)}  = exit status: #{status.exitstatus}"
+    puts "#{colorize(spec.label.ljust(max_label_len), spec.color)}  = exit status: #{status.exitstatus}"
 
     status.success?
   end
 rescue StandardError => e
-  puts "#{spec.label.ljust(max_label_len)}  = failed to start: #{e}"
+  puts "#{colorize(spec.label.ljust(max_label_len), spec.color)}  = failed to start: #{e}"
 end
 
 def usage(exit_code)
