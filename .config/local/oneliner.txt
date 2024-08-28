@@ -1,9 +1,9 @@
 AWS - Get caller identity          ::: aws sts get-caller-identity
 AWS - Get parameter                ::: aws ssm get-parameter --with-decryption --name
 AWS - Search parameter             ::: aws ssm describe-parameters --parameter-filters Key=Name,Values=QUERY_HERE
-Deno - Init CLI                    ::: git eject https://github.com/uasi/deno-cli-starter DIR
 Deno - Init Biome                  ::: deno run -A npm:@biomejs/biome init
-Deno - Update deps                 ::: deno run -A https://deno.land/x/udd@0.7.3/main.ts *.ts
+Deno - Init CLI                    ::: git eject https://github.com/uasi/deno-cli-starter DIR
+Deno - Update deps                 ::: deno run -A jsr:@molt/cli --write *.ts
 Git - Apply patch from pasteboard  ::: { pbpaste; echo; } | git apply
 Git - Help for ls-files status     ::: git help ls-files | perl -lne 'print if /^\s+-t/...false' | less
 Git - List assume-unchanged        ::: git ls-files -v | grep '^[a-z]'
