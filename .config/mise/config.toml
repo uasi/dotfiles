@@ -1,8 +1,9 @@
 [tools]
+deno = "latest"
 node = "lts"
+python = "latest"
 ruby = "latest"
 usage = "latest"
-python = "latest"
 
 [settings]
 experimental = true
