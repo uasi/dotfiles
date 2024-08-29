@@ -1,6 +1,7 @@
 # Run update-browserslist-db.
-update-browserslist-db:
-    deno run --no-lock -A npm:update-browserslist-db@latest
+[group('cli')]
+update-browserslist-db RELOAD='no':
+    deno run --no-lock -A {{ if RELOAD == 'no' { '' } else { '--reload' } }} npm:update-browserslist-db@latest
 
 # Run `anypm install` if needed.
 [group('node')]
