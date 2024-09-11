@@ -1,5 +1,4 @@
 source "$ZSHHOME/rc/settings.zsh"
-source "$ZSHHOME/rc/application_settings.zsh"
 source "$ZSHHOME/rc/aliases.zsh"
 source "$ZSHHOME/rc/aliases_git.zsh"
 source "$ZSHHOME/rc/abbreviations.zsh"
