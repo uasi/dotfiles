@@ -9,7 +9,7 @@ rprompt-git-current-branch() {
     if [[ -z "$gitdir" ]]; then
         return
     fi
-    if ! name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`; then
+    if ! name=${$(git describe --always --all --exact-match 2> /dev/null)#*/}; then
         name="(no HEAD)"
     fi
     action=`VCS_INFO_git_getaction "$gitdir"`
