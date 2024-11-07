@@ -28,6 +28,11 @@ const ConfigSchema = v.object({
   forget: CommandOptionsSchema,
 });
 
+const InheritingConfigSchema = v.object({
+  inherits: v.string(),
+  repo: v.string(),
+});
+
 type Config = v.InferOutput<typeof ConfigSchema>;
 
 async function main() {
@@ -130,7 +135,17 @@ function loadConfig(name: string): Config {
     ? name
     : joinPath(CONFIG_DIR, name + ".toml");
 
-  return v.parse(ConfigSchema, parseToml(Deno.readTextFileSync(configPath)));
+  const data = parseToml(Deno.readTextFileSync(configPath));
+  const inheritingConfig = v.safeParse(InheritingConfigSchema, data);
+
+  if (inheritingConfig.success) {
+    const config = loadConfig(inheritingConfig.output.inherits);
+    config.repo = inheritingConfig.output.repo;
+
+    return config;
+  }
+
+  return v.parse(ConfigSchema, data);
 }
 
 function expandHome(path: string): string {
