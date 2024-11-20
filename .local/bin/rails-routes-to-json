@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'strscan'
+
+ss =
+  if STDIN.tty? && ARGV.empty?
+    StringScanner.new(`rails routes --expanded 2>/dev/null`)
+  else
+    StringScanner.new(ARGF.read)
+  end
+    
+routes = []
+
+while ss.skip(/^--.*[\n\z]/)
+  route = {}
+
+  until ss.eos?
+    ss.scan(/^[^-].*[\n\z]/) or break
+
+    k, v = ss.matched.split('|', 2).map(&:strip)
+    route[k] = v
+  end
+
+  routes << route
+end
+
+puts JSON.pretty_generate(routes)
