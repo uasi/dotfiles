@@ -84,6 +84,9 @@ export RUBYLIB=$HOME/.local/lib/ruby
 # Rye
 export RYE_HOME=$HOME/.local/share/rye
 
+# uv
+export UV_TOOL_BIN_DIR=$HOME/.local/share/uv/bin
+
 ### My apps
 
 # phog
@@ -123,6 +126,9 @@ path=(
 
     # Sublime Text
     '/Applications/Sublime Text.app/Contents/SharedSupport/bin'
+
+    # uv
+    $HOME/.local/share/uv/bin
 
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
