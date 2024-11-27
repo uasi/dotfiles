@@ -75,6 +75,7 @@
 /.docker/
 /.dotnet/
 /.dropbox/
+/.dvdcss/
 /.earthly/
 /.ecr/
 /.electron/
@@ -111,6 +112,7 @@
 /.local/state/
 /.logseq/
 /.m2/
+/.matplotlib/
 /.minikube/
 /.mitmproxy/
 /.mix/
@@ -124,6 +126,7 @@
 /.npm/
 /.nuget/
 /.nvm/
+/.ollama/
 /.op/
 /.opam/
 /.oracle_jre_usage/
