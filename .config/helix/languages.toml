@@ -1,0 +1,6 @@
+[[language]]
+name = "inko"
+scope = "source.inko"
+file-types = ["inko"]
+roots = ["inko.pkg"]
+indent = { tab-width = 2, unit = "  " }
