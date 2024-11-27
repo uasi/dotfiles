@@ -1,3 +1,4 @@
+/.wrangler/
 /Melonbooks/
 /agenv0/
 /asciinema/
@@ -12,12 +13,14 @@
 /github-copilot/
 /githubnext_*
 /grv/
+/himalaya/
 /htop/
 /hub
 /jgit/
 /karabiner/automatic_backups/
 /keybase/
 /lnav/
+/ngrok/
 /op/
 /ranger/
 /raycast/
