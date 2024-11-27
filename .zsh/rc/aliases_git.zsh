@@ -1,5 +1,5 @@
 git() {
-    if [[ "$PWD" = "$HOME" ]]; then
+    if [[ "$PWD" = "$HOME" && "${@[(I)clone]}" = 0 && "${@[(I)get]}" = 0 && "${@[(I)get-readonly]}" = 0 ]]; then
         noglob "${commands[git]}" --git-dir=~/.dotfiles.git --work-tree=~ "$@"
     else
         noglob "${commands[git]}" "$@"
