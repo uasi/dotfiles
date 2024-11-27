@@ -17,6 +17,7 @@ export NAME=uasi
 export REALNAME="Tomoki Aonuma"
 export EMAIL="uasi@uasi.jp"
 export EDITOR=vim
+export LANG=en_US.utf-8
 
 # Explicitly set the XDG_* variables to their default values in the hope of
 # overriding preference of certain softwares (e.g. pnpm) that would otherwise
