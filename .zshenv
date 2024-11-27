@@ -116,6 +116,12 @@ path=(
     # JetBrains Toolbox
     $HOME/'Library/Application Support/JetBrains/Toolbox/scripts'
 
+    # pnpm
+    $HOME/.local/share/pnpm/bin
+
+    # rbenv
+    $HOME/.rbenv/shims
+
     # Rancher Desktop
     $HOME/.rd/bin
 
@@ -134,11 +140,6 @@ path=(
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
 
-    # pnpm
-    $HOME/.local/share/pnpm/bin
-
-    # rbenv
-    $HOME/.rbenv/shims
 
     # ---
 
