@@ -66,7 +66,7 @@ clear-js-caches:
     -exec? npm cache clean --force
     -exec? pnpm store prune
     -exec? yarn cache clean
-    [[ -d ~/.local/share/yarn/berry ]] && yarn-self-dlx 4.4.0 cache clean
+    -[[ -d ~/.local/share/yarn/berry ]] && yarn-self-dlx 4.4.0 cache clean
 
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
