@@ -82,6 +82,7 @@
 /.elm/
 /.expo/
 /.faktory/
+/.fastlane/
 /.fleet/
 /.flow-typed/
 /.fly/
@@ -114,6 +115,7 @@
 /.m2/
 /.matplotlib/
 /.minikube/
+/.mint/
 /.mitmproxy/
 /.mix/
 /.mshell/
@@ -153,6 +155,7 @@
 /.vscode-*/
 /.webdrivers/
 /.wine/
+/.xcodegen/
 /.yarn/
 /.yeoman/
 /.zcompcache/
