@@ -147,3 +147,9 @@
 [whenmerged "default"]
 	pattern = '^refs/heads/main$'
 	pattern = '^refs/heads/master$'
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential "https://ghe.ckpd.co"]
+	provider = github
