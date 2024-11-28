@@ -1,7 +1,7 @@
 import_file("~/.iex.exs")
 
 Mix.install([
-  {:explorer, "~> 0.5"}
+  {:explorer, "~> 0.10"}
 ])
 
 require Explorer.DataFrame
