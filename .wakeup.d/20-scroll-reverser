@@ -4,6 +4,6 @@ app_path='/Applications/Scroll Reverser.app'
 
 [[ -d "$app_path" ]] || exit
 
-if ! pgrep -q "$app_path"; then
+if ! pgrep -q -x "$(basename "$app_path" .app)"; then
     open "$app_path"
 fi
