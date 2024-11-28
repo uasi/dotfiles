@@ -4,6 +4,7 @@ node = "lts"
 python = "latest"
 ruby = "latest"
 usage = "latest"
+"cargo:cargo-sweep" = "latest"
 
 [settings]
 experimental = true
