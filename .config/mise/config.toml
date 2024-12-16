@@ -6,6 +6,8 @@ ruby = "latest"
 usage = "latest"
 uv = "latest"
 
+"pipx:archivebox" = "latest"
+
 [settings]
 experimental = true
 
