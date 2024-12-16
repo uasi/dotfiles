@@ -29,6 +29,7 @@ alias -g ......=../../../../..
 alias -g .......=../../../../../..
 
 # Directories
+hash -d gh="$HOME/repos/github.com"
 hash -d icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
 # zmv
