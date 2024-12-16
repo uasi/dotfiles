@@ -4,6 +4,10 @@ node = "lts"
 python = "latest"
 ruby = "latest"
 usage = "latest"
+uv = "latest"
 
 [settings]
 experimental = true
+
+[settings.pipx]
+uvx = true
