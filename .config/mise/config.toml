@@ -1,12 +1,13 @@
 [tools]
 deno = "latest"
+elixir = "latest"
 node = "lts"
+"pipx:archivebox" = "latest"
 python = "latest"
 ruby = "latest"
 usage = "latest"
 uv = "latest"
 
-"pipx:archivebox" = "latest"
 
 [settings]
 experimental = true
