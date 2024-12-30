@@ -2,7 +2,7 @@
 
 import { toArrayBuffer } from "jsr:@std/streams@^1.0.0";
 
-function lengthOf(iterable: Iterable): number {
+function lengthOf(iterable: Iterable<unknown>): number {
   let i = 0;
 
   for (const _ of iterable) {
@@ -28,7 +28,7 @@ function chomp(buffer: Uint8Array): Uint8Array {
 
 export async function getTextLength(
   stream: ReadableStream<Uint8Array>,
-): { bytes: number; codeUnits: number; codePoints: number; graphemes: number } {
+): Promise<{ bytes: number; codeUnits: number; codePoints: number; graphemes: number }> {
   const buffer = chomp(new Uint8Array(await toArrayBuffer(stream)));
   const bytes = lengthOf(buffer);
 
