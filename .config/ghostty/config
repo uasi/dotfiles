@@ -1,0 +1,20 @@
+adjust-cursor-thickness = 2
+
+clipboard-paste-protection = true
+
+# Disable ligatures
+# https://ghostty.org/docs/config/reference#font-feature
+font-feature = -calt
+font-feature = -dlig
+font-feature = -liga
+
+keybind = global:cmd+space=toggle_quick_terminal
+
+quick-terminal-animation-duration = 0
+quick-terminal-position = top
+quick-terminal-screen = main
+
+theme = niji
+
+window-save-state = always
+window-step-resize = true
