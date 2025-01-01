@@ -10,6 +10,9 @@
   "languages": {
     "Markdown": {
       "show_inline_completions": false
+    },
+    "Plain Text": {
+      "show_inline_completions": false
     }
   },
   "assistant": {
