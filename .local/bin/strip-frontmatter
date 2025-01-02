@@ -12,7 +12,7 @@ STRIP: {
         last unless /^$marker$/ ... /^$marker$/;
     }
 
-    # Skip blank lines that follows the frontmatter.
+    # Skip blank lines that follow the frontmatter.
     while (<>) {
        last if /./;
     }
