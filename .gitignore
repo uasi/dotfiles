@@ -132,6 +132,7 @@
 /.op/
 /.opam/
 /.oracle_jre_usage/
+/.orbstack/
 /.pnpm-state/
 /.pnpm-store/
 /.pnpm/
