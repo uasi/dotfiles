@@ -4,7 +4,8 @@ import? '_env.just'
 # Rarely-used setup tasks.
 mod setup
 
-_default: __list__
+_default:
+    @just --list
 
 # Create Justfile with imports.
 [group('just')]
@@ -13,7 +14,17 @@ init-justfile *imports:
     [[ ! -f Justfile ]]
     @for src in prelude {{ imports }}; do echo "import '~/.local/lib/just/$src.just'" >> Justfile; done
     @echo >> Justfile
-    @echo '_default: __list__' >> Justfile
+    @echo '_default:' >> Justfile
+    @echo '    @just --list' >> Justfile
+    @echo 'Created Justfile.'
+
+# Create simple Justfile.
+[group('just')]
+[no-cd]
+init-justfile-simple:
+    [[ ! -f Justfile ]]
+    @echo '_default:' >> Justfile
+    @echo '    @just --list' >> Justfile
     @echo 'Created Justfile.'
 
 # Add Justfile and *.just to .git/info/exclude.
