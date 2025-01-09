@@ -3,6 +3,9 @@ theme = "base16_terminal"
 [editor]
 end-of-line-diagnostics = "hint"
 
+[editor.cursor-shape]
+insert = "bar"
+
 [editor.inline-diagnostics]
 other-lines = "hint"
 
@@ -15,6 +18,12 @@ tab = "all"
 "D" = "kill_to_line_end"
 "tab" = "rotate_view"
 "S-tab" = "rotate_view_reverse"
+
+[keys.insert]
+"C-b" = "move_char_left"
+"C-f" = "move_char_right"
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end_newline"
 
 [keys.select]
 "$" = "goto_line_end"
