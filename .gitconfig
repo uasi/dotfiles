@@ -4,8 +4,6 @@
 	name       = Tomoki Aonuma
 	email      = uasi@uasi.jp
 	signingKey = ~/.ssh/id_ed25519_signing.pub
-[includeIf "gitdir:~/repos/ghe.ckpd.co/"]
-	path = ~/.gitconfig.work
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
 [alias]

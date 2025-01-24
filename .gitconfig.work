@@ -1,8 +1,0 @@
-# vi: ft=gitconfig
-[user]
-	name = Tomoki Aonuma
-	email = uasi@cookpad.com
-[push]
-	default = nothing
-[url "git@ghe.ckpd.co:"]
-	insteadOf = https://ghe.ckpd.co/
