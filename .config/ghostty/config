@@ -9,6 +9,7 @@ font-feature = -dlig
 font-feature = -liga
 
 keybind = global:cmd+space=toggle_quick_terminal
+keybind = ¥=text:\\
 
 quick-terminal-animation-duration = 0
 quick-terminal-position = top
