@@ -88,15 +88,6 @@ export RYE_HOME=$HOME/.local/share/rye
 # uv
 export UV_TOOL_BIN_DIR=$HOME/.local/share/uv/bin
 
-### My apps
-
-# phog
-export PHOG_CONFIG_DIR=$HOME/Dropbox/Data/phog
-export PHOG_DATA_DIR=$HOME/Dropbox/Data/phog
-
-# photo_grabber
-export PHOTO_GRABBER_DATA_DIR=$HOME/Dropbox/Data/photo_grabber
-
 #-- Application settings }}} -------------------------------------------------
 #-- PATHs {{{ ----------------------------------------------------------------
 
@@ -139,7 +130,6 @@ path=(
 
     # Visual Studio Code
     '/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
-
 
     # ---
 
