@@ -135,13 +135,12 @@ path=(
 
     # Local
     $HOME/.local/bin
-    /usr/local/(s|)bin
-    $HOME/Dropbox/Data/Executables
+    /usr/local/(s|)bin(N-/)
 
     # Homebrew
     /opt/homebrew/bin
-    /opt/homebrew/(s|)bin
-    /opt/homebrew/opt/postgresql@*/bin
+    /opt/homebrew/(s|)bin(N-/)
+    /opt/homebrew/opt/postgresql@*/bin(N-/)
 
     $path
 )
