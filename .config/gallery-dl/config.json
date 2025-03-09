@@ -1,15 +1,14 @@
 {
   "extractor": {
+    "base-directory": "~/Dropbox/Images/gallery-dl",
     "twitter": {
       "likes": {
-        "base-directory": "~/Dropbox/Images/gallery-dl",
         "directory": {
           "user_likes == 'yosugiru'": ["@yosugiru-likes"],
           "": []
         },
         "filename": "@{author['name']}-{tweet_id}-img{num}-{filename}.{extension}"
       },
-      "base-directory": "~/Downloads",
       "directory": [],
       "filename": "@{author['name']}-{tweet_id}-img{num}-{filename}.{extension}"
     }
