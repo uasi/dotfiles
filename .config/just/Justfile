@@ -45,14 +45,14 @@ init-license:
 # Run safe/unobtrusive cleanup tasks.
 [group('housekeeping')]
 cleanup: cargo-sweep-repos git-gc-repos
-    exec? pnpm store prune
-    exec? brew autoremove
-    exec? brew cleanup
+    exec- pnpm store prune
+    exec- brew autoremove
+    exec- brew cleanup
 
 # Clear irrelevant Cargo artifacts in ~/repos.
 [group('housekeeping')]
 cargo-sweep-repos:
-    exec? cargo-sweep sweep -i -r ~/repos
+    exec- cargo-sweep sweep -i -r ~/repos
 
 # Run `git fetch` for each repo in ~/repos.
 [group('housekeeping')]
@@ -73,19 +73,19 @@ clear-var-log:
 [group('housekeeping')]
 clear-js-caches:
     @# Disable for now as Bun requires package.json to run `bun pm cache rm`.
-    @# exec? bun pm cache rm
-    -exec? npm cache clean --force
-    -exec? pnpm store prune
-    -exec? yarn cache clean
+    @# exec- bun pm cache rm
+    -exec- npm cache clean --force
+    -exec- pnpm store prune
+    -exec- yarn cache clean
     -[[ -d ~/.local/share/yarn/berry ]] && yarn-self-dlx 4.4.0 cache clean
 
 # Run all but Mac-related upgrade tasks at once.
 [group('housekeeping')]
 upgrade-full:
     -paraexec \
-        :: mise/ CLICOLOR_FORCE=1 exec? mise upgrade \
-        :: rustup/ RUSTUP_TERM_COLOR=always exec? rustup update \
-        :: brew/ HOMEBREW_COLOR=1 exec? brew upgrade
+        :: mise/ CLICOLOR_FORCE=1 exec- mise upgrade \
+        :: rustup/ RUSTUP_TERM_COLOR=always exec- rustup update \
+        :: brew/ HOMEBREW_COLOR=1 exec- brew upgrade
     @-just upgrade-vim
 
 # Upgrade Vim plugins.
@@ -105,4 +105,4 @@ upgrade-mac-os:
 [macos]
 [confirm('May require GUI interaction. Are you sure?')]
 upgrade-mac-apps:
-    exec? mas upgrade
+    exec- mas upgrade
