@@ -362,13 +362,8 @@ _launchagents_list() {
 }
 
 _restic-driver() {
-    _arguments '--rot-key=[key]: :->keys' '1: :->commands' '*: :->configs'
+    _arguments '1: :->commands' '*: :->configs'
     case $state in
-        keys)
-            _values \
-                key \
-                ~/Dropbox/Data/Secrets/rot-*.jsonnet(:r:t:s/rot-/)
-            ;;
         commands)
             _values \
                 command \
