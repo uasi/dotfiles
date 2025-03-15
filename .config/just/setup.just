@@ -7,13 +7,13 @@ edit:
 
 ##############################################################################
 
-# Make ~/Dropbox/Data/just/$name.just imported by default.
+# Make ~/var/syn/just/$name.just imported by default.
 activate-env name='home':
-    ln -f -s ~/Dropbox/Data/just/{{ quote(name) }}.just ~/.config/just/_env.just
+    ln -f -s ~/var/sync/just/{{ quote(name) }}.just ~/.config/just/_env.just
 
 # Initialize Restic repo.
 init-restic-repo name:
-    agenvx restic restic -r ~/Dropbox/Data/restic/repos/{{ quote(name) }} init
+    envchain restic restic -r ~/Dropbox/Data/restic/repos/{{ quote(name) }} init
     echo 'repo = "~/Dropbox/Data/restic/repos/{{ name }}"' > ~/.config/restic-driver/{{ quote(name) }}.toml
 
 # Generate Zsh completion scripts.
