@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME,DEBUG --allow-run=agenvx,restic
+#!/usr/bin/env -S deno run --ext=ts -q --allow-read --allow-env=HOME,DEBUG --allow-run=restic
 
 import { parseArgs } from "jsr:@std/cli@^1.0.0";
 import { join as joinPath } from "jsr:@std/path@^1.0.0";
@@ -36,13 +36,12 @@ const InheritingConfigSchema = v.object({
 type Config = v.InferOutput<typeof ConfigSchema>;
 
 async function main() {
-  const args = parseArgs(Deno.args, { string: ["_", "agenv"] });
-  const envFileName = args.agenv;
+  const args = parseArgs(Deno.args, { string: ["_"] });
   const rest = args._ as string[];
 
   if (rest.length < 2) {
     console.error(
-      "usage: restic-driver [--agenv=<env-file-name>] <command> <config>...",
+      "usage: restic-driver <command> <config>...",
     );
     Deno.exit(1);
   }
@@ -58,14 +57,13 @@ async function main() {
   for (const configName of configNames) {
     const config = loadConfig(configName);
 
-    await runCommand(command, config, envFileName);
+    await runCommand(command, config);
   }
 }
 
 async function runCommand(
   command: "backup" | "forget",
   config: Config,
-  envFileName: string | undefined,
 ) {
   console.log("########################");
   console.log(new Date().toISOString());
@@ -92,7 +90,7 @@ async function runCommand(
       ? [command, "--repo", repo, "--tag", tag, ...extraArgs, ...paths]
       : [command, "--repo", repo, "--tag", tag, ...extraArgs];
 
-    const status = await runRestic(args, paths[0], cwd, envFileName);
+    const status = await runRestic(args, paths[0], cwd);
 
     if (!status.success) {
       return;
@@ -104,7 +102,6 @@ async function runRestic(
   args: string[],
   target: string | undefined,
   cwd: string | undefined,
-  envFileName: string | undefined,
 ): Promise<Deno.CommandStatus> {
   const realCwd = cwd === "$CONFIG"
     ? CONFIG_DIR
@@ -118,13 +115,7 @@ async function runRestic(
     console.debug("restic-driver: DEBUG: runRestic", args);
   }
 
-  const command = envFileName === undefined
-    ? new Deno.Command("restic", { args, ...options })
-    : new Deno.Command("agenvx", {
-      args: [envFileName, "restic", ...args],
-      ...options,
-    });
-
+  const command = new Deno.Command("restic", { args, ...options });
   const child = command.spawn();
 
   return await child.status;
