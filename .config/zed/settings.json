@@ -12,16 +12,17 @@
   },
   "languages": {
     "Markdown": {
-      "show_inline_completions": false
+      "show_edit_predictions": false
     },
     "Plain Text": {
-      "show_inline_completions": false
+      "show_edit_predictions": false
     }
   },
-  "assistant": {
+  "agent": {
+    "default_profile": "write",
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
     },
     "version": "2"
   },
