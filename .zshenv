@@ -85,6 +85,10 @@ export RUBYLIB=$HOME/.local/lib/ruby
 # Rye
 export RYE_HOME=$HOME/.local/share/rye
 
+# Swiftly
+export SWIFTLY_HOME_DIR=$HOME/.local/share/swiftly
+export SWIFTLY_BIN_DIR=$SWIFTLY_HOME_DIR/bin
+
 # uv
 export UV_TOOL_BIN_DIR=$HOME/.local/share/uv/bin
 
@@ -124,6 +128,9 @@ path=(
 
     # Sublime Text
     '/Applications/Sublime Text.app/Contents/SharedSupport/bin'
+
+    # Swiftly
+    $SWIFTLY_BIN_DIR
 
     # uv
     $HOME/.local/share/uv/bin
