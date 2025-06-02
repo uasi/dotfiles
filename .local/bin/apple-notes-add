@@ -1,0 +1,39 @@
+#!/usr/bin/osascript -l JavaScript
+// SPDX-License-Identifier: 0BSD
+
+ObjC.import("stdlib"); // for $.exit()
+
+const STDIN = $.NSFileHandle.fileHandleWithStandardInput;
+const STDERR = $.NSFileHandle.fileHandleWithStandardError;
+
+function run() {
+    const Notes = Application("Notes");
+
+    const args = $.NSProcessInfo.processInfo.arguments;
+    const argc = +args.count;
+
+    if (argc !== 5) {
+        printError("usage: apple-notes-add <title> < <body-from-stdin>");
+        $.exit(1);
+    }
+
+    const name = args.objectAtIndex(4).js;
+
+    const inputData = STDIN.readDataToEndOfFile;
+    const body = $.NSString.alloc.initWithDataEncoding(inputData, $.NSUTF8StringEncoding).js;
+
+    try {
+        const note = Notes.Note({ name, body });
+        Notes.notes.push(note);
+    } catch (error) {
+        printError("error: " + error.message);
+        $.exit(1);
+    }
+}
+
+function printError(message) {
+    const data = $.NSString.stringWithString(message + "\n").dataUsingEncoding($.NSUTF8StringEncoding);
+    STDERR.writeData(data);
+}
+
+
