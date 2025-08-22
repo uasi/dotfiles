@@ -2,6 +2,7 @@
 
 import * as text from "jsr:@std/text@^1.0.0";
 import { TextLineStream } from "jsr:@std/streams@^1.0.0/text-line-stream";
+import { unicodeName } from "npm:unicode-name@^1.0.4";
 
 function stdinLines() {
   return Deno.stdin.readable.pipeThrough(new TextDecoderStream()).pipeThrough(
@@ -29,6 +30,14 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
 
       for await (const line of stdinLines()) {
         console.log(line.repeat(times));
+      }
+    },
+    "inspection:": null,
+    async name(args: string[]) {
+      const segmenter = new Intl.Segmenter("en", { granurality: "grapheme" });
+      const segments = args.flatMap((arg) => [...segmenter.segment(arg)]);
+      for (const { segment } of segments) {
+        console.log(`${unicodeName(segment)}  # ${JSON.stringify(segment)}`);
       }
     },
     "case conversion:": null,
