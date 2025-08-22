@@ -62,6 +62,50 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
         console.log(text.toSnakeCase(line));
       }
     },
+    "convert number": null,
+    async radix(args: string[]) {
+      function parseRadix(s) {
+        const radix = s.trimStart("0").toLowerCase();
+
+        if ((/^\d+$/).test(s)) {
+          const n = parseInt(s, 10);
+          return 2 <= n && n <= 36 ? n : undefined;
+        }
+
+        return { b: 2, o: 8, d: 10, h: 16, x: 16 }[radix];
+      }
+
+      function parseNumber(s) {
+        const match = s.match(/^(-?)(?:0?([bodhx]))?(.+)$/i);
+        if (!match) return NaN;
+
+        const [, sign, prefix, digits] = match;
+        const radix = prefix ? (parseRadix(prefix) || 10) : 10;
+
+        return parseInt(`${sign}${digits}`, radix);
+      }
+
+      if (args.length !== 2) {
+        console.error(
+          "usage: str radix [0b|0o|0d|0h|0x]<input-number> <output-radix>",
+        );
+        Deno.exit(1);
+      }
+
+      const input = parseNumber(args[0]);
+      if (isNaN(input)) {
+        console.error("error: input is not a number");
+        Deno.exit(1);
+      }
+
+      const radix = parseRadix(args[1]);
+      if (radix == null) {
+        console.error("error: output radix is invalid");
+        Deno.exit(1);
+      }
+
+      console.log(input.toString(radix));
+    },
     "encoding:": null,
     async "decode%"() {
       for await (const line of stdinLines()) {
