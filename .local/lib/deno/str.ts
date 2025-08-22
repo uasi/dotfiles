@@ -11,7 +11,7 @@ function stdinLines() {
 
 const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
   {
-    "general:": null,
+    "formatting:": null,
     async indent(args: string[]) {
       const depthSpec = args[0] || "";
 
@@ -31,7 +31,7 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
         console.log(line.repeat(times));
       }
     },
-    "convert case:": null,
+    "case conversion:": null,
     async lc() {
       for await (const line of stdinLines()) {
         console.log(line.toLowerCase());
@@ -62,7 +62,7 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
         console.log(text.toSnakeCase(line));
       }
     },
-    "convert number": null,
+    "number conversion": null,
     async radix(args: string[]) {
       function parseRadix(s) {
         const radix = s.trimStart("0").toLowerCase();
