@@ -1,0 +1,15 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Tomoki Aonuma"
+email = "uasi@uasi.jp"
+
+[aliases]
+abandon-empty = ["abandon", "-r", "(empty() ~ merges() ~ root()) & description(exact:'')"]
+
+[ui]
+default-command = "status"
+
+[fix.tools.swift-format]
+command = ["swift-format", "format", "--ignore-unparsable-files", "-"]
+patterns = ["glob:**/*.swift"]
