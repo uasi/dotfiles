@@ -12,9 +12,11 @@
   },
   "languages": {
     "Markdown": {
+      "tab_size": 4,
       "show_edit_predictions": false
     },
     "Plain Text": {
+      "tab_size": 4,
       "show_edit_predictions": false
     }
   },
@@ -23,8 +25,7 @@
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-4.1"
-    },
-    "version": "2"
+    }
   },
   "theme": "Ayu Dark",
   "buffer_font_size": 16,
