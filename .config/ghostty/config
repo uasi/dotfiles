@@ -1,4 +1,9 @@
+### Ghostty configuration file
+### https://ghostty.org/docs/config/reference
+
 adjust-cursor-thickness = 2
+
+bell-features = no-attention
 
 clipboard-paste-protection = true
 
@@ -11,9 +16,13 @@ font-feature = -liga
 keybind = global:cmd+space=toggle_quick_terminal
 keybind = ¥=text:\\
 
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+
 quick-terminal-animation-duration = 0
 quick-terminal-position = top
 quick-terminal-screen = main
+quick-terminal-size = 60%
 
 theme = niji
 
