@@ -1,0 +1,46 @@
+[
+  {
+    "bindings": {
+      "cmd-0": "workspace::ToggleRightDock",
+      "alt-cmd-0": "workspace::ToggleBottomDock",
+      "ctrl-cmd-0": "workspace::ToggleLeftDock",
+      "cmd-j c": "collab_panel::ToggleFocus",
+      "cmd-j d": "debug_panel::ToggleFocus",
+      "cmd-j e": "diagnostics::Deploy",
+      "cmd-j g": "git_panel::ToggleFocus",
+      "cmd-j o": "outline_panel::ToggleFocus",
+      "cmd-j p": "project_panel::ToggleFocus",
+      "cmd-j t": "terminal_panel::ToggleFocus",
+      "cmd-/": "agent::ToggleFocus",
+      "cmd-=": ["zed::ResetBufferFontSize", { "persist": false }]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-i": "pane::GoForward",
+      "ctrl-o": "pane::GoBack"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-i f": "editor::Format",
+      "cmd-i r": "editor::Rename",
+      "cmd-i u": "editor::OrganizeImports",
+      "ctrl-] d": "editor::GoToDefinition",
+      "ctrl-] c": "editor::GoToDeclaration",
+      "ctrl-] i": "editor::GoToImplementation",
+      "ctrl-] t": "editor::GoToTypeDefinition",
+      "ctrl-] u": "editor::FindAllReferences"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-l": "go_to_line::Toggle",
+      "cmd-o": "outline::Toggle",
+      "cmd-shift-o": "project_symbols::Toggle"
+    }
+  }
+]
