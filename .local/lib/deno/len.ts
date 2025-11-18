@@ -28,7 +28,9 @@ function chomp(buffer: Uint8Array): Uint8Array {
 
 export async function getTextLength(
   stream: ReadableStream<Uint8Array>,
-): Promise<{ bytes: number; codeUnits: number; codePoints: number; graphemes: number }> {
+): Promise<
+  { bytes: number; codeUnits: number; codePoints: number; graphemes: number }
+> {
   const buffer = chomp(new Uint8Array(await toArrayBuffer(stream)));
   const bytes = lengthOf(buffer);
 
