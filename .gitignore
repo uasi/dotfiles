@@ -75,6 +75,7 @@
 /.docker/
 /.dotnet/
 /.dropbox/
+/.dropbox_bi/
 /.dvdcss/
 /.earthly/
 /.ecr/
