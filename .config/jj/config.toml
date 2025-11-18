@@ -6,9 +6,14 @@ email = "uasi@uasi.jp"
 
 [aliases]
 abandon-empty = ["abandon", "-r", "(empty() ~ merges() ~ root()) & description(exact:'')"]
+tug = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "closest_pushable(@)"]
+
+[revset-aliases]
+"closest_pushable(to)" = "heads(::to & mutable() & ~description(exact:'') & (~empty() | merges()))"
 
 [ui]
 default-command = "status"
+diff-editor = ":builtin"
 
 [fix.tools.swift-format]
 command = ["swift-format", "format", "--ignore-unparsable-files", "-"]
