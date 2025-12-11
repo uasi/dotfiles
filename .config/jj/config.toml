@@ -5,11 +5,22 @@ name = "Tomoki Aonuma"
 email = "uasi@uasi.jp"
 
 [aliases]
-abandon-empty = ["abandon", "-r", "(empty() ~ merges() ~ root()) & description(exact:'')"]
+abandon-blank = ["abandon", "-r", "blank() & mutable() ~ @"]
 tug = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "closest_pushable(@)"]
 
 [revset-aliases]
-"closest_pushable(to)" = "heads(::to & mutable() & ~description(exact:'') & (~empty() | merges()))"
+"blank()" = "(empty() ~ merges() ~ root()) & description(exact:'')"
+"meaningful()" = "(~empty() | merges()) ~ description(exact:'')"
+
+"closest_pushable(to)" = "heads(::to & meaningful() & mutable())"
+
+# Command-line use only. Don't nest in other aliases to keep them easy to reason about.
+"local()" = "all() ~ ::remote_bookmarks() ~ blank()"
+"my_local()" = "mine() ~ ::remote_bookmarks() ~ blank()"
+"untitled()" = "description(exact:'') ~ root()"
+
+[git]
+private-commits = "description(glob-i:'wip[: ]*') | description(glob:'// *')"
 
 [ui]
 default-command = "status"
