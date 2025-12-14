@@ -1,10 +1,10 @@
 #!/usr/bin/env -S deno run --ext=ts
 
-import { parseArgs } from "jsr:@std/cli@^0.224.0";
-import { encodeBase32 as base32 } from "jsr:@std/encoding@^0.224.0/base32";
-import { encodeBase58 as base58 } from "jsr:@std/encoding@^0.224.0/base58";
-import { encodeBase64 as base64 } from "jsr:@std/encoding@^0.224.0/base64";
-import { encodeBase64Url as base64url } from "jsr:@std/encoding@^0.224.0/base64url";
+import { parseArgs } from "jsr:@std/cli@^1.0.0";
+import { encodeBase32 as base32 } from "jsr:@std/encoding@^1.0.0/base32";
+import { encodeBase58 as base58 } from "jsr:@std/encoding@^1.0.0/base58";
+import { encodeBase64 as base64 } from "jsr:@std/encoding@^1.0.0/base64";
+import { encodeBase64Url as base64url } from "jsr:@std/encoding@^1.0.0/base64url";
 
 const defaultBytes = 24;
 const defaultEncoder = base64;

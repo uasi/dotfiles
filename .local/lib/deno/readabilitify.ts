@@ -4,8 +4,8 @@ import { parseArgs } from "jsr:@std/cli@1";
 import { toText } from "jsr:@std/streams@1";
 
 import createDOMPurify from "npm:dompurify@3";
-import { JSDOM } from "npm:jsdom@25";
-import { Readability } from "npm:@mozilla/readability@0.5";
+import { JSDOM } from "npm:jsdom@27";
+import { Readability } from "npm:@mozilla/readability@0.6";
 
 async function main() {
   const args = parseArgs(Deno.args, {
