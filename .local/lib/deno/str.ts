@@ -71,7 +71,7 @@ const commands: { [key: string]: ((args: string[]) => Promise<void>) | null } =
         console.log(text.toSnakeCase(line));
       }
     },
-    "number conversion": null,
+    "number conversion:": null,
     async radix(args: string[]) {
       function parseRadix(s) {
         const radix = s.trimStart("0").toLowerCase();
