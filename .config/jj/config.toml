@@ -11,8 +11,24 @@ tug = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "closes
 [revset-aliases]
 "blank()" = "(empty() ~ merges() ~ root()) & description(exact:'')"
 "meaningful()" = "(~empty() | merges()) ~ description(exact:'')"
+"wip()" = "description(glob-i:'wip[: ]*')"
 
-"closest_pushable(to)" = "heads(::to & meaningful() & mutable())"
+"closest_pushable(to)" = "heads(::to & mutable() & meaningful())"
+
+"files_beyond(fileset)" = "files(fileset) & files(~fileset)"
+"files_only(fileset)" = "files(fileset) ~ files(~fileset)"
+
+"ensure_isolated(fileset, domain)" = "exactly(domain & files_beyond(fileset), 0)"
+"files_extractable(fileset, domain)" = """
+coalesce(
+  ensure_isolated(fileset, domain),
+  domain & files_only(fileset),
+)
+"""
+
+"private_commits()" = "private_commits_base() | private_commits_extra()"
+"private_commits_base()" = "wip() | description(glob:'// *')"
+"private_commits_extra()" = "none()" # This allows for per-project overrides
 
 # Command-line use only. Don't nest in other aliases to keep them easy to reason about.
 "local()" = "all() ~ ::remote_bookmarks() ~ blank()"
@@ -20,7 +36,7 @@ tug = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "closes
 "untitled()" = "description(exact:'') ~ root()"
 
 [git]
-private-commits = "description(glob-i:'wip[: ]*') | description(glob:'// *')"
+private-commits = "private_commits()"
 
 [ui]
 default-command = "status"
@@ -29,3 +45,17 @@ diff-editor = ":builtin"
 [fix.tools.swift-format]
 command = ["swift-format", "format", "--ignore-unparsable-files", "-"]
 patterns = ["glob:**/*.swift"]
+
+[[--scope]]
+--when.repositories = ["~/repos/github.com"]
+[--scope.git]
+sign-on-push = true
+[--scope.signing]
+backend = "ssh"
+behavior = "drop"
+key = "~/.ssh/id_ed25519_signing.pub"
+
+[[--scope]]
+--when.platforms = ["macos"]
+[--scope.signing]
+backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
