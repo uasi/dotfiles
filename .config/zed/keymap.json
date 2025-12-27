@@ -12,15 +12,15 @@
       "cmd-j p": "project_panel::ToggleFocus",
       "cmd-j t": "terminal_panel::ToggleFocus",
       "cmd-/": "agent::ToggleFocus",
-      "cmd-=": ["zed::ResetBufferFontSize", { "persist": false }]
-    }
+      "cmd-=": ["zed::ResetBufferFontSize", { "persist": false }],
+    },
   },
   {
     "context": "Pane",
     "bindings": {
       "ctrl-i": "pane::GoForward",
-      "ctrl-o": "pane::GoBack"
-    }
+      "ctrl-o": "pane::GoBack",
+    },
   },
   {
     "context": "Editor",
@@ -32,15 +32,21 @@
       "ctrl-] c": "editor::GoToDeclaration",
       "ctrl-] i": "editor::GoToImplementation",
       "ctrl-] t": "editor::GoToTypeDefinition",
-      "ctrl-] u": "editor::FindAllReferences"
-    }
+      "ctrl-] u": "editor::FindAllReferences",
+    },
   },
   {
     "context": "Editor && mode == full",
     "bindings": {
       "cmd-l": "go_to_line::Toggle",
       "cmd-o": "outline::Toggle",
-      "cmd-shift-o": "project_symbols::Toggle"
-    }
-  }
+      "cmd-shift-o": "project_symbols::Toggle",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "cmd-i r": "project_panel::Rename",
+    },
+  },
 ]
