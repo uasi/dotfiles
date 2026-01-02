@@ -137,10 +137,11 @@
 [advice]
 	detachedHead = false
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [gpg]
 	format = ssh
 [gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 	allowedSignersFile = ~/.ssh/allowed_signers
 [whenmerged "default"]
 	pattern = '^refs/heads/main$'
