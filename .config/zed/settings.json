@@ -7,6 +7,12 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "bottom_dock_layout": "left_aligned",
+  "title_bar": {
+    "show_menus": false
+  },
+  "use_system_prompts": true,
+  "use_system_path_prompts": true,
   "features": {
     "edit_prediction_provider": "zed"
   },
@@ -23,8 +29,8 @@
   "agent": {
     "default_profile": "write",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-5"
     }
   },
   "theme": "Ayu Dark",
