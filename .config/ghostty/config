@@ -24,7 +24,7 @@ quick-terminal-position = top
 quick-terminal-screen = main
 quick-terminal-size = 60%
 
-theme = Niji
+theme = niji-modified
 
 window-save-state = always
 window-step-resize = true
