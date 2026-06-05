@@ -1,12 +1,5 @@
-[tools]
-node = "lts"
-ruby = "latest"
-usage = "latest"
-uv = "latest"
-
 [settings]
 experimental = true
-idiomatic_version_file_enable_tools = []
 
 [settings.pipx]
 uvx = true
