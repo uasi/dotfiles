@@ -35,13 +35,20 @@ coalesce(
 """
 
 "private_commits()" = "private_commits_base() | private_commits_extra()"
-"private_commits_base()" = "wip() | description(glob:'// *')"
+"private_commits_base()" = "wip() | description(glob-i:'vibe[: ]*') | description(glob:'// *')"
 "private_commits_extra()" = "none()" # This allows for per-project overrides
 
 # Command-line use only. Don't nest in other aliases to keep them easy to reason about.
 "local()" = "all() ~ ::remote_bookmarks() ~ blank()"
 "my_local()" = "mine() ~ ::remote_bookmarks() ~ blank()"
 "untitled()" = "description(exact:'') ~ root()"
+
+# (N)C = nearest ancestor with (no) contents
+# (N)D = nearest ancestor with (no) description
+C = "heads(::@ ~ empty())"
+NC = "heads(::@ & empty())"
+D = "heads(::@ ~ description(exact:''))"
+ND = "heads(::@ & description(exact:''))"
 
 [git]
 private-commits = "private_commits()"
