@@ -7,36 +7,77 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "project_panel": {
+    "dock": "right",
+  },
+  "outline_panel": {
+    "dock": "right",
+  },
+  "collaboration_panel": {
+    "dock": "right",
+  },
+  "git_panel": {
+    "tree_view": false,
+    "dock": "right",
+  },
+  "agent_servers": {
+    "kilo": {
+      "favorite_config_option_values": {
+        "model": [
+          "kilo/kilo-auto/balanced",
+          "kilo/kilo-auto/free",
+          "kilo/deepseek/deepseek-v4-pro"
+        ],
+      },
+      "type": "registry",
+    },
+  },
+  "language_models": {
+    "lmstudio": {
+      "api_url": "http://localhost:1234/api/v0",
+    },
+  },
+  "edit_predictions": {
+    "provider": "mercury",
+  },
   "bottom_dock_layout": "left_aligned",
   "title_bar": {
-    "show_menus": false
+    "show_menus": false,
   },
   "use_system_prompts": true,
   "use_system_path_prompts": true,
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
   "languages": {
     "Markdown": {
       "tab_size": 4,
-      "show_edit_predictions": false
+      "show_edit_predictions": false,
     },
     "Plain Text": {
       "tab_size": 4,
-      "show_edit_predictions": false
-    }
+      "show_edit_predictions": false,
+    },
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph", "..."],
+    },
   },
   "agent": {
-    "default_profile": "write",
+    "play_sound_when_agent_done": "when_hidden",
+    "dock": "left",
+    "inline_assistant_model": {
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "enable_thinking": false,
+    },
+    "default_profile": "ask",
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4-5"
-    }
+      "enable_thinking": false,
+      "provider": "openrouter",
+      "model": "openai/gpt-4o",
+    },
   },
   "theme": "Ayu Dark",
   "buffer_font_size": 16,
   "buffer_font_features": {
-    "calt": false
+    "calt": false,
   },
-  "ui_font_size": 18
+  "ui_font_size": 18,
 }
