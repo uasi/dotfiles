@@ -10,9 +10,11 @@
       "cmd-j g": "git_panel::ToggleFocus",
       "cmd-j o": "outline_panel::ToggleFocus",
       "cmd-j p": "project_panel::ToggleFocus",
-      "cmd-j t": "terminal_panel::ToggleFocus",
+      "cmd-j cmd-j": "terminal_panel::ToggleFocus",
       "cmd-/": "agent::ToggleFocus",
+      "cmd-j z": "workspace::ToggleZoom",
       "cmd-=": ["zed::ResetBufferFontSize", { "persist": false }],
+      "cmd-;": "workspace::ToggleZoom",
     },
   },
   {
@@ -33,6 +35,9 @@
       "ctrl-] i": "editor::GoToImplementation",
       "ctrl-] t": "editor::GoToTypeDefinition",
       "ctrl-] u": "editor::FindAllReferences",
+    },
+    "unbind": {
+      "cmd-;": "editor::ToggleLineNumbers",
     },
   },
   {
