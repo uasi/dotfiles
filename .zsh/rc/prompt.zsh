@@ -3,7 +3,10 @@ typeset -A __rc_prompt
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2>/dev/null
 
 '#prompt/probe/herdr'() {
-    [[ "$(herdr status server)" = $'status: running\n'* ]] && print -r -n -- '[herdr]'
+    if [[ "$(herdr status server)" = $'status: running\n'* ]]; then
+        local agent_count=$(herdr agent list | wc -l)
+        print -r -n -- "[herdr $(( agent_count ))]"
+    fi
 }
 
 '#prompt/probe/suspended-jobs'() {
