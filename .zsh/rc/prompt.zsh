@@ -110,8 +110,9 @@ autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2>/dev/null
     local box_bl=$'\u2570'
     local box_hr=$'\u2500'
     local box_vt=$'\u2502'
+    local box_vt2=$'\u2506'
 
-    local ident='%n@%M'
+    local ident='%n@%m'
     local hr_suffix_raw=" ${(%)ident} "
     local hr_suffix="${hr_suffix_raw//\%/%%}"
     local hr_cols=$(( $(tput cols) - ${#box_hr} - ${#hr_suffix_raw} ))
@@ -123,9 +124,31 @@ autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2>/dev/null
 
     local hr="${(pl:$hr_cols::$box_hr:)}"
 
-    print -r -- "$box_tl$hr$hr_suffix"
-    print -r -- "$box_vt"
-    print -r -- "$box_bl$box_hr %# "
+    print -r -- "%F{69}$box_tl$hr$hr_suffix%f"
+
+    if (( __rc_prompt[extended] )); then
+        '#prompt/left/extended' | sed "s/^/%F{69}$box_vt2%f /"
+    else
+        print -r -- "%F{69}$box_vt%f"
+    fi
+
+    print -r -- "%F{69}$box_bl$box_hr %#%f "
+}
+
+'#prompt/left/extended'() {
+    if (( $+commands[jj] )) && [[ -n "$(jj workspace root 2>/dev/null)" ]]; then
+        echo
+        jj status --color=always | sed 's/^/jj: /'
+    fi
+
+    local out
+
+    if (( $+commands[just] )) && out=$(just --summary 2>/dev/null); then
+        echo
+        sed 's/^/just: /' <<< "$out"
+    fi
+
+    echo
 }
 
 '#prompt/right/statuses'() {
@@ -177,6 +200,9 @@ autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2>/dev/null
         zle .send-break
     else
         # On Enter
+        if [[ -z "$BUFFER" ]]; then
+            __rc_prompt[extended]=$(( ! __rc_prompt[extended] ))
+        fi
         zle .accept-line
     fi
 
