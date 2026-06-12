@@ -53,12 +53,81 @@ rprompt-todo() {
     fi
 }
 
+'#prompt/is-herdr-running'() {
+    [[ "$(herdr status server)" = $'status: running\n'* ]]
+}
+
 RPROMPT+='$([[ `jobs` =~ "suspended  n?vimf?" ]] && print "[vim]")'
 RPROMPT+='$([[ `jobs` =~ "suspended  tig" ]] && print "[tig]")'
-if [[ -n "$SSH_CONNECTION" ]]; then
-    PROMPT="%F{166}->%f $PROMPT%f"
-else
-    PROMPT="%F{64}->%f %# "
+
+if has herdr; then
+    RPROMPT+='$("#prompt/is-herdr-running" && print "[herdr]")'
 fi
 
 RPROMPT+='[`rprompt-todo``rprompt-git-current-branch`%F{8}%40<..<%f%~%<<]'
+
+typeset -A __rc_prompt
+
+'#prompt/generate'() {
+    local compact_prompt='-> %# '
+
+    if (( __rc_prompt[compact] )); then
+        print -r -- "$compact_prompt"
+        return
+    fi
+
+    local box_tl=$'\u256D'
+    local box_bl=$'\u2570'
+    local box_hr=$'\u2500'
+    local box_vt=$'\u2502'
+
+    local ident='%n@%M'
+    local hr_suffix_raw=" ${(%)ident} "
+    local hr_suffix="${hr_suffix_raw//\%/%%}"
+    local hr_cols=$(( $(tput cols) - ${#box_hr} - ${#hr_suffix_raw} ))
+
+    if (( hr_cols < 0 )); then
+        print -r -- "$compact_prompt"
+        return
+    fi
+
+    local hr="${(pl:$hr_cols::$box_hr:)}"
+
+    print -r -- "$box_tl$hr$hr_suffix"
+    print -r -- "$box_vt"
+    print -r -- "$box_bl$box_hr %# "
+}
+
+'#prompt/line-init'() {
+    [[ $CONTEXT = start ]] || return 0
+
+    (( $+zle_bracketed_paste )) && print -r -n -- "${zle_bracketed_paste[1]}"
+    zle .recursive-edit
+    local -i ret=$?
+    (( $+zle_bracketed_paste )) && print -r -n -- "${zle_bracketed_paste[2]}"
+
+    # On Ctrl-D
+    if [[ $ret = 0 && $KEYS = $'\C-D' ]]; then
+        __rc_prompt[compact]=1
+        zle .reset-prompt
+        exit
+    fi
+
+    __rc_prompt[compact]=1
+    zle .reset-prompt
+    __rc_prompt[compact]=0
+
+    if (( ret )); then
+        # On Ctrl-C
+        zle .send-break
+    else
+        # On Enter
+        zle .accept-line
+    fi
+
+    return ret
+}
+
+PROMPT='$("#prompt/generate")'
+
+zle -N zle-line-init '#prompt/line-init'
